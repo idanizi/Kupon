@@ -1,0 +1,7 @@
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\bin\Debug\Tests.dll
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\bin\Debug\Tests.pdb
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\bin\Debug\nunit.framework.dll
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\bin\Debug\nunit.framework.xml
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\obj\Debug\Tests.dll
+c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Tests\obj\Debug\Tests.pdb

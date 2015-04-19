@@ -4,3 +4,5 @@ c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Kupon_dat
 c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\obj\Debug\Kupon_databaseTest.csprojResolveAssemblyReference.cache
 c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\obj\Debug\Kupon_databaseTest.exe
 c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\obj\Debug\Kupon_databaseTest.pdb
+C:\Users\idan\Documents\Visual Studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\bin\Debug\KuponDatabase.mdf
+C:\Users\idan\Documents\Visual Studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\bin\Debug\KuponDatabase_log.ldf

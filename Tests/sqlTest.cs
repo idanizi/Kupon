@@ -19,15 +19,31 @@ namespace Tests
         [SetUp]
         public void setUP()
         {
-            connetionString = "Data Source=IDAN-PC\\SQLEXPRESS;Initial Catalog=KuponDatabase;Integrated Security=True";
+            // connetionString = "Data Source=(LocalDB)\v11.0;AttachDbFilename=\"C:\\Users\\idan\\Documents\\Visual Studio 2013\\Projects\\Kupon_databaseTest\\Kupon_databaseTest;Integrated Security=True";
+            //connetionString = "Data Source=(LocalDB)\v11.0;AttachDbFilename=\"C:\\Users\\idan\\Documents\\Visual Studio 2013\\Projects\\Kupon_databaseTest\\Kupon_databaseTest;Initial Catalog=KuponDatabase;Integrated Security=True";
+            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\idan\\Documents\\Visual Studio 2013\\Projects\\Kupon_databaseTest\\Kupon_databaseTest\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+
+
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
             try
             {
                 Console.WriteLine("try to open");
                 cnn.Open();
+
+                String sqlLine = "delete from [UsersKupon];";
+                sqlLine += "delete from [Kupon];";
+                sqlLine += "delete from [Business];";
+                sqlLine += "delete from [Favorites];";
+                sqlLine += "delete from [User];";
+
+                cmd = new SqlCommand(sqlLine, cnn);
+                cmd.ExecuteNonQuery();
+
                 Console.WriteLine("Connection Open ! ");
 
-                string sqlLine = "insert into [User] (name,email,password,phone,access) values ('admin', 'admin@gmail.com','pass1','08-9992211','admin');" +
+
+                sqlLine = "insert into [User] (name,email,password,phone,access) values ('admin', 'admin@gmail.com','pass1','08-9992211','admin');" +
                 "insert into [User] (name,email,password,phone,access,firstName, lastName) values ('moshe', 'moshe@gmail.com','pass2','08-9992233','manager', 'moshe', 'elzam');" +
                 "insert into [User] (name,email,password,phone,access,firstName, lastName) values ('itzik', 'itzik@gmail.com','pass3','08-9992244','client', 'itzik', 'lebo');" +
                 "insert into [Business] values ('1','shnitzale', 'Beer-sheva', 'itzhak rager', 10, 'shnitzel store for good shnitzel', 'food', 'itzik');" +
@@ -216,11 +232,11 @@ namespace Tests
         [TearDown]
         public void tearDown()
         {
-            String sqlLine = "delete from [KuponDatabase].dbo.[UsersKupon];";
-            sqlLine += "delete from [KuponDatabase].dbo.[Kupon];";
-            sqlLine += "delete from [KuponDatabase].dbo.[Business];";
-            sqlLine += "delete from [KuponDatabase].dbo.[Favorites];";
-            sqlLine += "delete from [KuponDatabase].dbo.[User];";
+            String sqlLine = "delete from [UsersKupon];";
+            sqlLine += "delete from [Kupon];";
+            sqlLine += "delete from [Business];";
+            sqlLine += "delete from [Favorites];";
+            sqlLine += "delete from [User];";
             cmd = new SqlCommand(sqlLine, cnn);
             cmd.ExecuteNonQuery();
             try

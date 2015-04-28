@@ -44,22 +44,72 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public void add_Admin(Admin kupon)
+        public void add_Admin(Admin admin)
         {
             throw new NotImplementedException();
         }
 
-        public void add_Manager(Manager kupon)
+        public void add_Manager(Manager manager)
         {
             throw new NotImplementedException();
         }
 
-        public void add_Client(Client kupon)
+        public void add_Client(Client client)
         {
             throw new NotImplementedException();
         }
 
-        public void add_kupon(Util.Business kupon)
+        public void add_Business(Business business)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void update_kupon(Kupon kupon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void update_Admin(Admin admin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void update_Manager(Manager manager)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void update_Client(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void update_Business(Business business)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void delete_kupon(Kupon kupon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void delete_Admin(Admin admin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void delete_Manager(Manager manager)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void delete_Client(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void delete_Business(Business business)
         {
             throw new NotImplementedException();
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BSL
 {
     public class IBSL
-    {
+    {/*
                 void addNewKupon(Kupon new,String userID);
 void buyNewKupon(String kouponID,String userID,String paymentDetails);
 void addNewBusiness(Business new,String userID);
@@ -24,6 +24,6 @@ void addNewUser(List<Enum userParameterType> parameterName,List<String> paramete
 bool connectUser(String userID,Sring Pass);
 void restorUserPass(String userID);
 void updateUser(List<Enum userParameterType> parameterName,List<String> parameterValue);
-bool useKupon(String kouponID);
+bool useKupon(String kouponID);*/
     }
 }

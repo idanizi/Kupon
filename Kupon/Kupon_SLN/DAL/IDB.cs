@@ -7,13 +7,13 @@ using Util;
 
 namespace DAL
 {
-    public interface IDAL
+    interface IDB
     {
         void add_kupon(Kupon kupon);
-        void add_Admin(Admin kupon);
-        void add_Manager(Manager kupon);
-        void add_Client(Client kupon);
-        void add_kupon(Business kupon);
+        void add_admin(Admin kupon);
+        void add_manager(Manager kupon);
+        void add_client(Client kupon);
+        void add_business(Business kupon);
 
     }
 }

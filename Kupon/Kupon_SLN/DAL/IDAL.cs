@@ -9,7 +9,7 @@ namespace DAL
     public class IDAL
     {
         void addNewKupon(Kupon new,String userID);
-void buyNewKupon(String kouponID,String userID,String paymentDetails);
+        void buyNewKupon(String kouponID,String userID,String paymentDetails);
 void addNewBusiness(Business new,String userID);
 void updateKuponAlert(String userID,String sensorTypr,String sensorInfo);
 List<Kupon> getKuponForApproval(int numOfKupon);

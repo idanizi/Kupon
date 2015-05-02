@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Util
 {
+   
     public class User
     {
+
+        public String getFirstName() { return ""; }
+        public String getLastName() { return ""; }
+        public String getStatus() { return ""; }
     }
 }

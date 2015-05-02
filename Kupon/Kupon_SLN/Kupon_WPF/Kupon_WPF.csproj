@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -44,15 +46,53 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="forms\add\addAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\add\addNewUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\FindObject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\passChange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\show\BuyCouponPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="forms\show\showCoupon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="forms\show\showCouponPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="forms\show\showCouponRecords.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -60,6 +100,33 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="forms\add\addAdmin.xaml.cs">
+      <DependentUpon>addAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\add\addNewUser.xaml.cs">
+      <DependentUpon>addNewUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FindObject.xaml.cs">
+      <DependentUpon>FindObject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\login.xaml.cs">
+      <DependentUpon>login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\passChange.xaml.cs">
+      <DependentUpon>passChange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\show\BuyCouponPage.xaml.cs">
+      <DependentUpon>BuyCouponPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\show\showCoupon.xaml.cs">
+      <DependentUpon>showCoupon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\show\showCouponPage.xaml.cs">
+      <DependentUpon>showCouponPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\show\showCouponRecords.xaml.cs">
+      <DependentUpon>showCouponRecords.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -84,6 +151,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="forms\icons\add.psd" />
+    <None Include="forms\icons\changePass.psd" />
+    <None Include="forms\icons\find.psd" />
+    <None Include="forms\icons\logo.psd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,6 +163,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSL\BSL.csproj">
+      <Project>{102b1db7-aba5-42a7-988e-792e8f83113b}</Project>
+      <Name>BSL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{8ba1c4de-96d6-44f9-bc63-270c51fa65ae}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="forms\icons\add.jpg" />
+    <Resource Include="forms\icons\changePass.jpg" />
+    <Resource Include="forms\icons\find.jpg" />
+    <Resource Include="forms\icons\logo2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

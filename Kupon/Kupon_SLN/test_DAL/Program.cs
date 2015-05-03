@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using Util;
 
 namespace test_DAL
 {
@@ -12,6 +13,8 @@ namespace test_DAL
         static void Main(string[] args)
         {
             DB_manager dataBase = new DB_manager();
+
+            dataBase.delete_admin(new Admin("matan", "blabla", "matan@gmail.com", 9511749, "matan", "bezen"));
         }
     }
 }

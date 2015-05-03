@@ -8,5 +8,50 @@ namespace Util
 {
     public class User
     {
+        private string name;
+        private string password;
+        private string email;
+        private int phone;
+        private string firstName;
+        private string lastName;
+
+        public User(string name, string password, string email, int phone, string firstName, string lastName)
+        {
+            this.name = name;
+            this.password = password;
+            this.email = email;
+            this.phone = phone;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        public  string getName()
+        {
+            return name;
+        }
+        public string getPassword()
+        {
+            return password;
+        }
+
+        public string getEmail()
+        {
+            return email;
+        }
+
+        public int getPhone()
+        {
+            return phone;
+        }
+        public string getFirstName()
+        {
+            return firstName;
+        }
+
+        public string getLastName()
+        {
+            return lastName;
+        }
+
     }
 }

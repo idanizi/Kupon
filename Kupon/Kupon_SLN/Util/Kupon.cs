@@ -6,7 +6,67 @@ using System.Threading.Tasks;
 
 namespace Util
 {
+    public enum Status { NEW, APPROVED, ACTIVE,USED };
     public class Kupon
     {
+        private string ID;
+        private string name;
+        private string description;
+        private Status status;
+        private int originalPrice;
+        private int dicountPrice;
+        private DateTime lastDate;
+        private string serialKey;
+        private Business business;
+
+        public Kupon(string ID, string name, string description, Status status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
+        {
+            this.ID = ID;
+            this.name = name;
+            this.description = description;
+            this.status = status;
+            this.originalPrice = originalPrice;
+            this.dicountPrice = dicountPrice;
+            this.lastDate = lastDate;
+            this.serialKey = serialKey;
+            this.business = business;
+        }
+
+        public string getID(){
+            return ID;
+        }
+
+        public string getName(){
+            return name;
+        }
+
+        public string getDescription() { 
+            return description;
+        }
+
+        public Status getStatus(){ 
+            return status;
+        }
+
+        public int getOriginalPrice(){ 
+            return originalPrice;
+        }
+
+        public int getDicountPrice(){ 
+            return dicountPrice;
+        }
+
+        public DateTime getLastDate(){ 
+            return lastDate;
+        }
+
+        public string getSerialKey(){ 
+            return serialKey;
+        }
+
+        public Business getBusiness(){
+            return business;
+        }
+
     }
 }

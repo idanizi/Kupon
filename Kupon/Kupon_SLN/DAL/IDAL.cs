@@ -10,22 +10,19 @@ namespace DAL
     public interface IDAL
     {
         void add_kupon(Kupon kupon);
-        void add_Admin(Admin admin);
-        void add_Manager(Manager manager);
-        void add_Client(Client client);
-        void add_Business(Business business);
-
         void update_kupon(Kupon kupon);
-        void update_Admin(Admin admin);
-        void update_Manager(Manager manager);
-        void update_Client(Client client);
-        void update_Business(Business business);
-
         void delete_kupon(Kupon kupon);
-        void delete_Admin(Admin admin);
-        void delete_Manager(Manager manager);
-        void delete_Client(Client client);
-        void delete_Business(Business business);
-
+        void delete_admin(Admin admin);
+        void add_admin(Admin admin);
+        void delete_manager(Manager manager);
+        void add_manager(Manager manager);
+        void add_business(Business business);
+        void update_business(Business business);
+        void delete_business(Business business);
+        List<Business> searchBusinessByAdress(string city, string street, int number);
+        List<Business> searchBusinessBycatagory(string catagory);
+        List<Kupon> searchKuponByBuissnesName(string businessName);
+        List<Kupon> searchKuponByCatagory(string catagory);
+        List<Kupon> searchKuponByaddress(string city,string street,int number);
     }
 }

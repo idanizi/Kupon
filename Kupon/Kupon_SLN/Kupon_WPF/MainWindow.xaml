@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:show="clr-namespace:Kupon_WPF.forms.show"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         x:Class="Kupon_WPF.MainWindow"
         Title="kupon" Height="714.179" Width="1169.776" WindowStyle="ThreeDBorderWindow"  WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="White" >
 
@@ -12,17 +13,19 @@
             <ColumnDefinition Width="167*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="passChange_B" HorizontalAlignment="Left" Margin="18,409,0,0" VerticalAlignment="Top" Width="130" Height="130" Click="Button_Click" RenderTransformOrigin="0.5,0.5" Grid.Column="2"/>
+        <Button x:Name="userSetting_BTN" HorizontalAlignment="Left" Margin="11,491,0,0" VerticalAlignment="Top" Width="138" Height="54" Click="userSetting_BTN_Click" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Content="User Settings"/>
         <TextBlock x:Name="welcome_TB" Grid.Column="2" Margin="27,25,0,0" TextWrapping="Wrap" Text="welcome ghost" VerticalAlignment="Top" RenderTransformOrigin="0.84,-0.938" Height="46" Width="109" HorizontalAlignment="Left" TextAlignment="Center"/>
-        <Button x:Name="findRecord_B" Grid.Column="2" HorizontalAlignment="Left" Margin="18,262,0,0" VerticalAlignment="Top" Width="130" Height="130" Click="Button_Click_1"/>
+        <Button x:Name="myKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="11,136,0,0" VerticalAlignment="Top" Width="138" Height="49" Content="My Kupons"/>
 
-        <Button x:Name="newRecord_B"  Grid.Column="2" HorizontalAlignment="Left" Margin="18,197,0,0" VerticalAlignment="Top" Width="130" Height="48" Click="newRecord_B_Click" Content="&gt;"/>
+        <Button x:Name="addNewKupon_BTN"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" Width="138" Height="56" Click="addNewKupon_BTN_Click" Content="add new kupon"/>
         <Grid  x:Name="contant_G" HorizontalAlignment="Left" Height="657" Margin="10,10,0,0" VerticalAlignment="Top" Width="973" Grid.ColumnSpan="2">
             <Frame x:Name="mainRecordFrame" Content="" HorizontalAlignment="Left" Height="657" VerticalAlignment="Top" Width="973" Grid.ColumnSpan="2"/>
         </Grid>
-        <Button x:Name="login_BTN" Content="login" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="18,54,0,0" VerticalAlignment="Top" Width="130" Click="login_BTN_Click"/>
-        <Button x:Name="saveChanges_BTN" Content="Save Changes" Grid.Column="2" HorizontalAlignment="Left" Height="44" Margin="19,545,0,0" VerticalAlignment="Top" Width="129" Visibility="Hidden"  Click="saveChanges_BTN_Click"/>
-        <Button x:Name="register_BTN" Content="register" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="18,95,0,0" VerticalAlignment="Top" Width="130" Click="register_BTN_Click"/>
+        <Button x:Name="login_BTN" Content="login" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="11,54,0,0" VerticalAlignment="Top" Width="138" Click="login_BTN_Click"/>
+        <Button x:Name="saveChanges_BTN" Content="Save Changes" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="11,617,0,0" VerticalAlignment="Top" Width="137"  Click="saveChanges_BTN_Click"/>
+        <Button x:Name="register_BTN" Content="register" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="11,95,0,0" VerticalAlignment="Top" Width="138" Click="register_BTN_Click"/>
+        <Button x:Name="addBusiness_BTN" Content="Add Business" Grid.Column="2" HorizontalAlignment="Left" Height="52" Margin="11,554,0,0" VerticalAlignment="Top" Width="138" Click="addBusiness_BTN_Click"/>
+        <Button x:Name="searchKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="138" Height="49" Click="searchKupons_BTN_Click" Content="Search Kupons"/>
 
     </Grid>
 </Window>

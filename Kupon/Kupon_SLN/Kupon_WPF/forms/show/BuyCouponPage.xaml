@@ -4,9 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" d:DesignWidth="300"
-	Title="BuyCouponPage" Height="300">
+	Title="BuyCouponPage" Height="229">
 
-    <Grid>
+    <Grid Margin="0,0,0,10">
         <Label x:Name="PaymentSum" Content="Payment Sum:" HorizontalAlignment="Left" Height="31" Margin="10,10,0,0" VerticalAlignment="Top" Width="110"/>
         <ComboBox HorizontalAlignment="Left" Margin="120,41,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.ColumnSpan="3">
             <ComboBoxItem Content="Master Card" />
@@ -65,7 +65,7 @@
             <ComboBoxItem Content="11" />
             <ComboBoxItem Content="12" />
         </ComboBox>
-        <ComboBox x:Name="year" HorizontalAlignment="Left" Margin="14.667,112,0,0" VerticalAlignment="Top" Width="62" Height="22" Grid.Column="2">
+        <ComboBox x:Name="year" HorizontalAlignment="Left" Margin="227,113,0,0" VerticalAlignment="Top" Width="62" Height="22">
             <ComboBoxItem Content="2015" />
             <ComboBoxItem Content="2016" />
             <ComboBoxItem Content="2017" />
@@ -73,9 +73,8 @@
             <ComboBoxItem Content="2019" />
         </ComboBox>
         <Label Content="/" HorizontalAlignment="Left" Margin="160,112,0,0" VerticalAlignment="Top" Height="26" Width="15"/>
-        <Label Content="/" HorizontalAlignment="Left" Margin="37,114,0,0" VerticalAlignment="Top" Height="26" Width="15" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Label Content="/" HorizontalAlignment="Left" Margin="213,110,0,0" VerticalAlignment="Top" Height="26" Width="15"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="85,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
-        <TextBlock x:Name="messageBox" HorizontalAlignment="Left" Margin="10,69,0,-64" TextWrapping="Wrap" VerticalAlignment="Top" Height="88" Width="280" FontSize="20" FontWeight="Bold" Grid.RowSpan="2" Grid.Row="1" Grid.ColumnSpan="3"/>
 
     </Grid>
 </Page>

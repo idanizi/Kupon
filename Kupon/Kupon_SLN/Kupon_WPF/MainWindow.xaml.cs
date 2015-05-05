@@ -31,8 +31,7 @@ namespace Kupon_WPF
         //getters & setters
         private static String userStat = "Ghost";
         public static String UserStat { get { return userStat; } set { userStat = value; } }
-        private static int userID;
-        public static int UserID { get { return userID; } set { userID = value; } }
+       
         private static String userName { get; set; }
         public static String UserName { get { return userName; } set { userName = value; } }
         private showCouponRecords couponRecords;
@@ -57,6 +56,7 @@ namespace Kupon_WPF
             {
                 couponRecords = new showCouponRecords(userStat);
                 saveChanges_BTN.Visibility = Visibility.Visible;
+                 userSetting_BTN.IsEnabled = true;
             }
             else if (userStat == "Business")
             {
@@ -65,6 +65,7 @@ namespace Kupon_WPF
             else
             {
                 couponRecords = new showCouponRecords("Ghost");
+                userSetting_BTN.IsEnabled = false;
             }
 
             mainRecordFrame.Navigate(couponRecords);
@@ -80,27 +81,7 @@ namespace Kupon_WPF
 
         }
 
-        //find record
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            FindObject child = new FindObject();
-            child.Owner = this;
-            child.Show();
-
-
-
-        }
-
-        //add new record
-        private void newRecord_B_Click(object sender, RoutedEventArgs e)
-        {
-            //     addObject child = new addObject();
-            //     child.Owner = this;
-            //     child.Show();
-
-        }
-
-       
+     
 
         private void login_BTN_Click(object sender, RoutedEventArgs e)
         {
@@ -137,6 +118,35 @@ namespace Kupon_WPF
                 forms.add.addNewUser registerWindow = new  forms.add.addNewUser();
                 registerWindow.ShowDialog();
                 
+        }
+
+        private void addNewKupon_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            forms.add.addNewKupon registerWindow = new forms.add.addNewKupon(userName);
+            registerWindow.ShowDialog();
+        }
+
+        private void userSetting_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainRecordFrame.Navigate(new UserSettingPage());
+        }
+
+
+        private void addBusiness_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            forms.add.addBusiness registerWindow = new forms.add.addBusiness(userName);
+            registerWindow.ShowDialog();
+        }
+
+        private void myKupons_BTN_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchKupons_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            forms.search.searchKupon searchKuponWin = new forms.search.searchKupon();
+            searchKuponWin.ShowDialog();
         }
 
 

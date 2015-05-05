@@ -9,4 +9,5 @@
       d:DesignHeight="500" d:DesignWidth="700"
 	Title="showCouponRecords">
     <DataGrid x:Name="Data_Grid"  ItemsSource="{Binding}" IsReadOnly="True" MouseDoubleClick="Data_Grid_MouseDoubleClick" SelectionMode="Single" SelectionChanged="Data_Grid_SelectionChanged"/>
+    
 </Page>

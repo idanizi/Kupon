@@ -17,9 +17,10 @@ using Util;
 using System.Text.RegularExpressions;
 namespace Kupon_WPF.forms.add
 {
-    public partial class addBusiness : Window
+    public partial class addBusiness : Window, IMapped
     {
-        
+        String Latitude;
+        String Longitude;
         string creator;
         //IBSL server = (IBSL)new object();
         public addBusiness()
@@ -36,6 +37,12 @@ namespace Kupon_WPF.forms.add
         }
 
 
+        public void setLocation(double Longitude, double Latitude)
+        {
+            Location_TB.Text = Longitude + " , " + Longitude;
+            this.Latitude = Latitude.ToString();
+            this.Longitude = Longitude.ToString();
+        }
 
         private bool validateFields()
         {
@@ -86,6 +93,13 @@ namespace Kupon_WPF.forms.add
         private void Category_LB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            show.map map = new show.map();
+            map.Owner = this;
+            map.ShowDialog();
         }
  }
 

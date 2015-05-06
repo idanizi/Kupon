@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -49,6 +49,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Maps.MapControl.WPF">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Device" />
@@ -109,6 +112,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="forms\show\insertCoupon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="forms\show\showCoupon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,11 +124,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="forms\show\showBusinessRecords.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="forms\show\showCouponRecords.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="forms\show\UserSettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="forms\show\map.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,6 +160,7 @@
     <Compile Include="forms\add\addNewUser.xaml.cs">
       <DependentUpon>addNewUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="forms\IMapped.cs" />
     <Compile Include="forms\login.xaml.cs">
       <DependentUpon>login.xaml</DependentUpon>
     </Compile>
@@ -160,17 +176,26 @@
     <Compile Include="forms\show\BuyCouponPage.xaml.cs">
       <DependentUpon>BuyCouponPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="forms\show\insertCoupon.xaml.cs">
+      <DependentUpon>insertCoupon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="forms\show\showCoupon.xaml.cs">
       <DependentUpon>showCoupon.xaml</DependentUpon>
     </Compile>
     <Compile Include="forms\show\showCouponPage.xaml.cs">
       <DependentUpon>showCouponPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="forms\show\showBusinessRecords.xaml.cs">
+      <DependentUpon>showBusinessRecords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="forms\show\showCouponRecords.xaml.cs">
       <DependentUpon>showCouponRecords.xaml</DependentUpon>
     </Compile>
     <Compile Include="forms\show\UserSettingPage.xaml.cs">
       <DependentUpon>UserSettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\show\map.xaml.cs">
+      <DependentUpon>map.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

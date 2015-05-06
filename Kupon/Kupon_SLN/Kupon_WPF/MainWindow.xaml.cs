@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Util;
 using BSL;
 
 
@@ -40,7 +41,7 @@ namespace Kupon_WPF
         public MainWindow()
         {
             InitializeComponent();
-
+           // server = (IBSL) new object();
         }
 
 
@@ -51,6 +52,7 @@ namespace Kupon_WPF
 
         private void reInitializedData()
         {
+
             //patient can't add new records
             if (userStat == "Admin")
             {
@@ -140,13 +142,29 @@ namespace Kupon_WPF
 
         private void myKupons_BTN_Copy_Click(object sender, RoutedEventArgs e)
         {
-
+           // List<Kupon> myKuponList = server.searchCoupon(new List<String> { "user" }, new List<String> { userName });
+            mainRecordFrame.Navigate(couponRecords);
         }
 
         private void searchKupons_BTN_Click(object sender, RoutedEventArgs e)
         {
             forms.search.searchKupon searchKuponWin = new forms.search.searchKupon();
+            if (searchKuponWin != null) {
+                searchKuponWin.Owner = this;
             searchKuponWin.ShowDialog();
+
+            }
+        }
+
+        private void myKupons_BTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void insertCoupon_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            forms.show.insertCoupon registerWindow = new forms.show.insertCoupon(UserName);
+            registerWindow.ShowDialog();
         }
 
 

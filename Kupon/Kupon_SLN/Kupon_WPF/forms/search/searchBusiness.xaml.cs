@@ -18,11 +18,12 @@ using System.Text.RegularExpressions;
 
 namespace Kupon_WPF.forms.search
 {
-    public partial class searchBusiness : Window
+    public partial class searchBusiness : Window , IMapped
     {
 
         string creator;
-      
+        String Latitude;
+        String   Longitude;
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
 
@@ -32,7 +33,8 @@ namespace Kupon_WPF.forms.search
             mGeoWatcher.Start();
             mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
             mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
-  
+            Latitude = "";
+            Longitude = "";
             Category_LB.ItemsSource = Categoris.getList();
            
            
@@ -83,12 +85,25 @@ namespace Kupon_WPF.forms.search
                 this.Close();
             }
         }
+        public void setLocation(double Longitude, double Latitude)
+        {
+            Location_TB.Text = Longitude + " , " + Longitude;
+            this.Latitude = Latitude.ToString();
+            this.Longitude = Longitude.ToString();
+        }
 
     
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Location_TB.Text = mGeoWatcher.Position.Location.ToString();
+        }
+
+        private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            show.map map = new show.map();
+            map.Owner = this;
+            map.ShowDialog();
         }
  }
 

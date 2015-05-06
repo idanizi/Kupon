@@ -17,7 +17,7 @@
             <ColumnDefinition Width="16*"/>
             <ColumnDefinition Width="33*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="Category_LB" HorizontalAlignment="Left" Height="22" Margin="113,55,0,0" VerticalAlignment="Top" Width="96" 
+        <ListBox x:Name="Category_LB" HorizontalAlignment="Left" Height="22" Margin="97,50,0,0" VerticalAlignment="Top" Width="125" 
     			ItemsSource="{Binding}"  Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -27,10 +27,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox x:Name="Location_TB" Height="23" Margin="110,87,71,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="Near my location"/>
-        <Button Width="91" Height="30" HorizontalAlignment="Right" Margin="0,122,46,124" Click="Button_Click" Content="Search Kupon" Grid.Column="1"/>
-        <Label Content="Catagory" VerticalAlignment="Top" Margin="10,51,6.627,0"/>
-        <Label Content="Location"  Margin="10,88,10.627,142" Grid.IsSharedSizeScope="True"/>
+        <TextBox x:Name="Location_TB" Height="23" Margin="27,109,58,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Near my location" Grid.ColumnSpan="2"/>
+        <Button Width="120" Height="30" HorizontalAlignment="Right" Margin="0,176,101,70" Click="Button_Click" Content="Search Kupon" Grid.ColumnSpan="2"/>
+        <Label Content="Catagory" VerticalAlignment="Top" Margin="23,46,141,0" Grid.ColumnSpan="2"/>
+        <Label Content="Location"  Margin="21,77,0,153" Grid.IsSharedSizeScope="True"/>
         <Label Content="search kupon by:" VerticalAlignment="Top" Margin="23,-49,137,0" Grid.ColumnSpan="2"/>
+        <Button x:Name="pickLocation_BTN" Content="Change Location" HorizontalAlignment="Left" Height="30" Margin="59,139,0,0" VerticalAlignment="Top" Width="120" Click="pickLocation_BTN_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

@@ -6,7 +6,48 @@ using System.Threading.Tasks;
 
 namespace Util
 {
-    public class Client
+    public class Client: User
     {
+        private List<string> favoriets;
+        private List<Kupon> kupons;
+        private string city;
+        private string street;
+        private int number;
+
+            public Client(string name, string password, string email, int phone, string firstName, string lastName,List<string> favor,List<Kupon> kupons,string city,string street,int number)
+            : base(name, password, email, phone, firstName, lastName) {
+                this.favoriets = favor;
+                this.kupons = kupons;
+                this.city = city;
+                this.street = street;
+                this.number = number;
+            }
+
+            public List<string> getFavor()
+            {
+                return favoriets;
+            }
+
+            public List<Kupon> getKupon()
+            {
+                return kupons;
+            }
+
+            public string getCity()
+            {
+                return city;
+            }
+
+            public string getStreet()
+            {
+                return street;
+            }
+
+            public int getNumber()
+            {
+                return number;
+            }
+
+
     }
 }

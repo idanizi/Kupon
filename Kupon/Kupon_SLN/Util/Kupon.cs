@@ -14,12 +14,13 @@ namespace Util
         private string description;
         private Status status;
         private int originalPrice;
+        private int rank;
         private int dicountPrice;
         private DateTime lastDate;
         private string serialKey;
         private Business business;
 
-        public Kupon(string ID, string name, string description, Status status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
+        public Kupon(string ID,int rank, string name, string description, Status status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
         {
             this.ID = ID;
             this.name = name;
@@ -30,10 +31,16 @@ namespace Util
             this.lastDate = lastDate;
             this.serialKey = serialKey;
             this.business = business;
+            this.rank = rank;
         }
 
         public string getID(){
             return ID;
+        }
+
+        public int getRank()
+        {
+            return rank;
         }
 
         public string getName(){
@@ -66,6 +73,14 @@ namespace Util
 
         public Business getBusiness(){
             return business;
+        }
+
+        public void setBusiness(Business business){
+            this.business=business;
+        }
+
+        public void setRank(int rank){
+            this.rank=rank;
         }
 
     }

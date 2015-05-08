@@ -14,6 +14,7 @@ namespace Util
         private int phone;
         private string firstName;
         private string lastName;
+        private Boolean statusConnection;
 
         public User(string name, string password, string email, int phone, string firstName, string lastName)
         {
@@ -23,6 +24,7 @@ namespace Util
             this.phone = phone;
             this.firstName = firstName;
             this.lastName = lastName;
+            this.statusConnection = false;
         }
 
         public  string getName()

@@ -249,6 +249,20 @@ namespace DAL
             sendQuery(query);
         }
 
+        public Admin searchAdmin(Admin admin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Manager searchManager(Manager manager)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Client searchClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
         private Kupon create_kupon(string kuponId)
         {
             string query = "select * from [kupon] where [Kupon].ID='" + kuponId +"';";
@@ -298,6 +312,7 @@ namespace DAL
             cnn.Close();
             return manager;
         }
+
 
         //recive query and return the result
         private SqlDataReader sendAndReciveQuery(string query)

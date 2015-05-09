@@ -13,20 +13,21 @@ namespace DAL
         void add_kupon(Kupon kupon);
         void update_kupon(Kupon kupon);
         void delete_kupon(Kupon kupon);
-        //user
-        User searchUser(User user);
         //admin
         void add_admin(Admin admin);
         void update_admin(Admin admin);
         void delete_admin(Admin admin);
+        Admin searchAdmin(Admin admin);
         //manager
         void add_manager(Manager manager);
         void update_manager(Manager manager);
         void delete_manager(Manager manager);
+        Manager searchManager(Manager manager);
         //client
         void add_client(Client client);
         void update_client(Client client);
         void delete_client(Client client);
+        Client searchClient(Client client);
        //business
         void add_business(Business business);
         void update_business(Business business);

@@ -251,18 +251,64 @@ namespace DAL
 
         public Admin searchAdmin(Admin admin)
         {
-            throw new NotImplementedException();
+            string username;
+            string query = "select * from [User] where [User].name = '"+admin.getName()+"' AND [User].access='"+"Admin"+"';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr.Read())
+            {
+            username = dr.GetString(0);
+            dr.Close();
+            cnn.Close();
+            return create_admin(username);
+            }else return null;
+        }
+
+        public Admin searchAdmin(Admin admin)
+        {
+            string username;
+            string query = "select * from [User] where [User].name = '" + admin.getName() + "' AND [User].access='" + "Admin" + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr.Read())
+            {
+                username = dr.GetString(0);
+                dr.Close();
+                cnn.Close();
+                return create_admin(username);
+            }
+            else return null;
         }
 
         public Manager searchManager(Manager manager)
         {
-            throw new NotImplementedException();
+            string username;
+            string query = "select * from [User] where [User].name = '" + manager.getName() + "' AND [User].access='" + "Manager" + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr.Read())
+            {
+                username = dr.GetString(0);
+                dr.Close();
+                cnn.Close();
+                return create_manager(username);
+            }
+            else return null;
         }
 
         public Client searchClient(Client client)
         {
             throw new NotImplementedException();
         }
+
+        private Admin create_admin(string username)
+        {
+            string query = "select * from [User] where name='" + username + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            dr.Read();
+            Admin admin = new Admin(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetInt32(3), dr.GetString(5), dr.GetString(6));
+            dr.Close();
+            cnn.Close();
+            return admin;
+        }
+
         private Kupon create_kupon(string kuponId)
         {
             string query = "select * from [kupon] where [Kupon].ID='" + kuponId +"';";

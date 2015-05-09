@@ -13,6 +13,8 @@ namespace DAL
         void add_kupon(Kupon kupon);
         void update_kupon(Kupon kupon);
         void delete_kupon(Kupon kupon);
+        //user
+        User searchUser(User user);
         //admin
         void add_admin(Admin admin);
         void update_admin(Admin admin);

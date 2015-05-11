@@ -38,6 +38,7 @@ namespace Kupon_WPF
                      
             if (user != null) { 
                                main.CurrUser = user;
+                               DialogResult = true;
                  this.Close();
                                 } 
                            else MessageBox.Show("incorrect username or password,please try again", "error");
@@ -51,7 +52,7 @@ namespace Kupon_WPF
             
             }
                 
-            }
+}
 
       
 

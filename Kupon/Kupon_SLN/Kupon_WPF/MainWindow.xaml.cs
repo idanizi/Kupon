@@ -115,7 +115,7 @@ namespace Kupon_WPF
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 saveChanges_BTN.Visibility = Visibility.Hidden;
-                register_BTN.Visibility = System.Windows.Visibility.Hidden;
+                register_BTN.Visibility = System.Windows.Visibility.Visible;
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Login";
@@ -179,6 +179,7 @@ namespace Kupon_WPF
         {
 
                 forms.add.addNewUser registerWindow = new  forms.add.addNewUser();
+                registerWindow.Owner = this;
                 registerWindow.ShowDialog();
                 
         }

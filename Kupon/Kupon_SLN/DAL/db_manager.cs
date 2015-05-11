@@ -315,7 +315,28 @@ namespace DAL
 
         public Client searchClient(Client client)
         {
-            throw new NotImplementedException();
+            string username;
+            string query = "select * from [User] where [User].name = '" + client.getName() + "' AND [User].access='" + "Client" + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr.Read())
+            {
+                username = dr.GetString(0);
+                dr.Close();
+                cnn.Close();
+                return create_client(username);
+            }
+            else return null;
+        }
+
+        private Client create_client(string username)
+        {
+            string query = "select * from [User] where name='" + username + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            dr.Read();
+            Client client = new Client(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6),new List<string>(),new List<Kupon>(),"ls","dF",-1);
+            dr.Close();
+            cnn.Close();
+            return client;
         }
 
         private Admin create_admin(string username)
@@ -328,6 +349,9 @@ namespace DAL
             cnn.Close();
             return admin;
         }
+
+ 
+
         public void update_userKupom(Kupon kupon)
         {
             string query = "UPDATE [UserKupon] set  status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";

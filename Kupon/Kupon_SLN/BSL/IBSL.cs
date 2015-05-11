@@ -12,7 +12,7 @@ namespace BSL
             void addNewKupon(Kupon newKupon);
             void buyNewKupon(String kouponID, String userrName, String paymentDetails);
             void addNewBusiness(Business newBusiness );
-            void updateKuponAlert(String userrName, String sensorTypr, String sensorInfo);
+            void updateKuponAlert(string userName, double latitude, double longtitude);
             List<Kupon> getKuponForApproval(int numOfKupon);
             void approveNewKupon(Kupon newKupon);
             List<Kupon> searchKoupon(buisnessCategory category, double latitude, double longtitude);

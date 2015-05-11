@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Threading;
+using System.ComponentModel;
+
 using DAL;
 using Util;
 
@@ -29,8 +36,6 @@ namespace BSL
             dataBase.add_kupon(newKupon);
         }
 
-        /*need to throw exception if doesn't succeed (when missing a parameter). talk with yochai
-        dont know which kind of user*/
         public void addNewUser(User user)
         {
             if (user.GetType() is Admin)
@@ -41,16 +46,12 @@ namespace BSL
                 dataBase.add_manager((Manager)user);
         }
 
-        /*the admin should call this when he approved
-        how to notify the client about the new kupon?
-        add func ClientsByCity(newKupon.getBusiness().getCity()) in DAL.talk to matan*/
         public void approveNewKupon(Kupon newKupon)
         {
             newKupon.setStatus(KuponStatus.APPROVED);
             dataBase.update_kupon(newKupon);
         }
 
-        /* tell matan to add dataBase.searchKuponByID() */
         public void buyNewKupon(string kuponID, string userName, string paymentDetails)
         {
             Kupon kupon = dataBase.searchKuponByID(new Kupon(kuponID));
@@ -62,7 +63,7 @@ namespace BSL
 
             Client client = dataBase.searchClient(new Client(userName));
             kupon.setStatus(KuponStatus.ACTIVE);
-            //set serial key
+            kupon.setSerialKey(getNewKuponID());
             client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
         }
@@ -140,8 +141,18 @@ namespace BSL
             return dataBase.searchKuponByStatus(KuponStatus.NEW);
         }
 
-        public void restorUserPass(string userrName)
+        public void restorUserPass(string userName)
         {
+            User user = dataBase.searchUser(new User(userName));
+            MailAddress to = new MailAddress(user.getEmail());
+            MailAddress from = new MailAddress("");
+            MailMessage message = new MailMessage(from, to);
+            message.Body = "We are the king of the kupon!!!";
+            message.Subject = "Kupon test";
+
+            
+            SmtpClient ClientSmtp = new SmtpClient("172.0.0.1");
+            ClientSmtp.Send(message);
         }
 
         public List<Business> searchBusiness(buisnessCategory category, double latitude, double longtitude)
@@ -171,9 +182,9 @@ namespace BSL
             dataBase.update_kupon(updated);
         }
 
-        public void updateKuponAlert(string userrName, string sensorTypr, string sensorInfo)
+        public void updateKuponAlert(string userName, double latitude, double longtitude)
         {
-            throw new NotImplementedException();
+            dataBase.add_location_user(dataBase.searchClient(new Client(userName)), latitude, longtitude);
         }
 
         public void updateUser(User user)

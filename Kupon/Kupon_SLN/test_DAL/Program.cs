@@ -62,6 +62,11 @@ namespace test_DAL
            /* kupons = dataBase.searchKuponByUser(client);
             foreach (Kupon kup in kupons) Console.WriteLine(kup.getID() + "  ");
             Console.ReadLine();*/
+            /*
+            for (int i=0;i<1000;i++){
+                Console.WriteLine(Guid.NewGuid().ToString("N"));
+            }
+            Console.ReadLine();*/
         }
     }
 }

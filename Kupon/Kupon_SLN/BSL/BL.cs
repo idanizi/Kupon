@@ -159,9 +159,12 @@ namespace BSL
             throw new NotImplementedException();
         }
 
-        public bool useKupon(string kouponID)
+        public bool useKupon(string serialID)
         {
-            throw new NotImplementedException();
+            Kupon useKupon = dataBase.searchKuponBySerialID(new Kupon(null,-1,null,null,Status.USED,-1,-1,new DateTime(),serialID,null));
+            useKupon.setStatus(Status.USED);
+            dataBase.update_userKupom(useKupon);
+            return true;
         }
 
         private string extractVariable(List<UserParameters> parameterName, List<string> parameterValue, UserParameters type)
@@ -205,6 +208,11 @@ namespace BSL
         public void logOut(string userName)
         {
             throw new NotImplementedException();
+        }
+
+        public string getNewKuponID()
+        {
+            return Guid.NewGuid().ToString("N");
         }
     }
 }

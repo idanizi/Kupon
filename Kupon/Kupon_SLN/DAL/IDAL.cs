@@ -14,6 +14,7 @@ namespace DAL
         void update_kupon(Kupon kupon);
         void delete_kupon(Kupon kupon);
         Kupon searchKuponByID(Kupon kupon);
+        Kupon searchKuponBySerialID(Kupon kupon);
         //admin
         void add_admin(Admin admin);
         void update_admin(Admin admin);
@@ -48,6 +49,6 @@ namespace DAL
         void add_location_user(User user,double vertical,double horizontal);
         //userKupons
         void add_userKupon(User user, Kupon kupon);
-        
+        void update_userKupom(Kupon kupon);
     }
 }

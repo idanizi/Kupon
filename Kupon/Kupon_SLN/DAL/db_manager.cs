@@ -224,7 +224,6 @@ namespace DAL
 
         public List<Kupon> searchKuponByBusinesName(string businessName)
         {
-            List<string> businessId = new List<string>();
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
             string query = "select * from [kupon] where businessID in (select ID from [Business] where name='" + businessName + "');";
@@ -256,7 +255,21 @@ namespace DAL
 
         public List<Kupon> searchKuponByStatus(Status status)
         {
-            return null;
+            List<string> kuponId = new List<string>();
+            List<Kupon> kupons = new List<Kupon>();
+            string query = "select * from [kupon] where status='"+status+ "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            while (dr.Read())
+            {
+                kuponId.Add(dr.GetString(0));
+            }
+            dr.Close();
+            cnn.Close();
+            foreach (string kupon in kuponId)
+            {
+                kupons.Add(create_kupon(kupon));
+            }
+            return kupons;
         }
 
         public Admin searchAdmin(Admin admin)
@@ -271,6 +284,18 @@ namespace DAL
             cnn.Close();
             return create_admin(username);
             }else return null;
+        }
+
+
+        public Kupon searchKuponBySerialID(Kupon kupon)
+        {
+            string query = "select * from [kupon] where status='" + kupon.getSerialKey() + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            dr.Read();
+            string kuponId = dr.GetString(0);
+            dr.Close();
+            cnn.Close();
+            return create_kupon(kuponId);
         }
 
         public Manager searchManager(Manager manager)
@@ -302,6 +327,11 @@ namespace DAL
             dr.Close();
             cnn.Close();
             return admin;
+        }
+        public void update_userKupom(Kupon kupon)
+        {
+            string query = "UPDATE [UserKupon] set  status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";
+            sendQuery(query);
         }
 
         private Kupon create_kupon(string kuponId)

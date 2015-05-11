@@ -26,5 +26,6 @@ namespace BSL
             void restorUserPass(String userrName);
             void updateUser(List<UserParameters> parameterName, List<String> parameterValue);
             bool useKupon(String kouponID);
+            string getNewKuponID();
     }
 }

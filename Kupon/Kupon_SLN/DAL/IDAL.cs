@@ -51,5 +51,7 @@ namespace DAL
         //userKupons
         void add_userKupon(User user, Kupon kupon);
         void update_userKupom(Kupon kupon);
+        //user
+        User searchUser(User user);
     }
 }

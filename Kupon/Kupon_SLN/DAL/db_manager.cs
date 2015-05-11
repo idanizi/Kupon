@@ -313,6 +313,21 @@ namespace DAL
             else return null;
         }
 
+        public User searchUser(User user)
+        {
+            string username;
+            string query = "select * from [User] where [User].name = '" + user.getName() +"';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr != null && dr.Read())
+            {
+                username = dr.GetString(0);
+                dr.Close();
+                cnn.Close();
+                return create_user(username);
+            }
+            else return null;
+        }
+
         public Client searchClient(Client client)
         {
             string username;
@@ -384,6 +399,16 @@ namespace DAL
             return admin;
         }
 
+        private User create_user(string username)
+        {
+            string query = "select * from [User] where name='" + username + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            dr.Read();
+            User user = new User(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6));
+            dr.Close();
+            cnn.Close();
+            return user;
+        }
  
 
         public void update_userKupom(Kupon kupon)

@@ -30,7 +30,7 @@ namespace Kupon_WPF.forms.show
         {
             InitializeComponent();
 
-            Data_Grid.ItemsSource =   Categoris.getList();    
+            //Data_Grid.ItemsSource =   Categoris.getList();    
         }
     }
 }

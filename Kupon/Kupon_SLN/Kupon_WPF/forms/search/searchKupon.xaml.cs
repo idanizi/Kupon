@@ -24,7 +24,7 @@ namespace Kupon_WPF.forms.search
         double latitude;
         double longtitude;
         MainWindow main;
-        IBSL server = new BL();
+        BL server = new BL();
         public searchKupon(MainWindow main)
         {
             InitializeComponent();
@@ -56,7 +56,7 @@ namespace Kupon_WPF.forms.search
             {
                 List<KuponParameters> ParameterType = new List<KuponParameters>() {KuponParameters.CATEGORY};
                 List<String> ParameterValue = new List<String>() { Category_LB.SelectedItem.ToString()};
-                 List<Kupon> kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue, null,latitude,longtitude);   //TODO  
+                 List<Kupon> kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue,latitude,longtitude);  
                  if (kupons.Count > 0)
                  {
                    MainWindow.setKuponData(kupons);

@@ -22,7 +22,7 @@ namespace Kupon_WPF
     public partial class login : Window
     {
         MainWindow main;
-        IBSL server;
+        BL server;
         public login(MainWindow main)
         {
             InitializeComponent();

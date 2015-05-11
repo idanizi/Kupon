@@ -29,7 +29,7 @@ namespace Kupon_WPF.forms.show
         public List<Business> dataList;
     private string userStat = "Ghost";
     private User user;
-        private IBSL server = new BL();
+        private BL server = new BL();
         //CollectionViewSource itemCollectionViewSource;
 
 
@@ -91,7 +91,7 @@ public    showBusinessRecords(MainWindow main)
                foreach (buisnessCategory category in favorits)
                {
 
-                   dataList.AddRange(server.searchBusiness(new List<buisnessParameters> { buisnessParameters.LONGTITUDE, buisnessParameters.LATITUDE, buisnessParameters.CATEGORY }, new List<string> { main.UserLongtitude.ToString(), main.UserLatitude.ToString(), category.ToString() }));
+                   dataList.AddRange(server.searchBusiness(  category,main.UserLongtitude, main.UserLatitude));
                }
                 Data_Grid.DataContext = dataList;
            }

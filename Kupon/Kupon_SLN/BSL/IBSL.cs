@@ -9,22 +9,21 @@ namespace BSL
 {
     public interface IBSL
     {
-            void addNewKupon(Kupon newKupon, String userrName);
+            void addNewKupon(Kupon newKupon);
             void buyNewKupon(String kouponID, String userrName, String paymentDetails);
-            void addNewBusiness(Business newBusiness, String userrName);
+            void addNewBusiness(Business newBusiness );
             void updateKuponAlert(String userrName, String sensorTypr, String sensorInfo);
             List<Kupon> getKuponForApproval(int numOfKupon);
             void approveNewKupon(Kupon newKupon);
-            List<Kupon> searchKoupon(List<KuponParameters> parameterName, List<String> parameterValue);
-            List<Business> searchBusiness(List<buisnessParameters> parameterName, List<String> parameterValue);
+            List<Kupon> searchKoupon(buisnessCategory category, double latitude, double longtitude);
+            List<Business> searchBusiness(buisnessCategory category, double latitude, double longtitude);
             Kupon getKupon(String kouponID);
-            Business searchManagerBusiness(Manager manager);
             void updateKupon(Kupon updated);
-            void addNewUser(List<UserParameters> parameterName, List<String> parameterValue);
-            User logIn(String userName, String Pass);
+            void addNewUser(User user);
+            User logIn(String userName, String Pass,double vertical,double horizontal);
             void logOut(String userName);
             void restorUserPass(String userrName);
-            void updateUser(List<UserParameters> parameterName, List<String> parameterValue);
+            void updateUser(User user);
             bool useKupon(String kouponID);
             string getNewKuponID();
     }

@@ -47,7 +47,7 @@ namespace Kupon_WPF
         public double UserLongtitude { get { return userLongtitude; } set { userLongtitude = value; } }
 
         private showCouponRecords couponRecords;
-        public IBSL server;
+        public BL server;
 
         public MainWindow()
         {

@@ -312,7 +312,7 @@ namespace DAL
             }
             else return null;
         }
-        /*
+        
         public User searchUser(User user)
         {
             string username;
@@ -327,7 +327,7 @@ namespace DAL
             }
             else return null;
         }
-        */
+        
         public Client searchClient(Client client)
         {
             string username;

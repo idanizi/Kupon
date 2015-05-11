@@ -312,7 +312,7 @@ namespace DAL
             }
             else return null;
         }
-
+        /*
         public User searchUser(User user)
         {
             string username;
@@ -327,7 +327,7 @@ namespace DAL
             }
             else return null;
         }
-
+        */
         public Client searchClient(Client client)
         {
             string username;
@@ -410,7 +410,7 @@ namespace DAL
             return user;
         }
  
-
+       
         public void update_userKupom(Kupon kupon)
         {
             string query = "UPDATE [UserKupon] set  status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";

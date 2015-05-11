@@ -66,8 +66,8 @@ namespace Kupon_WPF.forms.add
                 {
                     //  List<String> ParameterType = new List<String> { KuponParameters., "Catagory", "OrgPrice", "DiscPrice", "ExpDate","Creator" };
                     //   List<String> ParameterValue = new List<String> { Name_TB.Text, Catagory_TB.Text,int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text),ExpDate_DP.Text,creator};
-                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", ((Manager)main.CurrUser).);
-                    server.addNewKupon(kupon);
+                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", (server.searchManagerBusiness((Manager)main.CurrUser)));
+                    server.addNewKupon(kupon,main.CurrUser.getName());
                      MessageBox.Show("kupon added to the system and waiting to admin approvel.");
                 this.Close();
                 }

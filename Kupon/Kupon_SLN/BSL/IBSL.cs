@@ -18,8 +18,8 @@ namespace BSL
             List<Kupon> searchKoupon(List<KuponParameters> parameterName, List<String> parameterValue);
             List<Business> searchBusiness(List<buisnessParameters> parameterName, List<String> parameterValue);
             Kupon getKupon(String kouponID);
-            void updateKupon(String kouponID, Kupon updated);
-            void updateKupon(Business kouponID, Kupon updated);
+            Business searchManagerBusiness(Manager manager);
+            void updateKupon(Kupon updated);
             void addNewUser(List<UserParameters> parameterName, List<String> parameterValue);
             User logIn(String userName, String Pass);
             void logOut(String userName);

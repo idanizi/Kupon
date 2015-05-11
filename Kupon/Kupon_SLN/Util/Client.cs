@@ -59,9 +59,6 @@ namespace Util
                 return number;
             }
 
-
-<<<<<<< HEAD
-=======
         public void addKupon(Kupon kupon)
         {
             kupons.Add(kupon);
@@ -71,6 +68,5 @@ namespace Util
         {
             throw new NotImplementedException();
         }
->>>>>>> refs/remotes/origin/GUI1.4
     }
 }

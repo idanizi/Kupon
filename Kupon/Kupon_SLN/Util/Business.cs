@@ -15,14 +15,10 @@ namespace Util
         NUMBER,
         DESCRIPTION,
         CATEGORY,
-<<<<<<< HEAD
-        MANAGER
- }
-=======
         MANAGER,
         LONGTITUDE,
         LATITUDE
-    }
+ };
     public enum buisnessCategory
     {
         Food,
@@ -35,7 +31,6 @@ namespace Util
         Other,
         All
     }
->>>>>>> refs/remotes/origin/GUI1.4
     public class Business
     {
         private string Id;

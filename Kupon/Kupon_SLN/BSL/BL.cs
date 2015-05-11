@@ -14,9 +14,9 @@ namespace BSL
         private IDAL dataBase;
 
         //constructor
-        public BL(IDAL dataBase)
+        public BL()
         {
-            this.dataBase = dataBase;
+            this.dataBase = new DB_manager();
         }
 
         public void addNewBusiness(Business newBusiness)
@@ -47,7 +47,7 @@ namespace BSL
         add func ClientsByCity(newKupon.getBusiness().getCity()) in DAL.talk to matan*/
         public void approveNewKupon(Kupon newKupon)
         {
-            newKupon.setStatus(KuponStatus.APPROVED);
+            newKupon.setStatus(Util.KuponStatus.APPROVED);
             dataBase.update_kupon(newKupon);
         }
 
@@ -122,7 +122,7 @@ namespace BSL
 
         public List<Kupon> getKuponForApproval(int numOfKupon)
         {
-            return dataBase.searchKuponByStatus(KuponStatus.NEW);
+            return dataBase.searchKuponByStatus(Util.KuponStatus.NEW);
         }
 
         public void restorUserPass(string userrName)
@@ -144,7 +144,7 @@ namespace BSL
             throw new NotImplementedException();
         }
 
-        public void updateKupon(string kouponID, Kupon updated)
+        public void updateKupon(Kupon updated)
         {
             throw new NotImplementedException();
         }
@@ -161,8 +161,8 @@ namespace BSL
 
         public bool useKupon(string serialID)
         {
-            Kupon useKupon = dataBase.searchKuponBySerialID(new Kupon(null,-1,null,null,Status.USED,-1,-1,new DateTime(),serialID,null));
-            useKupon.setStatus(Status.USED);
+            Kupon useKupon = dataBase.searchKuponBySerialID(new Kupon(null, -1, null, null, KuponStatus.USED, -1, -1, new DateTime(), serialID, null));
+            useKupon.setStatus(KuponStatus.USED);
             dataBase.update_userKupom(useKupon);
             return true;
         }
@@ -213,6 +213,12 @@ namespace BSL
         public string getNewKuponID()
         {
             return Guid.NewGuid().ToString("N");
+        }
+
+
+        public Business searchManagerBusiness(Manager manager)
+        {
+            return dataBase.searchBUsinessByManager(manager);
         }
     }
 }

@@ -31,7 +31,6 @@
         <Button Width="120" Height="30" HorizontalAlignment="Right" Margin="0,176,101,70" Click="Button_Click" Content="Search Kupon" Grid.ColumnSpan="2"/>
         <Label Content="Catagory" VerticalAlignment="Top" Margin="23,46,141,0" Grid.ColumnSpan="2"/>
         <Label Content="Location"  Margin="21,77,0,153" Grid.IsSharedSizeScope="True"/>
-        <Label Content="search kupon by:" VerticalAlignment="Top" Margin="23,-49,137,0" Grid.ColumnSpan="2"/>
         <Button x:Name="pickLocation_BTN" Content="Change Location" HorizontalAlignment="Left" Height="30" Margin="59,139,0,0" VerticalAlignment="Top" Width="120" Click="pickLocation_BTN_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

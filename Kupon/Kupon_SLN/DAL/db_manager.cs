@@ -253,7 +253,7 @@ namespace DAL
             sendQuery(query);
         }
 
-        public List<Kupon> searchKuponByStatus(Status status)
+        public List<Kupon> searchKuponByStatus(KuponStatus status)
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
@@ -286,8 +286,8 @@ namespace DAL
             }else return null;
         }
 
-
         public Kupon searchKuponBySerialID(Kupon kupon)
+
         {
             string query = "select * from [kupon] where status='" + kupon.getSerialKey() + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
@@ -341,7 +341,7 @@ namespace DAL
             dr.Read();
             string businessId = dr.GetString(6);
             DateTime date = dr.GetDateTime(5);
-            Status status = craete_status(dr.GetString(7));
+            KuponStatus status = craete_status(dr.GetString(7));
             int originalPrice=dr.GetInt32(3);
             int discountPrice=dr.GetInt32(4);
             Kupon kupon = new Kupon(dr.GetString(0), -1, dr.GetString(1), dr.GetString(2), status, originalPrice, discountPrice, date, null, null);
@@ -352,12 +352,12 @@ namespace DAL
             return kupon;
         }
 
-        private Status craete_status(string status)
+        private KuponStatus craete_status(string status)
         {
-           if(status.Equals(Status.ACTIVE.ToString()))return Status.ACTIVE;
-           else if (status.Equals(Status.APPROVED.ToString())) return Status.APPROVED;
-           else if (status.Equals(Status.NEW.ToString())) return Status.NEW;
-           else return Status.USED;
+            if (status.Equals(KuponStatus.ACTIVE.ToString())) return KuponStatus.ACTIVE;
+            else if (status.Equals(KuponStatus.APPROVED.ToString())) return KuponStatus.APPROVED;
+            else if (status.Equals(KuponStatus.NEW.ToString())) return KuponStatus.NEW;
+            else return KuponStatus.USED;
         }
 
         private Business create_business(string businessID)

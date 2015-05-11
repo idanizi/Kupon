@@ -1,0 +1,13 @@
+﻿<Window x:Class="Kupon_WPF.forms.show.map"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        Title="Window1" Height="535.821" Width="567.164">
+    <Grid>
+        <m:Map x:Name="Map" CredentialsProvider="AtA_HFT64ISQ0yJSsH0ah-XwDUtfcxj30-z-m9IvgWvcoAQ6V_JkYm0_xGxi_8ST" Mode="Road" Center="31.2333,34.7833" ZoomLevel="14" Cursor="Hand" MouseDoubleClick="Map_MouseDoubleClick" Margin="0,0,0,52"/>
+        <Button Content="Choose Location" HorizontalAlignment="Left" Height="25" Margin="450,472,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click"/>
+        <Label Content="Doublle Click to pick location." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,450,0,0"/>
+        <Label x:Name="lon_L" Content="Longitude:" HorizontalAlignment="Left" Height="24" Margin="247,452,0,0" VerticalAlignment="Top" Width="116"/>
+        <Label x:Name="lat_L" Content="Latitude:" HorizontalAlignment="Left" Height="24" Margin="247,471,0,0" VerticalAlignment="Top" Width="116"/>
+    </Grid>
+</Window>

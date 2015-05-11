@@ -60,5 +60,17 @@ namespace Util
             }
 
 
+<<<<<<< HEAD
+=======
+        public void addKupon(Kupon kupon)
+        {
+            kupons.Add(kupon);
+        }
+
+        public List<buisnessCategory> getFavorits()
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> refs/remotes/origin/GUI1.4
     }
 }

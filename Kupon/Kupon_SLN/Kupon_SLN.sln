@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kupon_WPF", "Kupon_WPF\Kupon_WPF.csproj", "{3D24C4A2-0E5A-45A5-B5E0-C993DB1387AA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{102B1DB7-ABA5-42A7-988E-792E8F83113B} = {102B1DB7-ABA5-42A7-988E-792E8F83113B}
+		{8BA1C4DE-96D6-44F9-BC63-270C51FA65AE} = {8BA1C4DE-96D6-44F9-BC63-270C51FA65AE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSL", "BSL\BSL.csproj", "{102B1DB7-ABA5-42A7-988E-792E8F83113B}"
 EndProject

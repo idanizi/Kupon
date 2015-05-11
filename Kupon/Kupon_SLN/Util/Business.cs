@@ -15,8 +15,27 @@ namespace Util
         NUMBER,
         DESCRIPTION,
         CATEGORY,
+<<<<<<< HEAD
         MANAGER
  }
+=======
+        MANAGER,
+        LONGTITUDE,
+        LATITUDE
+    }
+    public enum buisnessCategory
+    {
+        Food,
+        Sports,
+        lifeStile,
+        Electronics,
+        fashion,
+        Games,
+        Books,
+        Other,
+        All
+    }
+>>>>>>> refs/remotes/origin/GUI1.4
     public class Business
     {
         private string Id;

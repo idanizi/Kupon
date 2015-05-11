@@ -41,7 +41,7 @@ namespace DAL
 
         public void add_admin(Admin admin)
         {
-            string query = "INSERT into [User] values ('" + admin.getName() + "','" + admin.getEmail() + "','" + admin.getPassword() + "'," + admin.getPhone() + ",'" + "Admin" + "','" + admin.getFirstName() + "','" + admin.getLastName() + "',NULL,NULL,NULL);";
+            string query = "INSERT into [User] values ('" + admin.getName() + "','" + admin.getEmail() + "','" + admin.getPassword() + "','" + admin.getPhone() + "','" + "Admin" + "','" + admin.getFirstName() + "','" + admin.getLastName() + "',NULL,NULL,NULL);";
             sendQuery(query);
         }
 
@@ -49,6 +49,11 @@ namespace DAL
         {
               string query = "delete from [User]where name='"+admin.getName()+"';";
               sendQuery(query);
+        }
+
+        public Kupon searchKuponByID(Kupon kupon)
+        {
+            return null;
         }
 
         public void delete_manager(Manager manager)
@@ -71,7 +76,7 @@ namespace DAL
 
         public void add_manager(Manager manager)
         {
-            string query = "INSERT into [User] values ('" + manager.getName() + "','" + manager.getEmail() + "','" + manager.getPassword() + "'," + manager.getPhone() + ",'" + "Manager" + "','" + manager.getFirstName() + "','" + manager.getLastName() + "',NULL,NULL,NULL);";
+            string query = "INSERT into [User] values ('" + manager.getName() + "','" + manager.getEmail() + "','" + manager.getPassword() + "','" + manager.getPhone() + "','" + "Manager" + "','" + manager.getFirstName() + "','" + manager.getLastName() + "',NULL,NULL,NULL);";
             sendQuery(query);
         }
 
@@ -83,7 +88,7 @@ namespace DAL
 
         public void add_client(Client client)
         {
-            string query = "INSERT into [User] values ('" + client.getName() + "','" + client.getEmail() + "','" + client.getPassword() + "'," + client.getPhone() + ",'" + "Client" + "','" + client.getFirstName() + "','" + client.getLastName() + "','"+client.getCity()+"','"+client.getStreet()+"',"+client.getNumber()+");";
+            string query = "INSERT into [User] values ('" + client.getName() + "','" + client.getEmail() + "','" + client.getPassword() + "','" + client.getPhone() + "','" + "Client" + "','" + client.getFirstName() + "','" + client.getLastName() + "','"+client.getCity()+"','"+client.getStreet()+"',"+client.getNumber()+");";
             sendQuery(query);
             foreach (string favor in client.getFavor())
             {
@@ -249,6 +254,11 @@ namespace DAL
             sendQuery(query);
         }
 
+        public List<Kupon> searchKuponByStatus(Status status)
+        {
+            return null;
+        }
+
         public Admin searchAdmin(Admin admin)
         {
             string username;
@@ -303,7 +313,7 @@ namespace DAL
             string query = "select * from [User] where name='" + username + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             dr.Read();
-            Admin admin = new Admin(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetInt32(3), dr.GetString(5), dr.GetString(6));
+            Admin admin = new Admin(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6));
             dr.Close();
             cnn.Close();
             return admin;
@@ -353,7 +363,7 @@ namespace DAL
             string query = "select * from [User] where name='" + userName + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             dr.Read();
-            Manager manager=new Manager(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetInt32(3), dr.GetString(5), dr.GetString(6));
+            Manager manager = new Manager(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6));
             dr.Close();
             cnn.Close();
             return manager;
@@ -399,6 +409,17 @@ namespace DAL
             {
                 cnn.Close();
             }
+        }
+
+
+        public List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal, int radius)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius)
+        {
+            throw new NotImplementedException();
         }
     }
 }

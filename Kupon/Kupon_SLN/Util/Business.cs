@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace Util
 {
+    public enum buisnessParameters
+    {
+        ID,
+        NAME,
+        CITY,
+        STREET,
+        NUMBER,
+        DESCRIPTION,
+        CATEGORY,
+        MANAGER
+ }
     public class Business
     {
         private string Id;

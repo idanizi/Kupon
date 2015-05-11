@@ -36,7 +36,7 @@ namespace Kupon_WPF.forms.search
 
         private bool validateFields()
         {
-           
+           /*
             if(!((Business_TB.Text.Length > 0) |
                (  Category_LB.SelectedItem != null) |
                 (Location_TB.Text.Length > 0) 
@@ -45,7 +45,7 @@ namespace Kupon_WPF.forms.search
                 return false;
             }
             
-          
+          */
             return true;
         }
 
@@ -54,9 +54,8 @@ namespace Kupon_WPF.forms.search
        try{
             if (validateFields())
             {
-                List<KuponParameters> ParameterType = new List<KuponParameters>() {KuponParameters.CATEGORY};
-                List<String> ParameterValue = new List<String>() { Category_LB.SelectedItem.ToString()};
-                 List<Kupon> kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue,latitude,longtitude);  
+               
+                List<Kupon> kupons = server.searchKoupon(buisnessCategory.All, latitude, longtitude);  
                  if (kupons.Count > 0)
                  {
                    MainWindow.setKuponData(kupons);
@@ -71,8 +70,9 @@ namespace Kupon_WPF.forms.search
             }
        }
 
-           catch{
-                  MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+           catch(Exception ex){
+                  MessageBox.Show("error while trying to search the kupon. please try again. \n" + ex.StackTrace);
+                 
            }
        }
 

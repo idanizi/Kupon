@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BSL;
+using Util;
 using System.Text.RegularExpressions;
 namespace Kupon_WPF.forms.add
 {
     public partial class addNewUser : Window
     {
         string mode;
-        //IBSL server = (IBSL)new object();
+        BL server = new BL();
         public addNewUser()
         {
             InitializeComponent();
@@ -28,70 +29,86 @@ namespace Kupon_WPF.forms.add
 
         private bool validateFields()
         {
-           
-            if(!((UserName_TB.Text.Length > 0) &
-               ( Mail_TB.Text.Length > 0) &
-                (Pass_PB.Password.Length > 0 )&
-                (Phone_TB.Text.Length > 0))){
-                MessageBox.Show("one or more of the parameters is empty!", "error");
-                return false;
-            }
-
-            if (!(Regex.Match(Pass_PB.Password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$")).Success)
+            /*
+            try
             {
-                MessageBox.Show
-                    ("Password must be at least 4 characters, no more than 8 characters," +
-                "and must include at least one upper case letter, one lower case letter, and one numeric digit."
-                , "error");
+                if (!((UserName_TB.Text.Length > 0) &
+                   (Mail_TB.Text.Length > 0) &
+                    (Pass_PB.Password.Length > 0) &
+                    (Phone_TB.Text.Length > 0)))
+                {
+                    MessageBox.Show("one or more of the parameters is empty!", "error");
+                    return false;
+                }
+
+                if (!(Regex.Match(Pass_PB.Password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$")).Success)
+                {
+                    MessageBox.Show
+                        ("Password must be at least 4 characters, no more than 8 characters," +
+                    "and must include at least one upper case letter, one lower case letter, and one numeric digit."
+                    , "error");
+                }
+
+
+
+
+                if (!(Regex.Match(Phone_TB.Text, @"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)")).Success)
+                {
+                    MessageBox.Show
+                        ("the phone number you have entered is not a valied phone number"
+                    , "error");
+                }
+
+
+                if (!(Regex.Match(Phone_TB.Text, @"(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")).Success)
+                {
+                    MessageBox.Show
+                        ("the mail number you have entered is not a valied mail address"
+                    , "error");
+                }
             }
 
-
-
-
-            if (!(Regex.Match(Phone_TB.Text, @"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)")).Success)
-            {
-                MessageBox.Show
-                    ("the phone number you have entered is not a valied phone number"
-                , "error");
-            }
-
-
-            if (!(Regex.Match(Phone_TB.Text, @"(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")).Success)
-            {
-                MessageBox.Show
-                    ("the mail number you have entered is not a valied mail address"
-                , "error");
-            }
-            /* //TODO
-             if(!server.validateNewUser(UserName_TB.Text,Mail_TB.Text)){
+             if(!(server.getUser(UserName_TB.Text) == null){
                  MessageBox.Show("user name or mail already exist in the system.", "error");
                  return false;
              }
-            */
+        }catch{
+        MessageBox.show("one of the parameters is not valid" , "error");
+    }
+             * */
+            if (!(server.getUser(UserName_TB.Text) == null))
+            {
+                MessageBox.Show("user name or mail already exist in the system.", "error");
+                return false;
+            }
             return true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-       
+
             if (validateFields())
             {
                 List<String> ParameterType = new List<String> { "UserName", "Mail", "Phone", "Passwors" };
                 List<String> ParameterValue = new List<String> { UserName_TB.Text, Mail_TB.Text, Pass_PB.Password, Phone_TB.Text };
-               /* server.addNewUser(ParameterType, ParameterValue);   //TODO  
-                if (!server.validateNewUser(UserName_TB.Text, Mail_TB.Text))
+                User newUser = new User(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2");   //TODO  
+                try
                 {
+                    server.addNewUser(newUser);
+
                     MessageBox.Show("user had succesfully added to the system.");
                     this.Close();
                 }
-                else
+                catch (Exception ex)
                 {
                     MessageBox.Show("error while trying to add the user to the system. please try again.");
-                }*/
+                }
                 this.Close();
+
             }
         }
- }
+    }
+}
 
         
     /*
@@ -236,7 +253,7 @@ namespace Kupon_WPF.forms.add
         }
     }
              * */
-        }
+ 
 
  
 

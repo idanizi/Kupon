@@ -253,7 +253,7 @@ namespace DAL
             sendQuery(query);
         }
 
-        public List<Kupon> searchKuponByStatus(KuponStatus status)
+        public List<Kupon> searchKuponByStatus(Util.KuponStatus status)
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
@@ -352,7 +352,7 @@ namespace DAL
             return kupon;
         }
 
-        private KuponStatus craete_status(string status)
+        private Util.KuponStatus craete_status(string status)
         {
             if (status.Equals(KuponStatus.ACTIVE.ToString())) return KuponStatus.ACTIVE;
             else if (status.Equals(KuponStatus.APPROVED.ToString())) return KuponStatus.APPROVED;
@@ -464,6 +464,12 @@ namespace DAL
                 kupons.Add(create_kupon(kupon));
             }
             return kupons;
+        }
+
+
+        public Business searchBUsinessByManager(Manager manager)
+        {
+            throw new NotImplementedException();
         }
     }
 }

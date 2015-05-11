@@ -34,30 +34,30 @@ namespace Util
             this.number = -1;
         }
 
-        public List<string> getFavor()
-        {
-            return favoriets;
-        }
+            public List<string> getFavor()
+            {
+                return favoriets;
+            }
 
-        public List<Kupon> getKupon()
-        {
-            return kupons;
-        }
+            public List<Kupon> getKupon()
+            {
+                return kupons;
+            }
 
-        public string getCity()
-        {
-            return city;
-        }
+            public string getCity()
+            {
+                return city;
+            }
 
-        public string getStreet()
-        {
-            return street;
-        }
+            public string getStreet()
+            {
+                return street;
+            }
 
-        public int getNumber()
-        {
-            return number;
-        }
+            public int getNumber()
+            {
+                return number;
+            }
 
         public void addKupon(Kupon kupon)
         {

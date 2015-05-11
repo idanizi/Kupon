@@ -18,7 +18,7 @@ namespace Util
         MANAGER,
         LONGTITUDE,
         LATITUDE
-    }
+ };
     public enum buisnessCategory
     {
         Food,

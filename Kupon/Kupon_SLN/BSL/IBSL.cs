@@ -7,20 +7,19 @@ using Util;
 
 namespace BSL
 {
-    public class IBSL
+    public interface IBSL
     {
-            void addNewKupon(Kupon newKupon, String userrName);
+            void addNewKupon(Kupon newKupon);
             void buyNewKupon(String kouponID, String userrName, String paymentDetails);
-            void addNewBusiness(Business newBusiness, String userrName);
+            void addNewBusiness(Business newBusiness );
             void updateKuponAlert(String userrName, String sensorTypr, String sensorInfo);
             List<Kupon> getKuponForApproval(int numOfKupon);
             void approveNewKupon(Kupon newKupon);
-            List<Kupon> searchKoupon(List<KuponParameters> parameterName, List<String> parameterValue);
+            List<Kupon> searchKoupon(buisnessCategory category, string city, double latitude, double longtitude);
             List<Business> searchBusiness(List<buisnessParameters> parameterName, List<String> parameterValue);
             Kupon getKupon(String kouponID);
-            void updateKupon(String kouponID, Kupon updated);
-            void updateKupon(Business kouponID, Kupon updated);
-            void addNewUser(List<UserParameters> parameterName, List<String> parameterValue);
+            void updateKupon(Kupon updated);
+            void addNewUser(User user);
             User logIn(String userName, String Pass);
             void logOut(String userName);
             void restorUserPass(String userrName);

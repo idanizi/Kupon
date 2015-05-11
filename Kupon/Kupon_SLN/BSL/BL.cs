@@ -8,15 +8,15 @@ using Util;
 
 namespace BSL
 {
-    class BL:IBSL
+    public class BL:IBSL
     {
         //fields
         private IDAL dataBase;
 
         //constructor
-        public BL(IDAL dataBase)
+        public BL()
         {
-            this.dataBase = dataBase;
+            this.dataBase = new DB_manager();
         }
 
         public void addNewBusiness(Business newBusiness)
@@ -24,22 +24,21 @@ namespace BSL
                 dataBase.add_business(newBusiness);
         }
 
-        public void addNewKupon(Kupon newKupon, string userName)
+        public void addNewKupon(Kupon newKupon )
         {
             dataBase.add_kupon(newKupon);
         }
 
         /*need to throw exception if doesn't succeed (when missing a parameter). talk with yochai
         dont know which kind of user*/
-        public void addNewUser(List<UserParameters> parameterName, List<string> parameterValue)
+        public void addNewUser(User user)
         {
-            string userName = extractVariable(parameterName, parameterValue, UserParameters.USERNAME);
-            string password = extractVariable(parameterName, parameterValue, UserParameters.PASSOWRD);
-            string email = extractVariable(parameterName, parameterValue, UserParameters.EMAIL);
-            string phone = extractVariable(parameterName, parameterValue, UserParameters.PHONE);
-            string firstName = extractVariable(parameterName, parameterValue, UserParameters.FIRSTNAME);
-            string lastName = extractVariable(parameterName, parameterValue, UserParameters.LASTNAME);
-
+            if (user.GetType() is Admin)
+                dataBase.add_admin((Admin) user);
+            if (user.GetType() is Client)
+                dataBase.add_client((Client)user);
+            if (user.GetType() is Manager)
+                dataBase.add_manager((Manager) user);
         }
 
         /*the admin should call this when he approved
@@ -55,45 +54,61 @@ namespace BSL
         public void buyNewKupon(string kuponID, string userName, string paymentDetails)
         {
             Kupon kupon = dataBase.searchKuponByID(new Kupon(kuponID));
+            if(kupon == null)
+                throw new ArgumentException("This kupon doesn't exist");
+
+            if (kupon.getStatus() != Status.APPROVED)
+                throw new ArgumentException("This kupon doesn't approved yet");
+                
             Client client = dataBase.searchClient(new Client(userName));
+            kupon.setStatus(Status.ACTIVE);
+            //set serial key
+            client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
         }
 
-        public void logIn(string userName, string Pass)
+        public User logIn(string userName, string Pass, double latitude, double longtitude)
         {
             Client client = dataBase.searchClient(new Client(userName));
             if (client != null)
             {
+                if (!client.getPassword().Equals(Pass))
+                    return null;
                 client.logIn();
+                dataBase.add_location_user(client, latitude, longtitude);
                 dataBase.update_client(client);
-                return;
+                return client;
             }
 
             Admin admin = dataBase.searchAdmin(new Admin(userName));
             if (admin != null)
             {
+                if (!admin.getPassword().Equals(Pass))
+                    return null;
                 admin.logIn();
                 dataBase.update_admin(admin);
-                return;
+                return admin;
             }
 
             Manager manager = dataBase.searchManager(new Manager(userName));
             if (manager != null)
             {
+                if (!manager.getPassword().Equals(Pass))
+                    return null;
                 manager.logIn();
                 dataBase.update_manager(manager);
-                return;
+                return manager;
             }
 
-            throw new ArgumentException("user doesn't exist");
+            return null;
         }
 
-        public void logOut(string userName, string Pass)
+        public void logOut(string userName)
         {
             Client client = dataBase.searchClient(new Client(userName));
             if (client != null)
             {
-                client.logIn();
+                client.logOut();
                 dataBase.update_client(client);
                 return;
             }
@@ -101,7 +116,7 @@ namespace BSL
             Admin admin = dataBase.searchAdmin(new Admin(userName));
             if (admin != null)
             {
-                admin.logIn();
+                admin.logOut();
                 dataBase.update_admin(admin);
                 return;
             }
@@ -109,7 +124,7 @@ namespace BSL
             Manager manager = dataBase.searchManager(new Manager(userName));
             if (manager != null)
             {
-                manager.logIn();
+                manager.logOut();
                 dataBase.update_manager(manager);
                 return;
             }
@@ -129,24 +144,32 @@ namespace BSL
         {
         }
 
-        public List<Business> searchBusiness(List<buisnessParameters> parameterName, List<string> parameterValue)
+        public List<Business> searchBusiness (buisnessCategory category, string city, double latitude, double longtitude)
         {
-            throw new NotImplementedException();
+            if (category != null)
+            {
+                if (city != null)
+                    return dataBase.searchBusinessByCityAndCategory(city, category);
+                return dataBase.searchBusinessByCatagory(category);
+            }
+            if (city != null)
+                return dataBase.searchBusinessByCity(city);
         }
 
-        public List<Kupon> searchKoupon(List<KuponParameters> parameterName, List<string> parameterValue)
+        public List<Kupon> searchKoupon (buisnessCategory category, string city, double latitude, double longtitude)
         {
-            throw new NotImplementedException();
+            if (category != null)
+            {
+                if (city != null)
+                    return dataBase.searchKuponByCityAndCategory(category, city);
+                return dataBase.searchKuponByCatagory(category);
+            }
+                return dataBase.searchKuponByCity(city);
         }
 
-        public void updateKupon(Business kouponID, Kupon updated)
+        public void updateKupon(Kupon updated)
         {
-            throw new NotImplementedException();
-        }
-
-        public void updateKupon(string kouponID, Kupon updated)
-        {
-            throw new NotImplementedException();
+            dataBase.update_kupon(updated);
         }
 
         public void updateKuponAlert(string userrName, string sensorTypr, string sensorInfo)
@@ -154,9 +177,14 @@ namespace BSL
             throw new NotImplementedException();
         }
 
-        public void updateUser(List<UserParameters> parameterName, List<string> parameterValue)
+        public void updateUser(User user)
         {
-            throw new NotImplementedException();
+            if (user.GetType() is Admin)
+                dataBase.update_admin((Admin)user);
+            if (user.GetType() is Client)
+                dataBase.update_client((Client)user);
+            if (user.GetType() is Manager)
+                dataBase.update_manager((Manager)user);
         }
 
         public bool useKupon(string kouponID)
@@ -189,6 +217,21 @@ namespace BSL
                 return user;
 
             return null;
+        }
+
+        public void addNewBusiness(Business newBusiness, string userrName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Business> searchBusiness(List<buisnessParameters> parameterName, List<string> parameterValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User logIn(string userName, string Pass)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,6 +16,13 @@ namespace Util
         LASTNAME
     };
 
+    public enum UserType
+    {
+        CLIENT,
+        ADMIN,
+        MANAGER
+    };
+
     public class User
     {
         private string name;
@@ -78,7 +85,7 @@ namespace Util
 
         public void logIn()
         {
-            statusConnection = true;
+                statusConnection = true;
         }
 
         public void logOut()

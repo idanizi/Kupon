@@ -16,7 +16,19 @@ namespace Util
         DESCRIPTION,
         CATEGORY,
         MANAGER
- }
+    }
+    public enum buisnessCategory
+    {
+        Food,
+        Sports,
+        lifeStile,
+        Electronics,
+        fashion,
+        Games,
+        Books,
+        Other,
+        All
+    }
     public class Business
     {
         private string Id;

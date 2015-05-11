@@ -33,12 +33,19 @@ namespace BSL
         dont know which kind of user*/
         public void addNewUser(User user)
         {
-            if (user.GetType() is Admin)
+            if (user is Admin)
+            {
                 dataBase.add_admin((Admin)user);
-            if (user.GetType() is Client)
+            }
+            else if (user is Client)
+            {
                 dataBase.add_client((Client)user);
-            if (user.GetType() is Manager)
+            }
+            else if (user is Manager)
+            {
                 dataBase.add_manager((Manager)user);
+            }
+            else throw new Exception("worng type of user");
         }
 
         /*the admin should call this when he approved

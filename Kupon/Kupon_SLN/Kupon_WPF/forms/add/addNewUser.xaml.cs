@@ -89,9 +89,7 @@ namespace Kupon_WPF.forms.add
 
             if (validateFields())
             {
-                List<String> ParameterType = new List<String> { "UserName", "Mail", "Phone", "Passwors" };
-                List<String> ParameterValue = new List<String> { UserName_TB.Text, Mail_TB.Text, Pass_PB.Password, Phone_TB.Text };
-                User newUser = new User(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2");   //TODO  
+                Client newUser = new Client(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2",new List<string>(),new List<Kupon>(),"todo","todo",-1);   //TODO  
                 try
                 {
                     server.addNewUser(newUser);
@@ -101,7 +99,7 @@ namespace Kupon_WPF.forms.add
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("error while trying to add the user to the system. please try again.");
+                    MessageBox.Show("error while trying to add the user to the system. please try again\n"+ex.Message);
                 }
                 this.Close();
 

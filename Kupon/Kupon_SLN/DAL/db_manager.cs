@@ -41,7 +41,7 @@ namespace DAL
 
         public void add_admin(Admin admin)
         {
-            string query = "INSERT into [User] values ('" + admin.getName() + "','" + admin.getEmail() + "','" + admin.getPassword() + "'," + admin.getPhone() + ",'" + "Admin" + "','" + admin.getFirstName() + "','" + admin.getLastName() + "',NULL,NULL,NULL);";
+            string query = "INSERT into [User] values ('" + admin.getName() + "','" + admin.getEmail() + "','" + admin.getPassword() + "','" + admin.getPhone() + "','" + "Admin" + "','" + admin.getFirstName() + "','" + admin.getLastName() + "',NULL,NULL,NULL);";
             sendQuery(query);
         }
 
@@ -49,6 +49,11 @@ namespace DAL
         {
               string query = "delete from [User]where name='"+admin.getName()+"';";
               sendQuery(query);
+        }
+
+        public Kupon searchKuponByID(Kupon kupon)
+        {
+            return create_kupon(kupon.getID());
         }
 
         public void delete_manager(Manager manager)
@@ -71,19 +76,19 @@ namespace DAL
 
         public void add_manager(Manager manager)
         {
-            string query = "INSERT into [User] values ('" + manager.getName() + "','" + manager.getEmail() + "','" + manager.getPassword() + "'," + manager.getPhone() + ",'" + "Manager" + "','" + manager.getFirstName() + "','" + manager.getLastName() + "',NULL,NULL,NULL);";
+            string query = "INSERT into [User] values ('" + manager.getName() + "','" + manager.getEmail() + "','" + manager.getPassword() + "','" + manager.getPhone() + "','" + "Manager" + "','" + manager.getFirstName() + "','" + manager.getLastName() + "',NULL,NULL,NULL);";
             sendQuery(query);
         }
 
         public void add_business(Business business)
         {
-            string query = "INSERT into [Business] values ('" + business.getId() + "','" + business.getName() + "','" + business.getCity() + "','" + business.getStreet() + "'," + business.getNumber() + ",'" + business.getDescription() + "','" + business.getCatagory()+"','"+business.getManger().getName()+"');";
+            string query = "INSERT into [Business] values ('" + business.getId() + "','" + business.getName() + "','" + business.getCity() + "','" + business.getStreet() + "'," + business.getNumber() + ",'" + business.getDescription() + "','" + business.getCatagory()+"','"+business.getManger().getName()+"',"+business.gethorizontal()+","+business.getvertical()+");";
             sendQuery(query);
         }
 
         public void add_client(Client client)
         {
-            string query = "INSERT into [User] values ('" + client.getName() + "','" + client.getEmail() + "','" + client.getPassword() + "'," + client.getPhone() + ",'" + "Client" + "','" + client.getFirstName() + "','" + client.getLastName() + "','"+client.getCity()+"','"+client.getStreet()+"',"+client.getNumber()+");";
+            string query = "INSERT into [User] values ('" + client.getName() + "','" + client.getEmail() + "','" + client.getPassword() + "','" + client.getPhone() + "','" + "Client" + "','" + client.getFirstName() + "','" + client.getLastName() + "','"+client.getCity()+"','"+client.getStreet()+"',"+client.getNumber()+");";
             sendQuery(query);
             foreach (string favor in client.getFavor())
             {
@@ -112,7 +117,7 @@ namespace DAL
 
         public void update_business(Business business)
         {
-            string query = "UPDATE [Business] set  name='" + business.getName() + "',city='"+business.getCity()+"',street='" + business.getStreet() + "',num=" + business.getNumber() + ",description='" + business.getDescription() + "',category='" + business.getCatagory() + "',manager='" + business.getManger().getName() + "' WHERE ID='"+business.getId()+"';";
+            string query = "UPDATE [Business] set  name='" + business.getName() + "',city='"+business.getCity()+"',street='" + business.getStreet() + "',num=" + business.getNumber() + ",description='" + business.getDescription() + "',category='" + business.getCatagory() + "',manager='" + business.getManger().getName() + "',vertical="+business.getvertical()+",horizontal="+business.gethorizontal()+" WHERE ID='"+business.getId()+"';";
             sendQuery(query);
         }
 
@@ -249,6 +254,25 @@ namespace DAL
             sendQuery(query);
         }
 
+        public List<Kupon> searchKuponByStatus(Status status)
+        {
+            List<string> kuponId = new List<string>();
+            List<Kupon> kupons = new List<Kupon>();
+            string query = "select * from [kupon] where status='"+status+"';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            while (dr.Read())
+            {
+                kuponId.Add(dr.GetString(0));
+            }
+            dr.Close();
+            cnn.Close();
+            foreach (string kupon in kuponId)
+            {
+                kupons.Add(create_kupon(kupon));
+            }
+            return kupons;
+        }
+
         public Admin searchAdmin(Admin admin)
         {
             string username;
@@ -261,21 +285,6 @@ namespace DAL
             cnn.Close();
             return create_admin(username);
             }else return null;
-        }
-
-        public Admin searchAdmin(Admin admin)
-        {
-            string username;
-            string query = "select * from [User] where [User].name = '" + admin.getName() + "' AND [User].access='" + "Admin" + "';";
-            SqlDataReader dr = sendAndReciveQuery(query);
-            if (dr.Read())
-            {
-                username = dr.GetString(0);
-                dr.Close();
-                cnn.Close();
-                return create_admin(username);
-            }
-            else return null;
         }
 
         public Manager searchManager(Manager manager)
@@ -303,7 +312,7 @@ namespace DAL
             string query = "select * from [User] where name='" + username + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             dr.Read();
-            Admin admin = new Admin(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetInt32(3), dr.GetString(5), dr.GetString(6));
+            Admin admin = new Admin(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6));
             dr.Close();
             cnn.Close();
             return admin;
@@ -340,7 +349,7 @@ namespace DAL
             string query = "select * from [Business] where ID='" + businessID + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             dr.Read();
-            Business business = new Business(dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetInt32(4), dr.GetString(5), dr.GetString(6),null);
+            Business business = new Business(dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetInt32(4), dr.GetString(5), dr.GetString(6),null,dr.GetDouble(9),dr.GetDouble(8));
             string managerName=dr.GetString(7);
             dr.Close();
             cnn.Close();
@@ -353,7 +362,7 @@ namespace DAL
             string query = "select * from [User] where name='" + userName + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             dr.Read();
-            Manager manager=new Manager(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetInt32(3), dr.GetString(5), dr.GetString(6));
+            Manager manager = new Manager(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6));
             dr.Close();
             cnn.Close();
             return manager;
@@ -399,6 +408,45 @@ namespace DAL
             {
                 cnn.Close();
             }
+        }
+
+
+        public List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal, int radius)
+        {
+            List<Business> business = new List<Business>();
+            List<string> businessID = new List<string>();
+            string query = "select * from [Business] where category='" + catagory + "' AND vertical BETWEEN " + (vertical - radius) + " AND " + (vertical + radius) + " AND horizontal BETWEEN "+(horizontal-radius)+" AND "+(horizontal+radius)+";";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            while (dr.Read())
+            {
+                businessID.Add(dr.GetString(0));
+            }
+            dr.Close();
+            cnn.Close();
+            foreach (string businessName in businessID)
+            {
+                business.Add(create_business(businessName));
+            }
+            return business;
+        }
+
+        public List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius)
+        {
+            List<string> kuponId = new List<string>();
+            List<Kupon> kupons = new List<Kupon>();
+            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND category='" + catagory + "' AND vertical BETWEEN " + (vertical - radius) + " AND " + (vertical + radius) + " AND horizontal BETWEEN "+(horizontal-radius)+"AND"+(horizontal+radius)+";";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            while (dr.Read())
+            {
+                kuponId.Add(dr.GetString(0));
+            }
+            dr.Close();
+            cnn.Close();
+            foreach (string kupon in kuponId)
+            {
+                kupons.Add(create_kupon(kupon));
+            }
+            return kupons; 
         }
     }
 }

@@ -410,5 +410,16 @@ namespace DAL
                 cnn.Close();
             }
         }
+
+
+        public List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal, int radius)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -87,10 +87,11 @@ public    showBusinessRecords(MainWindow main)
            }
            else if (user.GetType is Client)
            {
-               List<String> favorits = ((Client)user).getFavorits();
-               foreach(String category in favorits){
+               List<buisnessCategory> favorits = ((Client)user).getFavorits();
+               foreach (buisnessCategory category in favorits)
+               {
 
-                   dataList.AddRange(server.searchBusiness(new List<buisnessParameters> { buisnessParameters.LONGTITUDE, buisnessParameters.LATITUDE, buisnessParameters.CATEGORY }, new List<string> { main.UserLongtitude.ToString(), main.UserLatitude.ToString(), category }));
+                   dataList.AddRange(server.searchBusiness(new List<buisnessParameters> { buisnessParameters.LONGTITUDE, buisnessParameters.LATITUDE, buisnessParameters.CATEGORY }, new List<string> { main.UserLongtitude.ToString(), main.UserLatitude.ToString(), category.ToString() }));
                }
                 Data_Grid.DataContext = dataList;
            }

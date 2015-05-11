@@ -15,7 +15,9 @@ namespace Util
         NUMBER,
         DESCRIPTION,
         CATEGORY,
-        MANAGER
+        MANAGER,
+        LONGTITUDE,
+        LATITUDE
     }
     public enum buisnessCategory
     {

@@ -86,8 +86,9 @@ namespace Kupon_WPF
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                  login_BTN.Content = "Logout";
             }
-            else if (user.GetType is Business)
+            else if (user.GetType is Manager)
             {
+
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;

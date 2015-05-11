@@ -352,7 +352,7 @@ namespace DAL
             return kupon;
         }
 
-        private Ku craete_status(string status)
+        private KuponStatus craete_status(string status)
         {
             if (status.Equals(KuponStatus.ACTIVE.ToString())) return KuponStatus.ACTIVE;
             else if (status.Equals(KuponStatus.APPROVED.ToString())) return KuponStatus.APPROVED;

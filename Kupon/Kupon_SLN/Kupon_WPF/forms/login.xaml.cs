@@ -34,7 +34,7 @@ namespace Kupon_WPF
         {
             try{
             if(username_TB.Text != "" & password_PB.Password != ""){
-           User user = server.logIn(username_TB.Text,password_PB.Password);
+           User user = server.logIn(username_TB.Text,password_PB.Password,main.UserLatitude,main.UserLongtitude);
                      
             if (user != null) { 
                                main.CurrUser = user;

@@ -63,5 +63,10 @@ namespace Util
         {
             kupons.Add(kupon);
         }
+
+        public List<buisnessCategory> getFavorits()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

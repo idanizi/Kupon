@@ -27,8 +27,10 @@ namespace Util
         private string description;
         private string catagory;
         private Manager manager;
+        private double vertical;
+        private double horizontal;
 
-        public Business(string id, string name, string city, string street, int number, string description, string catagory, Manager manager)
+        public Business(string id, string name, string city, string street, int number, string description, string catagory, Manager manager,double horizontal,double vertical)
         {
             this.Id = id;
             this.name = name;
@@ -38,6 +40,8 @@ namespace Util
             this.description = description;
             this.catagory = catagory;
             this.manager=manager;
+            this.vertical = vertical;
+            this.horizontal = horizontal;
         }
 
         public string getId()
@@ -49,7 +53,14 @@ namespace Util
         {
             return name;
         }
-
+        public double getHorizontal()
+        {
+            return horizontal;
+        }
+        public double getVertical()
+        {
+            return vertical;
+        }
         public string getCity()
         {
             return city;

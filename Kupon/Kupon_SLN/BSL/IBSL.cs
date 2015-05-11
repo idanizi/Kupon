@@ -7,7 +7,7 @@ using Util;
 
 namespace BSL
 {
-    public class IBSL
+    public interface IBSL
     {
             void addNewKupon(Kupon newKupon, String userrName);
             void buyNewKupon(String kouponID, String userrName, String paymentDetails);

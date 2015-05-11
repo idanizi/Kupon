@@ -8,7 +8,7 @@ using Util;
 
 namespace BSL
 {
-    class BL:IBSL
+    public class BL:IBSL
     {
         //fields
         private IDAL dataBase;
@@ -189,6 +189,22 @@ namespace BSL
                 return user;
 
             return null;
+        }
+
+
+        public void addNewBusiness(Business newBusiness, string userrName)
+        {
+            throw new NotImplementedException();
+        }
+
+        User IBSL.logIn(string userName, string Pass)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void logOut(string userName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

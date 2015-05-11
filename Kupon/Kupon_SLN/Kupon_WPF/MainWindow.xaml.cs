@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Util;
 using BSL;
+using System.Device.Location;
 
 
 namespace Kupon_WPF
@@ -30,9 +31,23 @@ namespace Kupon_WPF
     {
 
         //getters & setters
+        private  User user = null;
         private static String userStat = "Ghost";
+        private static String userLatitude = "Loading";
+        private static String userLongtitude = "Loading";
+
+
+        GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
+        CivicAddress add = new CivicAddress();
+
+
         public static String UserStat { get { return userStat; } set { userStat = value; } }
-       
+
+        public static String UserLatitude { get { return userLatitude; } set { userLatitude = value; } }
+
+        public static String UserLongtitude { get { return userLongtitude; } set { userLongtitude = value; } }
+
+        public static String UserStat { get { return userLongtitude; } set { userLongtitude = value; } }
         private static String userName { get; set; }
         public static String UserName { get { return userName; } set { userName = value; } }
         private showCouponRecords couponRecords;
@@ -41,9 +56,17 @@ namespace Kupon_WPF
         public MainWindow()
         {
             InitializeComponent();
-           // server = (IBSL) new object();
+            server = new BL();
+            mGeoWatcher.Start();
+            mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+            mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
         }
 
+        void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        { 
+            userLatitude_L.Content = mGeoWatcher.Position.Location.Latitude.ToString();
+            userLongtitude_L.Content = mGeoWatcher.Position.Location.Longitude.ToString();
+        }
 
         private void mainWindow_Initialized(object sender, EventArgs e)
         {
@@ -52,22 +75,32 @@ namespace Kupon_WPF
 
         private void reInitializedData()
         {
+           
 
             //patient can't add new records
             if (userStat == "Admin")
             {
-                couponRecords = new showCouponRecords(userStat);
+                couponRecords = new showCouponRecords(userStat,);
                 saveChanges_BTN.Visibility = Visibility.Visible;
                  userSetting_BTN.IsEnabled = true;
+                 login_BTN.Content = "Logout";
             }
             else if (userStat == "Business")
             {
                 couponRecords = new showCouponRecords("Business");
+                login_BTN.Content = "Logout";
             }
-            else
+            else if (userStat == "User")
+            {
+                couponRecords = new showCouponRecords("User");
+                userSetting_BTN.IsEnabled = true;
+                login_BTN.Content = "Logout";
+            }
+            else if (userStat == "Ghost")
             {
                 couponRecords = new showCouponRecords("Ghost");
                 userSetting_BTN.IsEnabled = false;
+                login_BTN.Content = "Login";
             }
 
             mainRecordFrame.Navigate(couponRecords);
@@ -83,24 +116,31 @@ namespace Kupon_WPF
 
         }
 
-     
+
 
         private void login_BTN_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (login_BTN.Content == "Login")
             {
-                login loginWindow = new login();
-                loginWindow.ShowDialog();
-                //if login unsuccesful
-                reInitializedData();
-                welcome_TB.Text = "welcome " + userStat + " " + userName;
+                try
+                {
+                    login loginWindow = new login();
+                    loginWindow.ShowDialog();
+                    //if login unsuccesful
+                    reInitializedData();
+                    welcome_TB.Text = "welcome " + userStat + " " + userName;
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception accured. please try again " + ex);
-            }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Exception accured. please try again " + ex);
+                }
+            
+        }else{
+        reInitializedData();
         }
+
+    }
 
         private void saveChanges_BTN_Click(object sender, RoutedEventArgs e)
         {

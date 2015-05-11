@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Util
 {
-    public class Admin
+    public class Admin: User
     {
+        public Admin(string name, string password, string email, int phone, string firstName, string lastName)
+            : base(name,password,email,phone,firstName,lastName)
+        {
+        }
     }
 }

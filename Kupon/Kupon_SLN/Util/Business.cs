@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,94 +8,62 @@ namespace Util
 {
     public class Business
     {
-        
-       
-        private String _ID;
+        private string Id;
+        private string name;
+        private string city;
+        private string street;
+        private int number;
+        private string description;
+        private string catagory;
+        private Manager manager;
 
-        public String ID
+        public Business(string id, string name, string city, string street, int number, string description, string catagory, Manager manager)
         {
-            get { return _ID; }
-            set { _ID = value;
-            NotifyPropertyChanged("ID");
-            }
-        }
-        private String _name;
-
-        public String Name
-        {
-            get { return _name; }
-            set { _name = value;
-            NotifyPropertyChanged("Name");
-            }
-        }
-        private string _description;
-
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value;
-            NotifyPropertyChanged("Description");
-            }
-        }
-        private string _Longitude;
-
-        public string Longitude
-        {
-            get { return _Longitude; }
-            set { _Longitude = value;
-            NotifyPropertyChanged("Longitude");
-            }
+            this.Id = id;
+            this.name = name;
+            this.city = city;
+            this.street = street;
+            this.number = number;
+            this.description = description;
+            this.catagory = catagory;
+            this.manager=manager;
         }
 
-        private string _Latitude;
-         public string Latitude
+        public string getId()
         {
-            get { return _Latitude; }
-            set { _Latitude = value;
-            NotifyPropertyChanged("Latitude");
-            }
+            return Id;
         }
 
-         private List<string> _Categorys;
-         public List<string> Categorys
+        public string getName()
         {
-            get { return _Categorys; }
-            set { _Categorys = value;
-            NotifyPropertyChanged("Categorys");
-            }
-        }
-   
-
-        public Business(String _ID1, String _name1, String _description1, String _Latitude1,String _Longitude1,List<string> _Categorys1)
-        {
-            // TODO: Complete member initialization
-            this._ID = _ID1;
-            this._name = _name1;
-            this._description = _description1;
-            this._Latitude = _Latitude1;
-            this._Latitude = _Longitude1;
-            this._Categorys = _Categorys1;
-        }
-        
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-       
-
-        #endregion
-
-        #region Private Helpers
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            return name;
         }
 
-        #endregion
-      
+        public string getCity()
+        {
+            return city;
+        }
+        public string getStreet(){
+            return street;
+        }
+        public int getNumber()
+        {
+            return number;
+        }
+        public string getDescription()
+        {
+            return description;
+        }
+        public string getCatagory()
+        {
+            return catagory;
+        }
+        public Manager getManger()
+        {
+            return manager;
+        }
+        public void setManager(Manager manager){
+            this.manager = manager;
+        }
     }
 }
-

@@ -58,6 +58,15 @@ namespace Util
             {
                 return number;
             }
+            public void setKupons(List<Kupon> kupons)
+            {
+                this.kupons = kupons;
+            }
+
+            public void setFavor(List<string> favorites)
+            {
+                this.favoriets = favoriets;
+            }
 
         public void addKupon(Kupon kupon)
         {

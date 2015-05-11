@@ -20,11 +20,12 @@ namespace BSL
             Kupon getKupon(String kouponID);
             void updateKupon(Kupon updated);
             void addNewUser(User user);
-            User logIn(String userName, String Pass);
+            User logIn(string userName, string Pass, double latitude, double longtitude);
             void logOut(String userName);
             void restorUserPass(String userrName);
-            void updateUser(List<UserParameters> parameterName, List<String> parameterValue);
+            void updateUser(User user);
             bool useKupon(String kouponID);
             string getNewKuponID();
+
     }
 }

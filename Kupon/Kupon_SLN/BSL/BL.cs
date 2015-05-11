@@ -144,27 +144,26 @@ namespace BSL
         {
         }
 
-        public List<Business> searchBusiness (buisnessCategory category, string city, double latitude, double longtitude)
+        public List<Business> searchBusiness (buisnessCategory category, double latitude, double longtitude)
         {
             if (category != null)
             {
-                if (city != null)
-                    return dataBase.searchBusinessByCityAndCategory(city, category);
-                return dataBase.searchBusinessByCatagory(category);
+                if (latitude !=  0&& longtitude != 0)
+                    return dataBase.searchBusinessBycatagory_location(category.ToString(), latitude,longtitude,100);
+                return dataBase.searchBusinessBycatagory(category.ToString());
             }
-            if (city != null)
-                return dataBase.searchBusinessByCity(city);
+            return null;
         }
 
         public List<Kupon> searchKoupon (buisnessCategory category, string city, double latitude, double longtitude)
         {
             if (category != null)
             {
-                if (city != null)
-                    return dataBase.searchKuponByCityAndCategory(category, city);
-                return dataBase.searchKuponByCatagory(category);
+                if (latitude !=  0&& longtitude != 0)
+                    return dataBase.searchKuponByCatagory_location(category.ToString(),latitude,longtitude,1000);
+                return dataBase.searchKuponByCatagory(category.ToString());
             }
-                return dataBase.searchKuponByCity(city);
+                return null;
         }
 
         public void updateKupon(Kupon updated)
@@ -222,26 +221,13 @@ namespace BSL
             return null;
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/TomN
         public void addNewBusiness(Business newBusiness, string userrName)
         {
             throw new NotImplementedException();
         }
 
-<<<<<<< HEAD
-        User IBSL.logIn(string userName, string Pass)
-=======
         public List<Business> searchBusiness(List<buisnessParameters> parameterName, List<string> parameterValue)
->>>>>>> refs/remotes/origin/TomN
-        {
-            throw new NotImplementedException();
-        }
 
-<<<<<<< HEAD
-        public void logOut(string userName)
         {
             throw new NotImplementedException();
         }
@@ -250,11 +236,5 @@ namespace BSL
         {
             return Guid.NewGuid().ToString("N");
         }
-=======
-        public User logIn(string userName, string Pass)
-        {
-            throw new NotImplementedException();
-        }
->>>>>>> refs/remotes/origin/TomN
     }
 }

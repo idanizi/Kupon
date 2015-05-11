@@ -32,7 +32,7 @@ namespace Kupon_WPF.forms.search
         {
             InitializeComponent();
             this.main = main;
-            Category_LB.ItemsSource = Categoris.getList();
+            //Category_LB.ItemsSource = Categoris.getList();
            
            
         }

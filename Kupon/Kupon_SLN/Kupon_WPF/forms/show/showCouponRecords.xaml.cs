@@ -28,7 +28,7 @@ namespace Kupon_WPF.forms.show
      //   public ICollectionView GroupedCustomers { get; private set; }
         public List<Kupon> dataList = new List<Kupon>();
         private User user = null;
-        private IBSL server = new BL();
+        private BL server = new BL();
         //CollectionViewSource itemCollectionViewSource;
 
 
@@ -83,7 +83,7 @@ public    showCouponRecords(MainWindow main)
                List<buisnessCategory> favorits = ((Client)user).getFavorits();
                foreach(buisnessCategory category in favorits){
          
-               dataList.AddRange(server.searchKoupon(category,null,main.UserLongtitude,main.UserLatitude));
+               dataList.AddRange(server.searchKoupon(category,main.UserLongtitude,main.UserLatitude));
                }
                 Data_Grid.DataContext = dataList;
            }

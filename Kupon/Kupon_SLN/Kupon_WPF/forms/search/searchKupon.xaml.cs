@@ -24,7 +24,7 @@ namespace Kupon_WPF.forms.search
         double latitude;
         double longtitude;
         MainWindow main;
-        IBSL server = new BL();
+        BL server = new BL();
         public searchKupon(MainWindow main)
         {
             InitializeComponent();
@@ -52,32 +52,23 @@ namespace Kupon_WPF.forms.search
         private void searchKupon_BTN_Click(object sender, RoutedEventArgs e)
         {
        try{
-           List<Kupon> kupons;
-          //  if (validateFields())
-           if(pickCategory_CB.Text == "Location") {
+            if (validateFields())
+            {
                 List<KuponParameters> ParameterType = new List<KuponParameters>() {KuponParameters.CATEGORY};
                 List<String> ParameterValue = new List<String>() { Category_LB.SelectedItem.ToString()};
-                 kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue, null,latitude,longtitude);   //TODO  
-                
-            }else if(pickCategory_CB.Text == "Business"){
-
-            
-           }else if(pickCategory_CB.Text == "Category"){
-
-            
-           }else{
-
+                 List<Kupon> kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue,latitude,longtitude);  
+                 if (kupons.Count > 0)
+                 {
+                   MainWindow.setKuponData(kupons);
+                     this.Close();
+                 }
+                 else
+                 {
+                     MessageBox.Show("didn't found any cupon :( .");
+                 }
+            }else{
                    MessageBox.Show("wrong parameters. please try again.");
             }
-           if (kupons.Count > 0)
-           {
-               MainWindow.setKuponData(kupons);
-               this.Close();
-           }
-           else
-           {
-               MessageBox.Show("didn't found any cupon :( .");
-           }
        }
 
            catch{

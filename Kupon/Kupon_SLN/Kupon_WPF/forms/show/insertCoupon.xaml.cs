@@ -24,11 +24,11 @@ namespace Kupon_WPF.forms.show
     {
          string kuponCode = "";
          IBSL server = (IBSL)new object();
-            string ID;
-        public insertCoupon(String ID)
+         MainWindow main;
+        public insertCoupon(MainWindow main)
         {
             InitializeComponent();
-            this.ID = ID;
+            this.main = main;
         }
 
         private void CheckCode_BTN_Click(object sender, RoutedEventArgs e)

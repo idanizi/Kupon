@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Util
 {
-    public enum KuponParameters {};
-    public enum Status { NEW, APPROVED, ACTIVE,USED };
+    public enum KuponParameters { LONGTITUDE, LATITUDE, CATEGORY };
+    public enum KuponStatus { NEW, APPROVED, ACTIVE, USED };
     public class Kupon
     {
         private string ID;

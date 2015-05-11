@@ -22,24 +22,14 @@ namespace Kupon_WPF.forms.search
     {
 
         string creator;
-        String Latitude;
-        String Longitude;
-        GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
-        CivicAddress add = new CivicAddress();
-
-        public searchKupon()
+        MainWindow main;
+        IBSL server = new BL();
+        public searchKupon(MainWindow main)
         {
             InitializeComponent();
-            mGeoWatcher.Start();
-            mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
-            mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
-            Category_LB.ItemsSource = Categoris.getList();
+            this.main = main;
         }
 
-        void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
-        {
-            Location_TB.Text = mGeoWatcher.Position.Location.ToString();
-        }
 
 
         private bool validateFields()
@@ -59,30 +49,31 @@ namespace Kupon_WPF.forms.search
 
         private void searchKupon_BTN_Click(object sender, RoutedEventArgs e)
         {
-       /*
+       try{
             if (validateFields())
             {
-                if (Location_TB.Text == "Near my location")
-                {
-
-                }
-                List<String> ParameterType = new List<String> { "Business", "Location", "Category"};
-                List<String> ParameterValue = new List<String> { Business_TB.Text, Location_TB.Text, Category_LB.SelectedItem.ToString()};
-                /* List<String> kupons =  server.addNewKupon(ParameterType, ParameterValue);   //TODO  
-                 if (!server.searchCoupon(ParameterType, ParameterValue))
+                List<KuponParameters> ParameterType = new List<KuponParameters>() {KuponParameters.CATEGORY};
+                List<String> ParameterValue = new List<String>() { Category_LB.SelectedItem.ToString()};
+                 List<Kupon> kupons =  server.searchKoupon(ParameterType, ParameterValue);   //TODO  
+                 if (kupons.Count > 0)
                  {
-                   
+                   MainWindow.setKuponData(kupons);
                      this.Close();
                  }
                  else
                  {
-                     MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+                     MessageBox.Show("didn't found any cupon :( .");
                  }
-                ((MainWindow)this.Parent).mainRecordFrame.Navigate(new show.showCouponPage(kupons));*/
-            Close();
+            }else{
+                   MessageBox.Show("wrong parameters. please try again.");
             }
+       }
 
-     
+           catch{
+                  MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+           }
+       }
+        }
 
         public void setLocation(double Longitude, double Latitude)
         {
@@ -93,7 +84,7 @@ namespace Kupon_WPF.forms.search
 
         private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)
         {
-            show.map map = new show.map();
+            show.map map = new show.map(main);
             map.Owner = this;
             map.ShowDialog();
         }

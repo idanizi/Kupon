@@ -24,17 +24,14 @@ namespace Kupon_WPF.forms.search
         string creator;
         String Latitude;
         String   Longitude;
+        MainWindow main;
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
 
-        public searchBusiness()
+        public searchBusiness(MainWindow main)
         {
             InitializeComponent();
-            mGeoWatcher.Start();
-            mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
-            mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
-            Latitude = "";
-            Longitude = "";
+            this.main = main;
             Category_LB.ItemsSource = Categoris.getList();
            
            
@@ -101,7 +98,7 @@ namespace Kupon_WPF.forms.search
 
         private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)
         {
-            show.map map = new show.map();
+            show.map map = new show.map(main);
             map.Owner = this;
             map.ShowDialog();
         }

@@ -60,5 +60,10 @@ namespace Util
             }
 
 
+
+            public List<string> getFavorits()
+            {
+                throw new NotImplementedException();
+            }
     }
 }

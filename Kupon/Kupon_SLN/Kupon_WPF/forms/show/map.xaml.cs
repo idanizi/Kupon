@@ -20,18 +20,18 @@ namespace Kupon_WPF.forms.show
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
+   
     public partial class map : Window
     {
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         LocationConverter locConverter = new LocationConverter();
         Pushpin pin;
-        public map()
+        MainWindow main;
+        public map(MainWindow main)
         {
             InitializeComponent();
+            this.main = main;
              Map.Focus();
-             mGeoWatcher.Start();
-             mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
-             mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
              pin = new Pushpin();
              Location pinLocation = Map.Center;
              pin.Location = pinLocation;
@@ -42,8 +42,8 @@ namespace Kupon_WPF.forms.show
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-            Map.Center.Latitude = mGeoWatcher.Position.Location.Latitude;
-                 Map.Center.Longitude = mGeoWatcher.Position.Location.Longitude;
+            Map.Center.Latitude = main.UserLatitude;
+            Map.Center.Longitude = main.UserLongtitude;
         }
 
         private void Map_MouseDoubleClick(object sender, MouseButtonEventArgs e)

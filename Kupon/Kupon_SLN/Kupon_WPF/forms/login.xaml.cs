@@ -21,71 +21,30 @@ namespace Kupon_WPF
     /// </summary>
     public partial class login : Window
     {
+        MainWindow main;
         IBSL server;
-        public login()
+        public login(MainWindow main)
         {
             InitializeComponent();
-      //      server = (IBSL) new object();
+            server =  new BL();
+            this.main = main;
           
         }
         private void loginClick(object sender, RoutedEventArgs e)
         {
-           // Find login = new Find();
-            try
-            {
-                if (/*.isNumber(IDTB.Text)*/true)
-                {
-
-                    if (/*user.userIDCheck(MainWindow.UserID) || ((Convert.ToInt32(IDTB.Text) >=0) && (Convert.ToInt32(IDTB.Text) <= 4))*/true)
-                    {
-                        //MainWindow.UserID = Convert.ToInt32(IDTB.Text);
-                        //   User user = server.connectUser(IDTB.Text, passwordPB.Password);
-                        MainWindow.UserStat = "Admin";
-                        /*       if (user != null) { 
-                               MainWindow.UserStat = user.getStatus();
-                               MainWindow.UserName = user.getFirstName() + " " + user.getLastName();
+            try{
+            if(username_TB.Text != "" & password_PB.Password != ""){
+           User user = server.logIn(username_TB.Text,password_PB.Password);
+                     
+            if (user != null) { 
+                               main.CurrUser = user;
+                 this.Close();
                                 } 
-                           else MessageBox.Show("in correct username or password,please try again", "error");
-                           }*/
-                    }
-                    else MessageBox.Show("illegale ID,please try again", "error");
-                }
-                else
-                {
-                    MessageBox.Show("illegale ID,please try again", "error");
-                }
-              
-
-                switch (MainWindow.UserStat)
-                {
-                    case "Admin":
-                        MainWindow.UserStat = "Admin";
-                        DialogResult = true;
-                        this.Close();
-                        break;
-
-                    case "doctor":
-                        MainWindow.UserStat = "doctor";
-                        DialogResult = true;
-                        this.Close();
-                        break;
-
-                    case "patient":
-                        MainWindow.UserStat = "patient";
-                        DialogResult = true;
-                        this.Close();
-                        break;
-
-                    case "false":
-                        MessageBox.Show("unknown ID or incorrect password, please try again", "unknown user or password");
-                        break;
-
-                    case "defualt":
-                        MessageBox.Show("there was an error login to the database. if this error repeats, please contact your system administrator.");
-                        break;
-                }
-            }
-
+                           else MessageBox.Show("incorrect username or password,please try again", "error");
+                           }
+                    else MessageBox.Show("illegale input", "error");
+        }
+               
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "exception");
@@ -112,7 +71,7 @@ namespace Kupon_WPF
 
         private void IDTB_GotFocus(object sender, RoutedEventArgs e)
         {
-            IDTB.Text = "";
+            username_TB.Text = "";
         }
 
         private void IDTB_TextChanged(object sender, TextChangedEventArgs e)

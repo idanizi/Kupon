@@ -31,25 +31,21 @@ namespace Kupon_WPF
     {
 
         //getters & setters
-        private  User user = null;
-        private static String userStat = "Ghost";
-        private static String userLatitude = "Loading";
-        private static String userLongtitude = "Loading";
+        private static User user = null;
+        private static double userLatitude = 0;
+        private static double userLongtitude = 0;
 
 
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
 
 
-        public static String UserStat { get { return userStat; } set { userStat = value; } }
+        public User CurrUser { get { return user; } set { user = value; } }
 
-        public static String UserLatitude { get { return userLatitude; } set { userLatitude = value; } }
+        public double UserLatitude { get { return userLatitude; } set { userLatitude = value; } }
 
-        public static String UserLongtitude { get { return userLongtitude; } set { userLongtitude = value; } }
+        public double UserLongtitude { get { return userLongtitude; } set { userLongtitude = value; } }
 
-        public static String UserStat { get { return userLongtitude; } set { userLongtitude = value; } }
-        private static String userName { get; set; }
-        public static String UserName { get { return userName; } set { userName = value; } }
         private showCouponRecords couponRecords;
         public IBSL server;
 
@@ -78,27 +74,24 @@ namespace Kupon_WPF
            
 
             //patient can't add new records
-            if (userStat == "Admin")
+            couponRecords = new showCouponRecords(this);
+            if (user.GetType is Admin)
             {
-                couponRecords = new showCouponRecords(userStat,);
                 saveChanges_BTN.Visibility = Visibility.Visible;
                  userSetting_BTN.IsEnabled = true;
                  login_BTN.Content = "Logout";
             }
-            else if (userStat == "Business")
+            else if (user.GetType is Business)
             {
-                couponRecords = new showCouponRecords("Business");
                 login_BTN.Content = "Logout";
             }
-            else if (userStat == "User")
+            else if (user.GetType is Client)
             {
-                couponRecords = new showCouponRecords("User");
                 userSetting_BTN.IsEnabled = true;
                 login_BTN.Content = "Logout";
             }
-            else if (userStat == "Ghost")
+            else
             {
-                couponRecords = new showCouponRecords("Ghost");
                 userSetting_BTN.IsEnabled = false;
                 login_BTN.Content = "Login";
             }
@@ -124,11 +117,11 @@ namespace Kupon_WPF
             {
                 try
                 {
-                    login loginWindow = new login();
+                    login loginWindow = new login(this);
                     loginWindow.ShowDialog();
                     //if login unsuccesful
                     reInitializedData();
-                    welcome_TB.Text = "welcome " + userStat + " " + userName;
+                    welcome_TB.Text = "welcome "  + user.getName();
 
                 }
                 catch (Exception ex)
@@ -146,7 +139,10 @@ namespace Kupon_WPF
         {
             try
             {
-                server.updateKupon(couponRecords.dataList);
+                foreach (Kupon kupon in couponRecords.dataList)
+                {
+                    server.updateKupon(kupon);
+                }
             }
             catch (Exception ex)
             {
@@ -164,7 +160,7 @@ namespace Kupon_WPF
 
         private void addNewKupon_BTN_Click(object sender, RoutedEventArgs e)
         {
-            forms.add.addNewKupon registerWindow = new forms.add.addNewKupon(userName);
+            forms.add.addNewKupon registerWindow = new forms.add.addNewKupon(this);
             registerWindow.ShowDialog();
         }
 
@@ -176,7 +172,7 @@ namespace Kupon_WPF
 
         private void addBusiness_BTN_Click(object sender, RoutedEventArgs e)
         {
-            forms.add.addBusiness registerWindow = new forms.add.addBusiness(userName);
+            forms.add.addBusiness registerWindow = new forms.add.addBusiness(this);
             registerWindow.ShowDialog();
         }
 
@@ -203,11 +199,21 @@ namespace Kupon_WPF
 
         private void insertCoupon_BTN_Click(object sender, RoutedEventArgs e)
         {
-            forms.show.insertCoupon registerWindow = new forms.show.insertCoupon(UserName);
+            forms.show.insertCoupon registerWindow = new forms.show.insertCoupon(this);
             registerWindow.ShowDialog();
         }
 
 
 
+
+        internal static void setData(List<Kupon> kupons)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void setKuponData(List<Kupon> kupons)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

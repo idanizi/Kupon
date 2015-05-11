@@ -19,19 +19,18 @@ namespace Kupon_WPF.forms.add
 {
     public partial class addBusiness : Window, IMapped
     {
-        String Latitude;
-        String Longitude;
-        string creator;
+
+        MainWindow main;
         //IBSL server = (IBSL)new object();
         public addBusiness()
         {
             InitializeComponent();
         }
 
-        public addBusiness(string creator)
+        public addBusiness(MainWindow main)
         {
             InitializeComponent();
-            this.creator = creator;
+            this.main = main;
 
             Category_LB.ItemsSource = Categoris.getList(); ;
         }
@@ -39,9 +38,8 @@ namespace Kupon_WPF.forms.add
 
         public void setLocation(double Longitude, double Latitude)
         {
-            Location_TB.Text = Longitude + " , " + Longitude;
-            this.Latitude = Latitude.ToString();
-            this.Longitude = Longitude.ToString();
+            Location_TB.Text = main.UserLongtitude + " , " + main.UserLatitude;
+
         }
 
         private bool validateFields()
@@ -97,7 +95,7 @@ namespace Kupon_WPF.forms.add
 
         private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)
         {
-            show.map map = new show.map();
+            show.map map = new show.map(main);
             map.Owner = this;
             map.ShowDialog();
         }

@@ -15,9 +15,11 @@ namespace Util
         NUMBER,
         DESCRIPTION,
         CATEGORY,
-        MANAGER
+        MANAGER,
+        LATITUDE,
+        LONGTITUDE
  }
-    public class Business
+    public class Business : User
     {
         private string Id;
         private string name;

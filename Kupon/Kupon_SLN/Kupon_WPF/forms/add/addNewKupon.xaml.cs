@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BSL;
+using Util;
 using System.Text.RegularExpressions;
 namespace Kupon_WPF.forms.add
 {
@@ -21,9 +22,11 @@ namespace Kupon_WPF.forms.add
 
         string creator;
         IBSL server = new BL();
-        public addNewKupon()
+        MainWindow main;
+        public addNewKupon(MainWindow main)
         {
             InitializeComponent();
+            this.main = main;
         }
 
         public addNewKupon(string creator)
@@ -58,22 +61,24 @@ namespace Kupon_WPF.forms.add
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-       
-            if (validateFields())
-            {
-                List<String> ParameterType = new List<String> { "Name", "Catagory", "OrgPrice", "DiscPrice", "ExpDate","Creator" };
-                List<String> ParameterValue = new List<String> { Name_TB.Text, Catagory_TB.Text, OrgPrice_TB.Text, DiscPrice_TB.Text,ExpDate_DP.Text,creator};
-                        server.addNewKupon(ParameterType, ParameterValue);  
-                 if (server.searchCoupon(ParameterType, ParameterValue)).Count >= 1))
-                 {
+            try {
+                if (validateFields())
+                {
+                    //  List<String> ParameterType = new List<String> { KuponParameters., "Catagory", "OrgPrice", "DiscPrice", "ExpDate","Creator" };
+                    //   List<String> ParameterValue = new List<String> { Name_TB.Text, Catagory_TB.Text,int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text),ExpDate_DP.Text,creator};
+                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", (Business)main.CurrUser);
+                    server.addNewKupon(kupon, main.CurrUser.getName());
                      MessageBox.Show("kupon added to the system and waiting to admin approvel.");
-                     this.Close();
-                 }
-                 else
-                 {
-                     MessageBox.Show("error while trying to add the kupon to the system. please try again.");
-                 }
                 this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+                }
+            }catch{
+                MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+            }
+               
             }
         }
  }

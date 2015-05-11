@@ -6,3 +6,6 @@ c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Kupon_dat
 c:\users\idan\documents\visual studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\obj\Debug\Kupon_databaseTest.pdb
 C:\Users\idan\Documents\Visual Studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\bin\Debug\KuponDatabase.mdf
 C:\Users\idan\Documents\Visual Studio 2013\Projects\Kupon_databaseTest\Kupon_databaseTest\bin\Debug\KuponDatabase_log.ldf
+C:\Users\user\matan\לימודים\Kupon\Kupon_databaseTest1\Kupon_databaseTest\bin\Debug\Kupon_databaseTest.exe.config
+C:\Users\user\matan\לימודים\Kupon\Kupon_databaseTest1\Kupon_databaseTest\obj\Debug\Kupon_databaseTest.exe
+C:\Users\user\matan\לימודים\Kupon\Kupon_databaseTest1\Kupon_databaseTest\obj\Debug\Kupon_databaseTest.pdb

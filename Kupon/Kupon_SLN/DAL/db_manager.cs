@@ -277,7 +277,7 @@ namespace DAL
             string username;
             string query = "select * from [User] where [User].name = '"+admin.getName()+"' AND [User].access='"+"Admin"+"';";
             SqlDataReader dr = sendAndReciveQuery(query);
-            if (dr.Read())
+            if (dr!=null&&dr.Read())
             {
             username = dr.GetString(0);
             dr.Close();
@@ -303,7 +303,7 @@ namespace DAL
             string username;
             string query = "select * from [User] where [User].name = '" + manager.getName() + "' AND [User].access='" + "Manager" + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
-            if (dr.Read())
+            if (dr!=null&&dr.Read())
             {
                 username = dr.GetString(0);
                 dr.Close();
@@ -318,7 +318,7 @@ namespace DAL
             string username;
             string query = "select * from [User] where [User].name = '" + client.getName() + "' AND [User].access='" + "Client" + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
-            if (dr.Read())
+            if (dr!=null&&dr.Read())
             {
                 username = dr.GetString(0);
                 dr.Close();
@@ -330,12 +330,46 @@ namespace DAL
 
         private Client create_client(string username)
         {
+            List<Kupon> kupons = new List<Kupon>();
+            List<string> kuponId = new List<string>();
+            List<string> favorites = new List<string>();
             string query = "select * from [User] where name='" + username + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
+
             dr.Read();
-            Client client = new Client(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6),new List<string>(),new List<Kupon>(),"ls","dF",-1);
+            Client client = new Client(dr.GetString(0), dr.GetString(2), dr.GetString(1), dr.GetString(3), dr.GetString(5), dr.GetString(6), new List<string>(), new List<Kupon>(), dr.GetString(7), dr.GetString(8), dr.GetInt32(9));
             dr.Close();
             cnn.Close();
+            
+            query = "select * from [UserKupon] where name='" + username + "' AND status = 'ACTIVE';";
+            dr = sendAndReciveQuery(query);
+            
+            while (dr!=null&&dr.Read())
+            {
+                kuponId.Add(dr.GetString(2));
+            }
+            if (dr != null)
+            {
+                dr.Close();
+                cnn.Close();
+            }
+            foreach (string kupon in kuponId)
+            {
+                kupons.Add(create_kupon(kupon));
+            }
+            query = "select * from [userFavorites] where name='" + username + "';";
+            dr = sendAndReciveQuery(query);
+            while (dr!=null&&dr.Read())
+            {
+                favorites.Add(dr.GetString(1));
+            }
+            if (dr != null)
+            {
+                dr.Close();
+                cnn.Close();
+            }
+            client.setFavor(favorites);
+            client.setKupons(kupons);
             return client;
         }
 
@@ -424,7 +458,7 @@ namespace DAL
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
-                Console.Read();
+                cnn.Close();
             }
             return dr;
         }

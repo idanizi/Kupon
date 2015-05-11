@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Util
 {
+    public enum KuponParameters {};
     public enum Status { NEW, APPROVED, ACTIVE,USED };
     public class Kupon
     {
@@ -32,6 +33,19 @@ namespace Util
             this.serialKey = serialKey;
             this.business = business;
             this.rank = rank;
+        }
+        public Kupon(string ID)
+        {
+            this.ID = ID;
+            this.name = null;
+            this.description = null;
+            this.status = Status.ACTIVE;
+            this.originalPrice = -1;
+            this.dicountPrice = -1;
+            this.lastDate = new DateTime();
+            this.serialKey = null;
+            this.business = null;
+            this.rank = -1;
         }
 
         public string getID(){
@@ -81,6 +95,10 @@ namespace Util
 
         public void setRank(int rank){
             this.rank=rank;
+        }
+
+        public void setStatus(Status status){
+            this.status=status;
         }
 
     }

@@ -13,6 +13,7 @@ namespace DAL
         void add_kupon(Kupon kupon);
         void update_kupon(Kupon kupon);
         void delete_kupon(Kupon kupon);
+        Kupon searchKuponByID(Kupon kupon);
         //admin
         void add_admin(Admin admin);
         void update_admin(Admin admin);
@@ -40,6 +41,7 @@ namespace DAL
         List<Kupon> searchKuponByCatagory(string catagory);
         List<Kupon> searchKuponByAddress(string city,string street,int number);
         List<Kupon> searchKuponByUser(User user);
+        List<Kupon> searchKuponByStatus(Status status);
         //location
         void add_location_user(User user,double vertical,double horizontal);
         //userKupons

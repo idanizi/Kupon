@@ -21,13 +21,15 @@ namespace Kupon_WPF.forms.search
     public partial class searchKupon : Window , IMapped
     {
 
-        string creator;
+        double Latitude;
+        double Longtitude;
         MainWindow main;
         IBSL server = new BL();
         public searchKupon(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
+            Location_TB.Text = main.UserLatitude + " , " + main.UserLongtitude;
         }
 
 
@@ -73,13 +75,13 @@ namespace Kupon_WPF.forms.search
                   MessageBox.Show("error while trying to add the kupon to the system. please try again.");
            }
        }
-        }
 
         public void setLocation(double Longitude, double Latitude)
         {
+            this.Latitude = Latitude;
+            this.Longtitude = Longitude;
             Location_TB.Text = Longitude +" , "+ Longitude;
-            this.Latitude = Latitude.ToString();
-            this.Longitude = Longitude.ToString();
+
         }
 
         private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)

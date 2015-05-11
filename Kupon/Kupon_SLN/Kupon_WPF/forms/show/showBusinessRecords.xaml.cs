@@ -89,8 +89,8 @@ public    showBusinessRecords(MainWindow main)
            {
                List<String> favorits = ((Client)user).getFavorits();
                foreach(String category in favorits){
-         
-               dataList.AddRange(server.searchBusiness(new List<KuponParameters>{KuponParameters.LONGTITUDE,KuponParameters.LATITUDE,KuponParameters.CATEGORY},new List<string>{main.UserLongtitude,main.UserLatitude,category}));
+
+                   dataList.AddRange(server.searchBusiness(new List<buisnessParameters> { buisnessParameters.LONGTITUDE, buisnessParameters.LATITUDE, buisnessParameters.CATEGORY }, new List<string> { main.UserLongtitude.ToString(), main.UserLatitude.ToString(), category }));
                }
                 Data_Grid.DataContext = dataList;
            }

@@ -8,13 +8,13 @@ using Util;
 
 namespace BSL
 {
-    class BL:IBSL
+    public class BL:IBSL
     {
         //fields
         private IDAL dataBase;
 
         //constructor
-        public BL(IDAL dataBase)
+        public BL()
         {
             this.dataBase = dataBase;
         }
@@ -47,7 +47,7 @@ namespace BSL
         add func ClientsByCity(newKupon.getBusiness().getCity()) in DAL.talk to matan*/
         public void approveNewKupon(Kupon newKupon)
         {
-            newKupon.setStatus(Status.APPROVED);
+            newKupon.setStatus(KuponStatus.APPROVED);
             dataBase.update_kupon(newKupon);
         }
 
@@ -122,7 +122,7 @@ namespace BSL
 
         public List<Kupon> getKuponForApproval(int numOfKupon)
         {
-            return dataBase.searchKuponByStatus(Status.NEW);
+            return dataBase.searchKuponByStatus(KuponStatus.NEW);
         }
 
         public void restorUserPass(string userrName)

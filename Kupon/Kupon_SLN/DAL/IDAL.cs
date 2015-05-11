@@ -42,12 +42,12 @@ namespace DAL
         List<Kupon> searchKuponByCatagory(string catagory);
         List<Kupon> searchKuponByAddress(string city,string street,int number);
         List<Kupon> searchKuponByUser(User user);
-        List<Kupon> searchKuponByStatus(Status status);
+        List<Kupon> searchKuponByStatus(KuponStatus status);
         List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius);
         //location
         void add_location_user(User user,double vertical,double horizontal);
         //userKupons
         void add_userKupon(User user, Kupon kupon);
-        
+
     }
 }

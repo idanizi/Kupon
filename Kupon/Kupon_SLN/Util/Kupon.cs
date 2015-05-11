@@ -13,7 +13,7 @@ namespace Util
         private string ID;
         private string name;
         private string description;
-        private Status status;
+        private KuponStatus status;
         private int originalPrice;
         private int rank;
         private int dicountPrice;
@@ -21,7 +21,7 @@ namespace Util
         private string serialKey;
         private Business business;
 
-        public Kupon(string ID,int rank, string name, string description, Status status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
+        public Kupon(string ID, int rank, string name, string description, KuponStatus status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
         {
             this.ID = ID;
             this.name = name;
@@ -39,7 +39,7 @@ namespace Util
             this.ID = ID;
             this.name = null;
             this.description = null;
-            this.status = Status.ACTIVE;
+            this.status = KuponStatus.ACTIVE;
             this.originalPrice = -1;
             this.dicountPrice = -1;
             this.lastDate = new DateTime();
@@ -65,7 +65,8 @@ namespace Util
             return description;
         }
 
-        public Status getStatus(){ 
+        public KuponStatus getStatus()
+        { 
             return status;
         }
 
@@ -97,7 +98,8 @@ namespace Util
             this.rank=rank;
         }
 
-        public void setStatus(Status status){
+        public void setStatus(KuponStatus status)
+        {
             this.status=status;
         }
 

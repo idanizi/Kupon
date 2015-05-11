@@ -77,25 +77,49 @@ namespace Kupon_WPF
             couponRecords = new showCouponRecords(this);
             if (user.GetType is Admin)
             {
+                myKupons_BTN.Visibility = System.Windows.Visibility.Hidden;
+                addBusiness_BTN.Visibility = System.Windows.Visibility.Visible;
+                addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 saveChanges_BTN.Visibility = Visibility.Visible;
-                 userSetting_BTN.IsEnabled = true;
+                register_BTN.Visibility = System.Windows.Visibility.Hidden;
+                userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
+                insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                  login_BTN.Content = "Logout";
             }
             else if (user.GetType is Business)
             {
+                myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
+                addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
+                addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
+                saveChanges_BTN.Visibility = Visibility.Hidden;
+                register_BTN.Visibility = System.Windows.Visibility.Hidden;
+                userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
+                insertCoupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 login_BTN.Content = "Logout";
             }
             else if (user.GetType is Client)
             {
-                userSetting_BTN.IsEnabled = true;
+                myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
+                addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
+                addNewKupon_BTN.Visibility = System.Windows.Visibility.Hidden;
+                saveChanges_BTN.Visibility = Visibility.Hidden;
+                register_BTN.Visibility = System.Windows.Visibility.Hidden;
+                userSetting_BTN.Visibility = System.Windows.Visibility.Visible;
+                insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Logout";
             }
             else
             {
-                userSetting_BTN.IsEnabled = false;
+                myKupons_BTN.Visibility = System.Windows.Visibility.Hidden;
+                addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
+                addNewKupon_BTN.Visibility = System.Windows.Visibility.Hidden;
+                saveChanges_BTN.Visibility = Visibility.Hidden;
+                register_BTN.Visibility = System.Windows.Visibility.Hidden;
+                userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
+                insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Login";
             }
-
+            buttons_GRD.Arrange(new Rect());
             mainRecordFrame.Navigate(couponRecords);
         }
 
@@ -119,7 +143,7 @@ namespace Kupon_WPF
                 {
                     login loginWindow = new login(this);
                     loginWindow.ShowDialog();
-                    //if login unsuccesful
+                    //if login succesful
                     reInitializedData();
                     welcome_TB.Text = "welcome "  + user.getName();
 
@@ -184,7 +208,7 @@ namespace Kupon_WPF
 
         private void searchKupons_BTN_Click(object sender, RoutedEventArgs e)
         {
-            forms.search.searchKupon searchKuponWin = new forms.search.searchKupon();
+            forms.search.searchKupon searchKuponWin = new forms.search.searchKupon(this);
             if (searchKuponWin != null) {
                 searchKuponWin.Owner = this;
             searchKuponWin.ShowDialog();

@@ -32,6 +32,7 @@ namespace Util
 
         public Business(string id, string name, string city, string street, int number, string description, string catagory, Manager manager)
         {
+        
             this.Id = id;
             this.name = name;
             this.city = city;

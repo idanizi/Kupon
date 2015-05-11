@@ -52,23 +52,32 @@ namespace Kupon_WPF.forms.search
         private void searchKupon_BTN_Click(object sender, RoutedEventArgs e)
         {
        try{
-            if (validateFields())
-            {
+           List<Kupon> kupons;
+          //  if (validateFields())
+           if(pickCategory_CB.Text == "Location") {
                 List<KuponParameters> ParameterType = new List<KuponParameters>() {KuponParameters.CATEGORY};
                 List<String> ParameterValue = new List<String>() { Category_LB.SelectedItem.ToString()};
-                 List<Kupon> kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue, null,latitude,longtitude);   //TODO  
-                 if (kupons.Count > 0)
-                 {
-                   MainWindow.setKuponData(kupons);
-                     this.Close();
-                 }
-                 else
-                 {
-                     MessageBox.Show("didn't found any cupon :( .");
-                 }
-            }else{
+                 kupons =  server.searchKoupon((buisnessCategory)Category_LB.SelectedValue, null,latitude,longtitude);   //TODO  
+                
+            }else if(pickCategory_CB.Text == "Business"){
+
+            
+           }else if(pickCategory_CB.Text == "Category"){
+
+            
+           }else{
+
                    MessageBox.Show("wrong parameters. please try again.");
             }
+           if (kupons.Count > 0)
+           {
+               MainWindow.setKuponData(kupons);
+               this.Close();
+           }
+           else
+           {
+               MessageBox.Show("didn't found any cupon :( .");
+           }
        }
 
            catch{

@@ -73,9 +73,14 @@ namespace Kupon_WPF
 
         private void reInitializedData()
         {
-           
-
-            //patient can't add new records
+            if (user != null)
+            {
+                welcome_TB.Text = "welcome " + user.getName();
+            }
+            else
+            {
+                welcome_TB.Text = "welcome ghost. Please log in";
+            }
             
             if (user is Admin)
             {
@@ -167,7 +172,7 @@ namespace Kupon_WPF
                     loginWindow.ShowDialog();
                     //if login succesful
                     reInitializedData();
-                    welcome_TB.Text = "welcome "  + user.getName();
+                    
 
                 }
                 catch (Exception ex)

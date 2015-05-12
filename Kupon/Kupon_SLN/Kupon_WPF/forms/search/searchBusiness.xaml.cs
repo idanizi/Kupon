@@ -119,7 +119,7 @@ namespace Kupon_WPF.forms.search
         {
             this.latitude = Latitude;
             this.longtitude = Longitude;
-            Value_TB.Text = Longitude + " , " + Longitude;
+            Value_TB.Text = Longitude + " , " + Latitude;
 
         }
 

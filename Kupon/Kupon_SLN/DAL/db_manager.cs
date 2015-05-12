@@ -17,7 +17,8 @@ namespace DAL
         public DB_manager()
         {
            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
@@ -91,10 +92,10 @@ namespace DAL
             string query = "INSERT into [User] values ('" + client.getName() + "','" + client.getEmail() + "','" + client.getPassword() + "','" + client.getPhone() + "','" + "Client" + "','" + client.getFirstName() + "','" + client.getLastName() + "','"+client.getCity()+"','"+client.getStreet()+"',"+client.getNumber()+");";
 
             sendQuery(query);
-           
-            foreach (string favor in client.getFavor())
+
+            foreach (buisnessCategory favor in client.getFavor())
             {
-                query = "INSERT into [userFavorites] values ('" + client.getName() + "','" + favor + "');";
+                query = "INSERT into [userFavorites] values ('" + client.getName() + "','" + favor.ToString() + "');";
                 sendQuery(query);
             }
 

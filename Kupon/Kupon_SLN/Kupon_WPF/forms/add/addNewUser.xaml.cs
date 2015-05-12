@@ -89,7 +89,7 @@ namespace Kupon_WPF.forms.add
 
             if (validateFields())
             {
-                Client newUser = new Client(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2",new List<string>(),new List<Kupon>(),"todo","todo",-1);   //TODO  
+                Client newUser = new Client(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2", new List<buisnessCategory>(), new List<Kupon>(), "todo", "todo", -1);   //TODO  
                 try
                 {
                     server.addNewUser(newUser);

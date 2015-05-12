@@ -8,16 +8,26 @@ namespace Util
 {
     public class Client: User
     {
-        private List<string> favoriets;
+        private List<buisnessCategory> favoriets;
         private List<Kupon> kupons;
         private string city;
         private string street;
         private int number;
 
-        public Client(string name, string password, string email, string phone, string firstName, string lastName, List<string> favor, List<Kupon> kupons, string city, string street, int number)
+        public Client(string name, string password, string email, string phone, string firstName, string lastName, List<buisnessCategory> favor, List<Kupon> kupons, string city, string street, int number)
             : base(name, password, email, phone, firstName, lastName)
         {
             this.favoriets = favor;
+            this.kupons = kupons;
+            this.city = city;
+            this.street = street;
+            this.number = number;
+        }
+
+        public Client(string name, string password, string email, string phone, string firstName, string lastName, List<string> favor, List<Kupon> kupons, string city, string street, int number)
+            : base(name, password, email, phone, firstName, lastName)
+        {
+            this.favoriets = catFromString(favor);
             this.kupons = kupons;
             this.city = city;
             this.street = street;
@@ -34,7 +44,7 @@ namespace Util
             this.number = -1;
         }
 
-            public List<string> getFavor()
+            public List<buisnessCategory> getFavor()
             {
                 return favoriets;
             }
@@ -63,9 +73,25 @@ namespace Util
                 this.kupons = kupons;
             }
 
-            public void setFavor(List<string> favorites)
+            public void setFavor(List<buisnessCategory> favorites)
             {
                 this.favoriets = favoriets;
+            }
+
+            public void setFavor(List<string> favorit)
+            {
+                this.favoriets = catFromString(favorit);
+            }
+
+            private List<buisnessCategory> catFromString(List<string> favoriets)
+            {
+                List<buisnessCategory> list = new List<buisnessCategory>();
+                foreach( string f in favoriets){
+                    buisnessCategory b;
+                    Enum.TryParse<buisnessCategory>(f,true,out b);
+                    list.Add (b);
+                }
+                return list;
             }
 
         public void addKupon(Kupon kupon)
@@ -75,7 +101,7 @@ namespace Util
 
         public List<buisnessCategory> getFavorits()
         {
-            throw new NotImplementedException();
+            return favoriets;
         }
     }
 }

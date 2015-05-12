@@ -10,7 +10,15 @@
         <DataGrid x:Name="Data_Grid" ItemsSource="{Binding}" AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Business Type" Binding="{Binding}" IsReadOnly="true" />
-                <DataGridCheckBoxColumn Header="Recive notefication" />
+                <DataGridCheckBoxColumn x:Name ="checkBox" Header="Recive notefication" >
+                <DataGridCheckBoxColumn.CellStyle>
+                    <Style>
+                    
+                        <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                            <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
+                        </Style>
+                </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

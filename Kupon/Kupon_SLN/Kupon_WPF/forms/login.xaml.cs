@@ -65,6 +65,7 @@ namespace Kupon_WPF
                 {
                     e.Cancel = true;
                 }
+                main.CurrUser = new User("Ghost");
 
             }
            

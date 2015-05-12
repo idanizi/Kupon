@@ -38,7 +38,7 @@ namespace Kupon_WPF
 
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
-
+        public List<buisnessCategory> pref = new List<buisnessCategory>();
 
         public User CurrUser { get { return user; } set { user = value; } }
 
@@ -53,6 +53,7 @@ namespace Kupon_WPF
         {
             InitializeComponent();
             server = new BL();
+           CurrUser = new User("Ghost");
             mGeoWatcher.Start();
             mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
             mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
@@ -75,7 +76,7 @@ namespace Kupon_WPF
 
             //patient can't add new records
             couponRecords = new showCouponRecords(this);
-            if (user.GetType is Admin)
+            if (user is Admin)
             {
                 myKupons_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Visible;
@@ -86,7 +87,7 @@ namespace Kupon_WPF
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                  login_BTN.Content = "Logout";
             }
-            else if (user.GetType is Manager)
+            else if (user is Manager)
             {
 
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
@@ -98,7 +99,7 @@ namespace Kupon_WPF
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 login_BTN.Content = "Logout";
             }
-            else if (user.GetType is Client)
+            else if (user is Client)
             {
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
@@ -119,8 +120,8 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Login";
-            }
-            buttons_GRD.Arrange(new Rect());
+            }  
+            buttons_GRD.UpdateLayout();
             mainRecordFrame.Navigate(couponRecords);
         }
 
@@ -164,16 +165,24 @@ namespace Kupon_WPF
         {
             try
             {
-                foreach (Kupon kupon in couponRecords.dataList)
+                if (user is Admin)
                 {
-                    server.updateKupon(kupon);
+
+                    foreach (Kupon kupon in couponRecords.dataList)
+                    {
+                        server.updateKupon(kupon);
+                    }
+
+
                 }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Exception accured. please try again \n" + ex);
             }
-        }
+
+    }
 
         private void register_BTN_Click(object sender, RoutedEventArgs e)
         {
@@ -192,7 +201,7 @@ namespace Kupon_WPF
 
         private void userSetting_BTN_Click(object sender, RoutedEventArgs e)
         {
-            mainRecordFrame.Navigate(new UserSettingPage());
+            mainRecordFrame.Navigate(new UserSettingPage(this));
         }
 
 
@@ -202,11 +211,6 @@ namespace Kupon_WPF
             registerWindow.ShowDialog();
         }
 
-        private void myKupons_BTN_Copy_Click(object sender, RoutedEventArgs e)
-        {
-           // List<Kupon> myKuponList = server.searchCoupon(new List<String> { "user" }, new List<String> { userName });
-            mainRecordFrame.Navigate(couponRecords);
-        }
 
         private void searchKupons_BTN_Click(object sender, RoutedEventArgs e)
         {

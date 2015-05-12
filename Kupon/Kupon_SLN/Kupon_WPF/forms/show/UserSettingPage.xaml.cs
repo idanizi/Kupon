@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Util;
+using BSL;
 namespace Kupon_WPF.forms.show
 {
     /// <summary>
@@ -20,17 +21,61 @@ namespace Kupon_WPF.forms.show
     /// </summary>
 
 
-    
-    
+
+
     public partial class UserSettingPage : Page
     {
-     
-       // List<Setting>
-        public UserSettingPage()
+        Array data;
+        MainWindow main;
+        List<bool> userFevoritsValues;
+        List<buisnessCategory> userFevorits;
+        // List<Setting>
+        public UserSettingPage(MainWindow main)
         {
             InitializeComponent();
+            this.main = main;
+            data = Enum.GetValues(typeof(buisnessCategory));
+            userFevorits = ((Client)main.CurrUser).getFavorits();
+            userFevoritsValues = new List<bool>();
+            Data_Grid.ItemsSource = data;
 
-            //Data_Grid.ItemsSource =   Categoris.getList();    
+        }
+
+        void OnChecked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(Data_Grid.Items[Data_Grid.SelectedIndex].ToString());
+            if(((CheckBox)e.OriginalSource).IsChecked.Value){
+                userFevorits.Add((buisnessCategory)Data_Grid.Items[Data_Grid.SelectedIndex]);
+            }
+            saveCanges();
+        }
+
+        void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(e.Source.ToString() + " " + ((CheckBox)e.OriginalSource).IsChecked);
+            if (!((CheckBox)e.OriginalSource).IsChecked.Value)
+            {
+                userFevorits.Remove((buisnessCategory)Data_Grid.Items[Data_Grid.SelectedIndex]);
+            }
+            saveCanges();
+
+        }
+
+        private void saveCanges()
+        {
+            try
+            {
+                BL server = new BL();
+                ((Client)main.CurrUser).setFavor(userFevorits);
+                server.updateUser(main.CurrUser);
+              
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+
+            }
         }
     }
 }

@@ -83,8 +83,8 @@ namespace Kupon_WPF.forms.search
                 List<Business> business = null;
            if (pickCategory_CB.SelectedIndex == 0)
                 {
-                    // List<Kupon> business = server.searchKouponByName(Value_TB.Text);
-                    MessageBox.Show("not implemented yet.");
+                     business = server.searchBusinessByName(Value_TB.Text);
+                   
                 }
            else if (pickCategory_CB.SelectedIndex == 1)
                 {
@@ -92,7 +92,7 @@ namespace Kupon_WPF.forms.search
                 }
            else if (pickCategory_CB.SelectedIndex == 2)
                 {
-                    // List<Kupon> business = server.searchKouponByCity(Value_TB.Text);
+                    business = server.searchBusinessByCity(Value_TB.Text);
                     MessageBox.Show("not implemented yet.");
                 }
            if (business != null) { }
@@ -103,7 +103,7 @@ namespace Kupon_WPF.forms.search
                  }
                  else
                  {
-                     MessageBox.Show("didn't found any cupon :( .");
+                     MessageBox.Show("didn't found any business :( .");
                  }
             }
          

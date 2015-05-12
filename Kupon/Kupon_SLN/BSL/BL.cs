@@ -157,7 +157,7 @@ namespace BSL
             if (category != null)
             {
                 if (latitude != -1 && longtitude != -1)
-                    return dataBase.searchBusinessBycatagory_location(category.ToString(), latitude, longtitude, 10);
+                    return dataBase.searchBusinessBycatagory_location(category.ToString(), 30, longtitude, 10);
                 return dataBase.searchBusinessBycatagory(category.ToString());
             }
             return null;

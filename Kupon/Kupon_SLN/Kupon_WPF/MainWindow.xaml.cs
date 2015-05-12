@@ -75,7 +75,7 @@ namespace Kupon_WPF
            
 
             //patient can't add new records
-            couponRecords = new showCouponRecords(this);
+            
             if (user is Admin)
             {
                 myKupons_BTN.Visibility = System.Windows.Visibility.Hidden;
@@ -86,6 +86,8 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                  login_BTN.Content = "Logout";
+                List<Kupon> data = server.getKuponForApproval(50);
+                couponRecords = new showCouponRecords(this, data);
             }
             else if (user is Manager)
             {
@@ -98,6 +100,8 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 login_BTN.Content = "Logout";
+                //List<Kupon> data = server.getKuponForBusiness(user);
+                //couponRecords = new showCouponRecords(this, data);
             }
             else if (user is Client)
             {
@@ -109,6 +113,11 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Visible;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Logout";
+                List<Kupon> data = new  List<Kupon>();
+                foreach(buisnessCategory cat in ((Client)user).getFavorits()){
+                    data.AddRange(server.searchKoupon(cat, UserLatitude, UserLongtitude));
+                }
+                couponRecords = new showCouponRecords(this, data);
             }
             else
             {
@@ -120,7 +129,14 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Login";
-            }  
+                List<Kupon> data = new List<Kupon>();
+               /* foreach (buisnessCategory cat in  Enum.GetValues(typeof(buisnessCategory)))
+                {
+                   
+                    data.AddRange(server.searchKoupon(cat, UserLatitude, UserLongtitude));
+                } */
+                couponRecords = new showCouponRecords(this, data);
+            } 
             buttons_GRD.UpdateLayout();
             mainRecordFrame.Navigate(couponRecords);
         }

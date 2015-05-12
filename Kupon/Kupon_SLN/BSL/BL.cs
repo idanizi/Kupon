@@ -21,6 +21,7 @@ namespace BSL
 
         public void addNewBusiness(Business newBusiness)
         {
+            dataBase.add_manager(newBusiness.getManger());
             dataBase.add_business(newBusiness);
         }
 

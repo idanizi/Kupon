@@ -21,31 +21,57 @@ namespace Kupon_WPF.forms.search
     public partial class searchKupon : Window , IMapped
     {
 
-        double latitude;
-        double longtitude;
+        double latitude = -1;
+        double longtitude = -1;
         MainWindow main;
         BL server = new BL();
         public searchKupon(MainWindow main)
         {
             InitializeComponent();
+            pickCategory_CB.SelectedIndex = 0;
             this.main = main;
-            Location_TB.Text = main.UserLatitude + " , " + main.UserLongtitude;
+            Array data = Enum.GetValues(typeof(buisnessCategory));
+            Value_LB.ItemsSource = data;
         }
 
 
 
         private bool validateFields()
         {
-           /*
-            if(!((Business_TB.Text.Length > 0) |
-               (  Category_LB.SelectedItem != null) |
-                (Location_TB.Text.Length > 0) 
-                )){
-                MessageBox.Show("you shold list at least one search parameter!", "error");
-                return false;
+            if (pickCategory_CB.SelectedIndex == 0)
+            {
+                if (Value_TB.Text.Length == 0)
+                {
+                    MessageBox.Show("please insert a value.");
+                    return false;
+                }
             }
-            
-          */
+            else if (pickCategory_CB.SelectedIndex == 1)
+            {
+                if (pickCategory_CB.SelectedItem == null)
+                {
+                    MessageBox.Show("please pick a category.");
+                    return false;
+                }
+                if ((latitude == -1) || (longtitude == -1))
+                {
+                    MessageBox.Show("please pick a location onthe map.");
+                    return false;
+                }
+
+            }
+            else if (pickCategory_CB.SelectedIndex == 2)
+            {
+                if (Value_TB.Text.Length == 0)
+                {
+                    MessageBox.Show("please insert a value.");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("please pick a search type.");
+            }
             return true;
         }
 
@@ -54,24 +80,37 @@ namespace Kupon_WPF.forms.search
        try{
             if (validateFields())
             {
-               
-                List<Kupon> kupons = server.searchKoupon(buisnessCategory.All, latitude, longtitude);  
-                 if (kupons.Count > 0)
+           List<Kupon> kupons = null;
+           if (pickCategory_CB.SelectedIndex == 0)
+                {
+                   // List<Kupon> kupons = server.searchKouponByName(Value_TB.Text);
+                    MessageBox.Show("not implemented yet.");
+                }
+           else if (pickCategory_CB.SelectedIndex == 1)
+                {
+                    kupons = server.searchKoupon(Business.enumFromString(pickCategory_CB.SelectionBoxItem.ToString()), latitude, longtitude);
+                }
+           else if (pickCategory_CB.SelectedIndex == 2)
+                {
+                    // List<Kupon> kupons = server.searchKouponByCity(Value_TB.Text);
+                    MessageBox.Show("not implemented yet.");
+                }
+                if (kupons != null) { }
+             if (kupons.Count > 0)
                  {
-                   MainWindow.setKuponData(kupons);
+                   main.setKuponData(kupons);
                      this.Close();
                  }
                  else
                  {
                      MessageBox.Show("didn't found any cupon :( .");
                  }
-            }else{
-                   MessageBox.Show("wrong parameters. please try again.");
             }
+         
        }
 
            catch(Exception ex){
-                  MessageBox.Show("error while trying to search the kupon. please try again. \n" + ex.StackTrace);
+                  MessageBox.Show("error while trying to search the kupon. please try again. \n" + ex.ToString());
                  
            }
        }
@@ -80,7 +119,7 @@ namespace Kupon_WPF.forms.search
         {
             this.latitude = Latitude;
             this.longtitude = Longitude;
-            Location_TB.Text = Longitude +" , "+ Longitude;
+            Value_TB.Text = Longitude + " , " + Longitude;
 
         }
 
@@ -90,5 +129,25 @@ namespace Kupon_WPF.forms.search
             map.Owner = this;
             map.ShowDialog();
         }
+
+        private void pickCategory_CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((pickCategory_CB.SelectedIndex == 0) || (pickCategory_CB.SelectedIndex == 2))
+            {
+               Value_TB.IsEnabled = true;
+               Value_TB.Text = "";
+               Value_LB.Visibility = System.Windows.Visibility.Hidden;
+               pickLocation_BTN.Visibility = System.Windows.Visibility.Hidden;
+           }
+            else if (pickCategory_CB.SelectedIndex == 1)
+           {
+               pickLocation_BTN.Visibility = System.Windows.Visibility.Visible;
+               Value_LB.Visibility = System.Windows.Visibility.Visible;
+               Value_TB.IsEnabled = false;
+           }
+               
+        }
+
+   
  }
 }

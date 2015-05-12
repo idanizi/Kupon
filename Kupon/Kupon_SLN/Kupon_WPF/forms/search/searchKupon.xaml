@@ -17,7 +17,7 @@
             <ColumnDefinition Width="13*"/>
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="Value_LB" HorizontalAlignment="Left" Height="22" Margin="82,64,0,0" VerticalAlignment="Top" Width="128" 
+        <ListBox x:Name="Value_LB" HorizontalAlignment="Left" Height="22" Margin="82,100,0,0" VerticalAlignment="Top" Width="128" 
     			ItemsSource="{Binding}" Grid.ColumnSpan="3">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -27,17 +27,16 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox x:Name="Location_TB" Height="23" Margin="10,100,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Near my location" Grid.ColumnSpan="3"/>
         <Button x:Name="searchKupon_BTN" Width="119" HorizontalAlignment="Right" Margin="0,182,33,12" Click="searchKupon_BTN_Click" Content="Search Kupon"/>
         <Label Content="Value" VerticalAlignment="Top" Margin="11,60,125,0" Height="26"/>
         <Label Content="Location"  Margin="10,94,11,132" Grid.IsSharedSizeScope="True"/>
         <Label Content="search  by:" VerticalAlignment="Top" Margin="10,26,28,0" Height="26"/>
-        <Button x:Name="pickLocation_BTN" Content="Change Location" HorizontalAlignment="Left" Height="30" Margin="54,147,0,0" VerticalAlignment="Top" Width="120" Click="pickLocation_BTN_Click"/>
-        <ComboBox x:Name="pickCategory_CB" HorizontalAlignment="Left" Margin="81,26,0,0" VerticalAlignment="Top" Width="120" >
-            <ComboBoxItem Content="Business" />
-            <ComboBoxItem Content="Category" />
-            <ComboBoxItem Content="Location" />
+        <Button x:Name="pickLocation_BTN" Content="Pick Location" HorizontalAlignment="Left" Height="30" Margin="54,136,0,0" VerticalAlignment="Top" Width="120" Click="pickLocation_BTN_Click"/>
+        <ComboBox x:Name="pickCategory_CB" HorizontalAlignment="Left" Margin="81,26,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="pickCategory_CB_SelectionChanged" >
+            <ComboBoxItem Content="Business Name" />
+            <ComboBoxItem Content="Category And Location on Map" />
+            <ComboBoxItem Content="City" />
         </ComboBox>
-        <TextBox x:Name="Value_TB" HorizontalAlignment="Left" Height="23" Margin="82,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="Value_TB" HorizontalAlignment="Left" Height="23" Margin="82,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>

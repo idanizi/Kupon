@@ -233,17 +233,27 @@ namespace Kupon_WPF
             registerWindow.ShowDialog();
         }
 
-
-
-
-        internal static void setData(List<Kupon> kupons)
+        public void setKuponData(List<Kupon> kupons)
         {
-            throw new NotImplementedException();
+            showCouponRecords couponRecords = new showCouponRecords(kupons);
+            mainRecordFrame.Navigate(couponRecords);
         }
 
-        internal static void setKuponData(List<Kupon> kupons)
+        public void setBusinessData(List<Business> business)
         {
-            throw new NotImplementedException();
+            showBusinessRecords couponRecords = new showBusinessRecords(business,this);
+            mainRecordFrame.Navigate(couponRecords);
+        }
+
+        private void searchBusiness_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            forms.search.searchBusiness searchBusinessWin = new forms.search.searchBusiness(this);
+            if (searchBusinessWin != null)
+            {
+                searchBusinessWin.Owner = this;
+                searchBusinessWin.ShowDialog();
+
+            }
         }
     }
 }

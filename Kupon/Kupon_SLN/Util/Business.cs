@@ -31,6 +31,8 @@ namespace Util
         Other,
         All
     }
+
+   
     public class Business
     {
         private string Id;
@@ -58,6 +60,18 @@ namespace Util
             this.horizontal = horizontal;
         }
 
+         public static buisnessCategory enumFromString(String value){
+             try
+             {
+                 buisnessCategory r;
+                 Enum.TryParse<buisnessCategory>(value, true, out r);
+                 return r;
+             }
+             catch
+             {
+                 return buisnessCategory.Other;
+             }
+}
         public string getId()
         {
             return Id;

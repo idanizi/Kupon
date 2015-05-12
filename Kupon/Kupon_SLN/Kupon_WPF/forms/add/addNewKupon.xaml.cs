@@ -41,7 +41,7 @@ namespace Kupon_WPF.forms.add
         {
            
             if(!((Name_TB.Text.Length > 0) &
-               ( Catagory_TB.Text.Length > 0) &
+             
                 (OrgPrice_TB.Text.Length > 0) &
                 (DiscPrice_TB.Text.Length > 0) &
                 ExpDate_DP.SelectedDate != null
@@ -64,19 +64,23 @@ namespace Kupon_WPF.forms.add
             try {
                 if (validateFields())
                 {
-                    //  List<String> ParameterType = new List<String> { KuponParameters., "Catagory", "OrgPrice", "DiscPrice", "ExpDate","Creator" };
-                    //   List<String> ParameterValue = new List<String> { Name_TB.Text, Catagory_TB.Text,int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text),ExpDate_DP.Text,creator};
-                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", (server.searchManagerBusiness((Manager)main.CurrUser)));
+                    Business currBusiness;
+                    if(main.CurrUser is Manager){
+                        currBusiness = server.searchManagerBusiness((Manager)main.CurrUser);}
+                        else{
+                            currBusiness = null;
+                        }
+                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", currBusiness);
                     server.addNewKupon(kupon);
                      MessageBox.Show("kupon added to the system and waiting to admin approvel.");
                 this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+                    MessageBox.Show("weong parameters. please try again.");
                 }
-            }catch{
-                MessageBox.Show("error while trying to add the kupon to the system. please try again.");
+            }catch(Exception ex){
+                MessageBox.Show("error while trying to add the kupon to the system. please try again.\n" + ex.ToString());
             }
                
             }

@@ -13,16 +13,16 @@
             <ColumnDefinition Width="192*"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="buttons_GRD" Grid.Column="2" Height="662" Margin="10,10,10,0" VerticalAlignment="Top">
-            <Button x:Name="userSetting_BTN" HorizontalAlignment="Left" Margin="11,364,0,0" VerticalAlignment="Top" Width="136" Height="54" Click="userSetting_BTN_Click" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Content="User Settings"/>
+            <Button x:Name="userSetting_BTN" HorizontalAlignment="Left" Margin="11,419,0,0" VerticalAlignment="Top" Width="136" Height="54" Click="userSetting_BTN_Click" RenderTransformOrigin="0.5,0.5" Content="User Settings"/>
             <TextBlock x:Name="welcome_TB" Grid.Column="2" Margin="27,25,0,0" TextWrapping="Wrap" Text="welcome ghost" VerticalAlignment="Top" RenderTransformOrigin="0.84,-0.938" Height="46" Width="109" HorizontalAlignment="Left" TextAlignment="Center"/>
             <Button x:Name="myKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="11,136,0,0" VerticalAlignment="Top" Width="138" Height="49" Content="My Kupons" Click="myKupons_BTN_Click"/>
-            <Button x:Name="addNewKupon_BTN"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Width="138" Height="56" Click="addNewKupon_BTN_Click" Content="add new kupon"/>
+            <Button x:Name="addNewKupon_BTN" HorizontalAlignment="Left" Margin="10,299,0,0" VerticalAlignment="Top" Width="138" Height="56" Click="addNewKupon_BTN_Click" Content="add new kupon"/>
             <Button x:Name="login_BTN" Content="login" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="11,54,0,0" VerticalAlignment="Top" Width="138" Click="login_BTN_Click"/>
-            <Button x:Name="saveChanges_BTN" Content="Save Changes" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="10,425,0,0" VerticalAlignment="Top" Width="137"  Click="saveChanges_BTN_Click"/>
+            <Button x:Name="saveChanges_BTN" Content="Save Changes" HorizontalAlignment="Left" Height="50" Margin="10,480,0,0" VerticalAlignment="Top" Width="137"  Click="saveChanges_BTN_Click"/>
             <Button x:Name="register_BTN" Content="register" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="11,95,0,0" VerticalAlignment="Top" Width="138" Click="register_BTN_Click"/>
-            <Button x:Name="addBusiness_BTN" Content="Add Business" Grid.Column="2" HorizontalAlignment="Left" Height="52" Margin="10,305,0,0" VerticalAlignment="Top" Width="138" Click="addBusiness_BTN_Click"/>
+            <Button x:Name="addBusiness_BTN" Content="Add Business" HorizontalAlignment="Left" Height="52" Margin="10,360,0,0" VerticalAlignment="Top" Width="138" Click="addBusiness_BTN_Click"/>
             <Button x:Name="searchKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="138" Height="49" Click="searchKupons_BTN_Click" Content="Search Kupons"/>
-            <Button x:Name="insertCoupon_BTN" Content="Insert Cupon Code" Grid.Column="2" HorizontalAlignment="Left" Height="48" Margin="10,480,0,0" VerticalAlignment="Top" Width="137" Click="insertCoupon_BTN_Click"/>
+            <Button x:Name="insertCoupon_BTN" Content="Insert Cupon Code" HorizontalAlignment="Left" Height="48" Margin="10,535,0,0" VerticalAlignment="Top" Width="137" Click="insertCoupon_BTN_Click"/>
         </Grid>
         <Label x:Name="userLongtitude_L" Content="Longitude:" HorizontalAlignment="Left" Height="24" Margin="10,629,0,0" VerticalAlignment="Top" Width="116"/>
         <Label x:Name="userLatitude_L" Content="Latitude:" HorizontalAlignment="Left" Height="24" Margin="10,648,0,0" VerticalAlignment="Top" Width="116"/>
@@ -35,6 +35,7 @@
             </Grid.ColumnDefinitions>
             <Frame x:Name="mainRecordFrame" Content="" HorizontalAlignment="Left" Height="564" VerticalAlignment="Bottom" Width="953" Margin="10,0,0,10" Grid.ColumnSpan="3"/>
         </Grid>
+        <Button x:Name="searchBusiness_BTN" HorizontalAlignment="Left" Margin="20,254,0,0" VerticalAlignment="Top" Width="138" Height="49" Click="searchBusiness_BTN_Click" Content="Search Business" Grid.Column="2"/>
 
 
     </Grid>

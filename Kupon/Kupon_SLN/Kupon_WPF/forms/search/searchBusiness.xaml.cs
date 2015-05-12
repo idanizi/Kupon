@@ -21,79 +21,106 @@ namespace Kupon_WPF.forms.search
     public partial class searchBusiness : Window , IMapped
     {
 
-        string creator;
-        String Latitude;
-        String   Longitude;
+        double latitude = -1;
+        double longtitude = -1;
         MainWindow main;
-        GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
-        CivicAddress add = new CivicAddress();
-
+        BL server = new BL();
         public searchBusiness(MainWindow main)
         {
             InitializeComponent();
+            pickCategory_CB.SelectedIndex = 0;
             this.main = main;
-            //Category_LB.ItemsSource = Categoris.getList();
-           
-           
+            Array data = Enum.GetValues(typeof(buisnessCategory));
+            Value_LB.ItemsSource = data;
         }
 
-        void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
-        {
-            Location_TB.Text = mGeoWatcher.Position.Location.ToString();
-        }
 
 
         private bool validateFields()
         {
-           
-            if(!(
-               (  Category_LB.SelectedItem != null) |
-                (Location_TB.Text.Length > 0) 
-                )){
-                MessageBox.Show("you shold list at least one search parameter!", "error");
-                return false;
+            if (pickCategory_CB.SelectedIndex == 0)
+            {
+                if (Value_TB.Text.Length == 0)
+                {
+                    MessageBox.Show("please insert a value.");
+                    return false;
+                }
             }
-            
-          
+            else if (pickCategory_CB.SelectedIndex == 1)
+            {
+                if (pickCategory_CB.SelectedItem == null)
+                {
+                    MessageBox.Show("please pick a category.");
+                    return false;
+                }
+                if ((latitude == -1) || (longtitude == -1))
+                {
+                    MessageBox.Show("please pick a location on the map.");
+                    return false;
+                }
+
+            }
+            else if (pickCategory_CB.SelectedIndex == 2)
+            {
+                if (Value_TB.Text.Length == 0)
+                {
+                    MessageBox.Show("please insert a value.");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("please pick a search type.");
+            }
             return true;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void searchKupon_BTN_Click(object sender, RoutedEventArgs e)
         {
-       
+       try{
             if (validateFields())
             {
-                if (Location_TB.Text == "Near my location")
+                List<Business> business = null;
+           if (pickCategory_CB.SelectedIndex == 0)
                 {
-
+                    // List<Kupon> business = server.searchKouponByName(Value_TB.Text);
+                    MessageBox.Show("not implemented yet.");
                 }
-                List<String> ParameterType = new List<String> { "Location", "Category"};
-                List<String> ParameterValue = new List<String> {  Location_TB.Text, Category_LB.SelectedItem.ToString()};
-                /* server.addNewKupon(ParameterType, ParameterValue);   //TODO  
-                 if (!server.searchBusiness(ParameterType, ParameterValue))
+           else if (pickCategory_CB.SelectedIndex == 1)
+                {
+                    business = server.searchBusiness(Business.enumFromString(pickCategory_CB.SelectionBoxItem.ToString()), latitude, longtitude);
+                }
+           else if (pickCategory_CB.SelectedIndex == 2)
+                {
+                    // List<Kupon> business = server.searchKouponByCity(Value_TB.Text);
+                    MessageBox.Show("not implemented yet.");
+                }
+           if (business != null) { }
+           if (business.Count > 0)
                  {
-                     MessageBox.Show("kupon added to the system and waiting to admin approvel.");
+                     main.setBusinessData(business);
                      this.Close();
                  }
                  else
                  {
-                     MessageBox.Show("error while trying to add the kupon to the system. please try again.");
-                 }*/
-                this.Close();
+                     MessageBox.Show("didn't found any cupon :( .");
+                 }
             }
-        }
+         
+       }
+
+           catch(Exception ex){
+                  MessageBox.Show("error while trying to search the kupon. please try again. \n" + ex.ToString());
+                 
+           }
+       }
+
         public void setLocation(double Longitude, double Latitude)
         {
-            Location_TB.Text = Longitude + " , " + Longitude;
-            this.Latitude = Latitude.ToString();
-            this.Longitude = Longitude.ToString();
-        }
+            this.latitude = Latitude;
+            this.longtitude = Longitude;
+            Value_TB.Text = Longitude + " , " + Longitude;
 
-    
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            Location_TB.Text = mGeoWatcher.Position.Location.ToString();
         }
 
         private void pickLocation_BTN_Click(object sender, RoutedEventArgs e)
@@ -102,154 +129,25 @@ namespace Kupon_WPF.forms.search
             map.Owner = this;
             map.ShowDialog();
         }
+
+        private void pickCategory_CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((pickCategory_CB.SelectedIndex == 0) || (pickCategory_CB.SelectedIndex == 2))
+            {
+               Value_TB.IsEnabled = true;
+               Value_TB.Text = "";
+               Value_LB.Visibility = System.Windows.Visibility.Hidden;
+               pickLocation_BTN.Visibility = System.Windows.Visibility.Hidden;
+           }
+            else if (pickCategory_CB.SelectedIndex == 1)
+           {
+               pickLocation_BTN.Visibility = System.Windows.Visibility.Visible;
+               Value_LB.Visibility = System.Windows.Visibility.Visible;
+               Value_TB.IsEnabled = false;
+           }
+               
+        }
+
+   
  }
-
-        
-    /*
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
-    public partial class addPatient : Window
-    {
-        string mode;
-        public addPatient()
-        {
-            InitializeComponent();
-            mode = "new";
-        }
-
-        public addPatient(IBase editDoc)
-        {
-            mode = "edit";
-            InitializeComponent();
-            if (editDoc is patient)
-            {
-                IDTB.Text = editDoc.ID.ToString();
-                FNTB.Text = ((patient)editDoc).FirstName;
-                LNTB.Text = ((patient)editDoc).LastName;
-                GCB.Text = ((patient)editDoc).Gender;
-
-                DIDTB.Text = ((patient)editDoc).MainDoctor.ToString();
-                BirthDate_DP.SelectedDate = ((patient)editDoc).DateBirth;
-                pass_PB.Password = ((patient)editDoc).Password;
-            }
-        }
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-            if (commonMethods.isNumber(IDTB.Text) && commonMethods.validNameCheck(FNTB.Text) && commonMethods.validNameCheck(LNTB.Text) && commonMethods.isNumber(DIDTB.Text) && BirthDate_DP.SelectedDate != null)
-            {
-
-
-                patient newPat = new patient(Convert.ToInt32(IDTB.Text), FNTB.Text, LNTB.Text, GCB.Text, Convert.ToInt32(DIDTB.Text), (DateTime)BirthDate_DP.SelectedDate, pass_PB.Password);
-
-                string wrong = "";
-                if (mode == "edit")
-                {
-                    Delete deleteObject = new Delete();
-                    bool deleted = deleteObject.delete(newPat);
-                    if (!deleted)
-                    {
-                        MessageBox.Show(wrong);
-                    }
-                   
-                }
-                else
-                {
-                    Add newObject = new Add();
-                    bool added = newObject.add(newPat, out wrong);
-                    if (!added)
-                    {
-                        MessageBox.Show(wrong);
-                    }
-                    else
-                    {
-                       
-                        if (mode == "edit")  MessageBox.Show("changes saved");
-                        else MessageBox.Show("new Patient added");
-                        this.Close();
-                     
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("one or more wrong parameter. please check your input and try again");
-            }
-        
-             
-        
-        }
-
-         private void FNTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            
-            if (!commonMethods.validNameCheck(FNTB.Text))
-            {
-                MessageBox.Show("illegale first name, please try again", "error");
-            }
-        }
-
-        private void LNTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!commonMethods.validNameCheck(LNTB.Text))
-            {
-                MessageBox.Show("illegale last name, please try again", "error");
-            }
-        }
-
-        private void IDTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (commonMethods.isNumber(IDTB.Text))
-            {
-                int ID = Convert.ToInt32(IDTB.Text);
-                if (!user.userIDCheck(ID))
-                {
-                    MessageBox.Show("illegale ID,please try again", "error");
-                }
-            }
-            else MessageBox.Show("illegale ID,please try again", "error");
-        }
-
-        private void DIDTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (commonMethods.isNumber(DIDTB.Text))
-            {
-                int ID = Convert.ToInt32(DIDTB.Text);
-                if (!user.userIDCheck(ID))
-                {
-                    MessageBox.Show("illegale doctor's ID,please try again", "error");
-                }
-            }
-            else MessageBox.Show("illegale doctor's ID,please try again", "error");
-        }
-
-        private void FNTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            FNTB.Text = "";
-        }
-
-        private void LNTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            LNTB.Text = "";
-        }
-
-        private void IDTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            IDTB.Text = "";
-        }
-
-          private void DIDTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            DIDTB.Text = "";
-        }
-    }
-             * */
-        }
-
- 
-
-      
-                
+}

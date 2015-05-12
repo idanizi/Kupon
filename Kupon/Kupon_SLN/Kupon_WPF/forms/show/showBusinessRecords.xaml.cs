@@ -33,45 +33,13 @@ namespace Kupon_WPF.forms.show
         //CollectionViewSource itemCollectionViewSource;
 
 
-public    showBusinessRecords(MainWindow main)
+public    showBusinessRecords(List <Business> data, MainWindow main)
           {
         InitializeComponent();
         // TODO: Complete member initialization
         user = main.CurrUser;
-    /*
-        dataList = new List<Business>
 
-                                 {
-                                     new Business
-                                         (
-                                             "12236821",
-                                             "Business1",
-                                             "bla adssdasdjgbla bla",
-                                            "333.444444",
-                                            "3387324,344343",
-                                            Categoris.getList()
-                                         ),
-                                     new Business
-                                         (
-                                              "1226678321",
-                                              "Business2",
-                                             "bhjjhla bjhjhla bhjla",
-                                            "333.444444",
-                                            "323324.344343",
-                                            Categoris.getList()
-                                         ),
-                                     new Business
-                                         (
-                                              "12334431",
-                                             "Business3",
-                                             "bsdffsdfds bla",
-                                            "33293.444676444",
-                                            "33677324,3467674343",
-                                            Categoris.getList()
-                                         )
-                                 };
-    */
-           Data_Grid.DataContext = dataList;
+        Data_Grid.DataContext = data;
            if (user.GetType is Admin)
            {
                //Data_Grid.SelectionUnit = DataGridSelectionUnit.Cell;
@@ -81,19 +49,21 @@ public    showBusinessRecords(MainWindow main)
                Data_Grid.SelectionMode = DataGridSelectionMode.Extended;
 
            }
-           else if (user.GetType is Business)
-           {
-
-           }
+          
            else if (user.GetType is Client)
            {
+               Data_Grid.IsManipulationEnabled = false;
+               Data_Grid.IsReadOnly = true;
+               Data_Grid.IsEnabled = false;
+               Data_Grid.SelectionMode = DataGridSelectionMode.Single;
+               /*
                List<buisnessCategory> favorits = ((Client)user).getFavorits();
                foreach (buisnessCategory category in favorits)
                {
-
                    dataList.AddRange(server.searchBusiness(  category,main.UserLongtitude, main.UserLatitude));
                }
-                Data_Grid.DataContext = dataList;
+               Data_Grid.DataContext = data;
+                */
            }
            else //userStat == ghost
            {

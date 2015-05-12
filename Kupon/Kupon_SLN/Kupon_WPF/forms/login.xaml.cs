@@ -32,6 +32,8 @@ namespace Kupon_WPF
         }
         private void loginClick(object sender, RoutedEventArgs e)
         {
+          //  server.addNewUser(new Admin("admin","123","Aa","33","ss","ss"));
+
             try{
             if(username_TB.Text != "" & password_PB.Password != ""){
            User user = server.logIn(username_TB.Text,password_PB.Password,main.UserLatitude,main.UserLongtitude);

@@ -103,9 +103,15 @@ namespace Util
             this.status=status;
         }
 
+<<<<<<< HEAD
         public void setSerialNum(string serial)
         {
             this.serialKey = serial;
+=======
+        public void setSerialKey(string key)
+        {
+            this.serialKey = key;
+>>>>>>> origin/TomN
         }
 
     }

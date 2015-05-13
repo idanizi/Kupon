@@ -307,6 +307,7 @@ namespace Kupon_WPF
 
         public void setBusinessData(List<Business> business)
         {
+            MessageBox.Show(business.Count.ToString());
             showBusinessRecords couponRecords = new showBusinessRecords(business,this);
             businessList = business;
             mainRecordFrame.Navigate(couponRecords);

@@ -78,6 +78,7 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
              
            }
            Data_Grid.DataContext = data;
+           MessageBox.Show(data.Count.ToString());
     }
 
 

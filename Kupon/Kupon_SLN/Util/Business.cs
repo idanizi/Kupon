@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace Util
     }
 
    
-    public class Business
+    public class Business: INotifyPropertyChanged
     {
         private string Id;
         private string name;
@@ -77,25 +78,113 @@ namespace Util
             return Id;
         }
 
+        public string ID
+        {
+            get { return Id; }
+            set
+            {
+                Id = value;
+                NotifyPropertyChanged("ID");
+            }
+        }
+
         public string getName()
         {
             return name;
         }
+
+          public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
         public double getHorizontal()
         {
             return horizontal;
         }
+
+        public string Longtitude
+        {
+            get { return horizontal.ToString(); }
+            set
+            {
+                try
+                {
+                    horizontal = double.Parse(value);
+                    NotifyPropertyChanged("Longtitude");
+                }
+                catch
+                {
+                    horizontal = 0;
+                }
+            }
+        }
+
+
         public double getVertical()
         {
             return vertical;
         }
+        public string Longtitude
+        {
+            get { return horizontal.ToString(); }
+            set
+            {
+                try
+                {
+                    vertical = double.Parse(value);
+                    NotifyPropertyChanged("Altitude");
+                }
+                catch
+                {
+                    vertical = 0;
+                }
+            }
+        }
+
         public string getCity()
         {
             return city;
         }
+
+        public string City
+        {
+            get { return horizontal.ToString(); }
+            set
+            {
+                try
+                {
+                    city = value;
+                    NotifyPropertyChanged("City");
+                }
+                
+            }
+        }
+
+
+
         public string getStreet(){
             return street;
         }
+
+        public string Address
+        {
+            get { return street; }
+            set
+            {
+                
+                    street = value;
+                    NotifyPropertyChanged("Address");
+                
+            }
+        }
+
+
         public int getNumber()
         {
             return number;
@@ -104,16 +193,77 @@ namespace Util
         {
             return description;
         }
+
+
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+
+                description = value;
+                NotifyPropertyChanged("Description");
+
+            }
+        }
+
+
         public string getCatagory()
         {
             return catagory;
         }
+
+
+        public string Catagory
+        {
+            get { return catagory; }
+            set
+            {
+
+                catagory = value;
+                NotifyPropertyChanged("Catagory");
+
+            }
+        }
+
         public Manager getManger()
         {
             return manager;
         }
+
+        public string Catagory
+        {
+            get { return manager.getName(); }
+            set
+            {
+
+               // manager = value;
+                NotifyPropertyChanged("Manager");
+
+            }
+        }
+
         public void setManager(Manager manager){
             this.manager = manager;
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Private Helpers
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+    
     }
 }

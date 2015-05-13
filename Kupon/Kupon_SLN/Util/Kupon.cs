@@ -48,7 +48,8 @@ namespace Util
             this.rank = -1;
         }
 
-        public string getID(){
+        public string getID()
+        {
             return ID;
         }
 
@@ -57,62 +58,67 @@ namespace Util
             return rank;
         }
 
-        public string getName(){
+        public string getName()
+        {
             return name;
         }
 
-        public string getDescription() { 
+        public string getDescription()
+        {
             return description;
         }
 
         public KuponStatus getStatus()
-        { 
+        {
             return status;
         }
 
-        public int getOriginalPrice(){ 
+        public int getOriginalPrice()
+        {
             return originalPrice;
         }
 
-        public int getDicountPrice(){ 
+        public int getDicountPrice()
+        {
             return dicountPrice;
         }
 
-        public DateTime getLastDate(){ 
+        public DateTime getLastDate()
+        {
             return lastDate;
         }
 
-        public string getSerialKey(){ 
+        public string getSerialKey()
+        {
             return serialKey;
         }
 
-        public Business getBusiness(){
+        public Business getBusiness()
+        {
             return business;
         }
 
-        public void setBusiness(Business business){
-            this.business=business;
+        public void setBusiness(Business business)
+        {
+            this.business = business;
         }
 
-        public void setRank(int rank){
-            this.rank=rank;
+        public void setRank(int rank)
+        {
+            this.rank = rank;
         }
 
         public void setStatus(KuponStatus status)
         {
-            this.status=status;
+            this.status = status;
         }
 
-<<<<<<< HEAD
+
         public void setSerialNum(string serial)
         {
             this.serialKey = serial;
-=======
-        public void setSerialKey(string key)
-        {
-            this.serialKey = key;
->>>>>>> origin/TomN
-        }
 
+
+        }
     }
 }

@@ -23,6 +23,8 @@ namespace Kupon_WPF.forms.add
         string creator;
         BL server = new BL();
         MainWindow main;
+        private MainWindow mainWindow;
+        private Business bus;
         public addNewKupon(MainWindow main)
         {
             InitializeComponent();
@@ -33,6 +35,13 @@ namespace Kupon_WPF.forms.add
         {
             InitializeComponent();
             this.creator = creator;
+        }
+
+        public addNewKupon(MainWindow mainWindow, Business bus)
+        {
+            // TODO: Complete member initialization
+            this.mainWindow = mainWindow;
+            this.bus = bus;
         }
 
 
@@ -70,6 +79,7 @@ namespace Kupon_WPF.forms.add
                         else{
                             currBusiness = null;
                         }
+                    MessageBox.Show(currBusiness.getManger().getName());
                     Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", currBusiness);
                     server.addNewKupon(kupon);
                      MessageBox.Show("kupon added to the system and waiting to admin approvel.");

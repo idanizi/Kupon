@@ -29,6 +29,8 @@ namespace Kupon_WPF.forms.show
         public List<Kupon> dataList = new List<Kupon>();
         private User user = null;
         private BL server = new BL();
+        private MainWindow mainWindow;
+        private List<Kupon> data;
         //CollectionViewSource itemCollectionViewSource;
 
 
@@ -107,6 +109,13 @@ public showCouponRecords(List<Kupon> kupons)
         Data_Grid.IsEnabled = true;
         Data_Grid.SelectionMode = DataGridSelectionMode.Extended;
     }*/
+}
+
+public showCouponRecords(MainWindow mainWindow, List<Kupon> data)
+{
+    // TODO: Complete member initialization
+    this.mainWindow = mainWindow;
+    this.data = data;
 }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

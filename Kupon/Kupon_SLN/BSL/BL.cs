@@ -236,5 +236,30 @@ namespace BSL
         {
             return dataBase.searchBUsinessByManager(manager);
         }
+
+        public List<Kupon> getKuponsForUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Business> searchBusinessByName(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKouponByCity(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Business> searchBusinessByCity(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKouponByName(string p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

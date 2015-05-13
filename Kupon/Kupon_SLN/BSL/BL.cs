@@ -158,7 +158,7 @@ namespace BSL
             if (category != null)
             {
                 if (latitude != -1 && longtitude != -1)
-                    return dataBase.searchBusinessBycatagory_location(category.ToString(), latitude, longtitude, 10);
+                    return dataBase.searchBusinessBycatagory_location(category.ToString(), 30, longtitude, 10);
                 return dataBase.searchBusinessBycatagory(category.ToString());
             }
             return null;
@@ -236,6 +236,33 @@ namespace BSL
         public Business searchManagerBusiness(Manager manager)
         {
             return dataBase.searchBUsinessByManager(manager);
+        }
+
+        public List<Kupon> getKuponsForUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        public List<Business> searchBusinessByName(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Business> searchBusinessByCity(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKouponByCity(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKouponByName(string p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

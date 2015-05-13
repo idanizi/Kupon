@@ -40,35 +40,44 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
         user = main.CurrUser;
 
         Data_Grid.DataContext = data;
-           if (user.GetType is Admin)
+           if (user is Admin)
            {
                //Data_Grid.SelectionUnit = DataGridSelectionUnit.Cell;
                Data_Grid.IsManipulationEnabled = true;
                Data_Grid.IsReadOnly = false;
                Data_Grid.IsEnabled = true;
                Data_Grid.SelectionMode = DataGridSelectionMode.Extended;
-
+              
            }
           
-           else if (user.GetType is Client)
+           else if (user is Client)
            {
                Data_Grid.IsManipulationEnabled = false;
                Data_Grid.IsReadOnly = true;
                Data_Grid.IsEnabled = false;
                Data_Grid.SelectionMode = DataGridSelectionMode.Single;
-               /*
-               List<buisnessCategory> favorits = ((Client)user).getFavorits();
+             /*  List<buisnessCategory> favorits = ((Client)user).getFavorits();
                foreach (buisnessCategory category in favorits)
                {
                    dataList.AddRange(server.searchBusiness(  category,main.UserLongtitude, main.UserLatitude));
-               }
-               Data_Grid.DataContext = data;
-                */
+               } */
+              
+
            }
            else //userStat == ghost
            {
-
+               Data_Grid.IsManipulationEnabled = false;
+               Data_Grid.IsReadOnly = true;
+               Data_Grid.IsEnabled = false;
+               Data_Grid.SelectionMode = DataGridSelectionMode.Single;
+               /*  List<buisnessCategory> favorits = ((Client)user).getFavorits();
+                 foreach (buisnessCategory category in favorits)
+                 {
+                     dataList.AddRange(server.searchBusiness(  category,main.UserLongtitude, main.UserLatitude));
+                 } */
+             
            }
+           Data_Grid.DataContext = data;
     }
 
 

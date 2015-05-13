@@ -19,7 +19,8 @@ namespace Kupon_WPF.forms.add
 {
     public partial class addBusiness : Window, IMapped
     {
-
+        double longitude;
+        double latitude;
         MainWindow main;
         BL server = new BL();
         public addBusiness()
@@ -39,7 +40,8 @@ namespace Kupon_WPF.forms.add
 
         public void setLocation(double Longitude, double Latitude)
         {
-            Location_TB.Text = Longitude + " , " + Latitude;
+            longtitude = Longitude;
+            latitude = Latitude;
 
         }
 
@@ -71,7 +73,7 @@ namespace Kupon_WPF.forms.add
                 Manager busiMan = new Manager(mangerUsername_TB.Text, ManegerPass_PB.Password, mangerMail_TB.Text, mangerPhone_TB.Text, "Maneger", Name_TB.Text);
              
                //TODO: getNewBusiinessID
-                Business newBusiness = new Business(server.getNewKuponID(), Name_TB.Text, City_TB.Text, Address_TB.Text, 0, Descreption_TB.Text, Category_LB.SelectedItem.ToString(), busiMan, main.UserLongtitude, main.UserLatitude);
+                Business newBusiness = new Business(server.getNewKuponID(), Name_TB.Text, City_TB.Text, Address_TB.Text, 0, Descreption_TB.Text, Category_LB.SelectedItem.ToString(), busiMan, latitude ,latitude);
                server.addNewBusiness(newBusiness);
                this.Close();
             }else{

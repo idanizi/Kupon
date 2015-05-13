@@ -164,7 +164,7 @@ namespace Kupon_WPF
 
         private void login_BTN_Click(object sender, RoutedEventArgs e)
         {
-            if (login_BTN.Content == "Login")
+            if ((string)login_BTN.Content == "Login")
             {
                 try
                 {

@@ -19,7 +19,7 @@ namespace Kupon_WPF.forms.add
 {
     public partial class addBusiness : Window, IMapped
     {
-        double longitude;
+        double longtitude;
         double latitude;
         MainWindow main;
         BL server = new BL();
@@ -73,8 +73,9 @@ namespace Kupon_WPF.forms.add
                 Manager busiMan = new Manager(mangerUsername_TB.Text, ManegerPass_PB.Password, mangerMail_TB.Text, mangerPhone_TB.Text, "Maneger", Name_TB.Text);
              
                //TODO: getNewBusiinessID
-                Business newBusiness = new Business(server.getNewKuponID(), Name_TB.Text, City_TB.Text, Address_TB.Text, 0, Descreption_TB.Text, Category_LB.SelectedItem.ToString(), busiMan, latitude ,latitude);
-               server.addNewBusiness(newBusiness);
+                Business newBusiness = new Business(server.getNewKuponID(), Name_TB.Text, City_TB.Text, Address_TB.Text, 0, Descreption_TB.Text, Category_LB.SelectedItem.ToString(), busiMan, latitude, longtitude);
+                MessageBox.Show(newBusiness.getHorizontal() + " " + newBusiness.getVertical());
+                server.addNewBusiness(newBusiness);
                this.Close();
             }else{
                 MessageBox.Show("no sach manager as " + mangerUsername_TB.Text + " in the system");

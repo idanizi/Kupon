@@ -55,6 +55,7 @@ namespace Kupon_WPF.forms.add
                     (mangerPhone_TB.Text.Length > 0) &
                 (Category_LB.SelectedItems.Count > 0) 
                 )){
+                MessageBox.Show("one or more of the parameters is empty!", "error");
                 return false;
             }
            
@@ -74,7 +75,7 @@ namespace Kupon_WPF.forms.add
                server.addNewBusiness(newBusiness);
                this.Close();
             }else{
-                MessageBox.Show("one or more worng parameter");
+                MessageBox.Show("no sach manager as " + mangerUsername_TB.Text + " in the system");
             }
         
         }catch(Exception ex){

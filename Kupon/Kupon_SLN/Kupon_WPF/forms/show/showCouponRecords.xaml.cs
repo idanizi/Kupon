@@ -32,12 +32,39 @@ namespace Kupon_WPF.forms.show
         //CollectionViewSource itemCollectionViewSource;
 
 
-public    showCouponRecords(MainWindow main,List<Kupon> data)
+public    showCouponRecords(MainWindow main)
           {
         InitializeComponent();
-     
+        // TODO: Complete member initialization
+   /*     this.userStat = UserStat;
+        dataList = new List<Kupon>
+
+                                 {
+                                     new Kupon
+                                         (
+                                             "122321",
+                                             "Moser",
+                                             "bla bla bla",
+                                            "2362.4"
+                                         ),
+                                     new Kupon
+                                         (
+                                            "3754",
+                                             "sdsdds",
+                                             "bla sadadssadas bla",
+                                            "232.2"
+                                         ),
+                                     new Kupon
+                                         (
+                                            "54645",
+                                             "ffFff",
+                                             "sddssdaddgsdgd bla bla",
+                                            "6632.4"
+                                         )
+                                 };
+    */
           //Set the DataGrid's DataContext to be a filled DataTable
-        Data_Grid.DataContext = data;
+         Data_Grid.DataContext = dataList;
            if (user.GetType is Admin)
            {
                //Data_Grid.SelectionUnit = DataGridSelectionUnit.Cell;
@@ -58,7 +85,7 @@ public    showCouponRecords(MainWindow main,List<Kupon> data)
          
                dataList.AddRange(server.searchKoupon(category,main.UserLongtitude,main.UserLatitude));
                }
-               Data_Grid.DataContext = data;
+                Data_Grid.DataContext = dataList;
            }
            else //userStat == ghost
            {

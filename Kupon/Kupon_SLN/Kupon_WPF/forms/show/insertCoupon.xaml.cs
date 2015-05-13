@@ -23,7 +23,7 @@ namespace Kupon_WPF.forms.show
     public partial class insertCoupon : Window
     {
          string kuponCode = "";
-         IBSL server = (IBSL)new object();
+         BL server =  new BL();
          MainWindow main;
         public insertCoupon(MainWindow main)
         {
@@ -33,12 +33,10 @@ namespace Kupon_WPF.forms.show
 
         private void CheckCode_BTN_Click(object sender, RoutedEventArgs e)
         {
-            Kupon myKupon = null;
-          //  myKupon = (server.searchCoupon(new List<string>{"BusinessID","kuponCode"},new List<string>{ID,kuponCode_TB.Text}); //TODO
-        if(myKupon != null){
-            kuponCode = kuponCode_TB.Text;
-            KuponInfo_TB.Text = myKupon.ToString();
-            UseCoupon_BTN.IsEnabled = true;
+
+          if (server.useKupon(kuponCode_TB.Text))
+          {
+              KuponInfo_TB.Text = "kupon used. thank u :)";
         }else{
             KuponInfo_TB.Text = "No Kupon in the system for that code. Please try again";
         }

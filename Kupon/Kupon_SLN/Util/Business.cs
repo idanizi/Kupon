@@ -157,13 +157,12 @@ namespace Util
             get { return horizontal.ToString(); }
             set
             {
-                try
-                {
-                    city = value;
-                    NotifyPropertyChanged("City");
-                }
-                
+
+                city = value;
+                NotifyPropertyChanged("City");
+
             }
+            
         }
 
 

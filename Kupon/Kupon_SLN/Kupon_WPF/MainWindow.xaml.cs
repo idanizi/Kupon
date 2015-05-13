@@ -152,7 +152,7 @@ namespace Kupon_WPF
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Exception accured. please try again " + ex);
+                    server.logOut(user.getName());
                 }
             
         }else{

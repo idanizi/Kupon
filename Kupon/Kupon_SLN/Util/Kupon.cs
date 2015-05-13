@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Util
 {
     public enum KuponParameters { LONGTITUDE, LATITUDE, CATEGORY };
     public enum KuponStatus { NEW, APPROVED, ACTIVE, USED };
-    public class Kupon
+    public class Kupon:INotifyPropertyChanged
     {
         private string ID;
         private string name;
@@ -52,6 +53,19 @@ namespace Util
             return ID;
         }
 
+        public string Id
+        {
+            get { return ID; }
+            set
+            {
+                ID = value;
+                // manager = value;
+                NotifyPropertyChanged("Id");
+
+            }
+        }
+
+
         public int getRank()
         {
             return rank;
@@ -60,28 +74,119 @@ namespace Util
         public string getName(){
             return name;
         }
-
+        public string Rank
+        {
+            get { return rank.ToString(); }
+            set
+            {
+                try
+                {
+                    rank = int.Parse(value);
+                    // manager = value;
+                    NotifyPropertyChanged("Rank");
+                }
+                catch
+                {
+                    rank = 0;
+                }
+            }
+        }
         public string getDescription() { 
             return description;
         }
 
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                description = value;
+                // manager = value;
+                NotifyPropertyChanged("Description");
+
+            }
+        }
         public KuponStatus getStatus()
         { 
             return status;
         }
+        public string Status
+        {
+            get { return status.ToString(); }
+            set
+            {
+                status = (KuponStatus) Enum.Parse(typeof(KuponStatus), value, true);
+                // manager = value;
+                NotifyPropertyChanged("Status");
 
+            }
+        }
         public int getOriginalPrice(){ 
             return originalPrice;
         }
+        public string OriginalPrice
+        {
+            get { return originalPrice.ToString(); }
+            set
+            {
+                try
+                {
+                    originalPrice = int.Parse(value);
+                 
+                    NotifyPropertyChanged("originalPrice");
 
+
+                }
+                catch
+                {
+                    originalPrice = 999999;
+                }
+        }
+        }
         public int getDicountPrice(){ 
             return dicountPrice;
         }
+        public string DicountPrice
+        {
+            get { return dicountPrice.ToString(); }
+            set
+            {
+                try
+                {
+                    dicountPrice = int.Parse(value);
 
+                    NotifyPropertyChanged("DicountPrice");
+
+
+                }
+                catch
+                {
+                    originalPrice = 999999;
+                }
+            }
+        }
         public DateTime getLastDate(){ 
             return lastDate;
         }
+        public string LastDate
+        {
+            get { return lastDate.ToString(); }
+            set
+            {
+                try
+                {
+                    lastDate = DateTime.Parse(value);
 
+                    NotifyPropertyChanged("LastDate");
+
+
+                }
+                catch
+                {
+                    originalPrice = 999999;
+                }
+            }
+        }
         public string getSerialKey(){ 
             return serialKey;
         }
@@ -93,7 +198,17 @@ namespace Util
         public void setBusiness(Business business){
             this.business=business;
         }
+        public string Business
+        {
+            get { return business.Name; }
+            set
+            {
+               //business = value;
+              
+                NotifyPropertyChanged("Business");
 
+            }
+        }
         public void setRank(int rank){
             this.rank=rank;
         }
@@ -103,5 +218,30 @@ namespace Util
             this.status=status;
         }
 
+        
+
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Private Helpers
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+    
     }
+
+
+
+    
 }

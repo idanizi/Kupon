@@ -130,7 +130,7 @@ namespace Util
         {
             return vertical;
         }
-        public string Longtitude
+        public string Altitude
         {
             get { return horizontal.ToString(); }
             set
@@ -230,7 +230,7 @@ namespace Util
             return manager;
         }
 
-        public string Catagory
+        public string Manager
         {
             get { return manager.getName(); }
             set

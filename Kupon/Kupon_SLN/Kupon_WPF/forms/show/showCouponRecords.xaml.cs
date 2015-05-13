@@ -21,7 +21,7 @@ namespace Kupon_WPF.forms.show
     /// <summary>
     /// Interaction logic for showCouponRecords.xaml
     /// </summary>
-    public partial class showCouponRecords : Page
+    public partial class showCouponRecords : Page,IDataTable
     {
 
     //    public ICollectionView Customers { get; private set; }

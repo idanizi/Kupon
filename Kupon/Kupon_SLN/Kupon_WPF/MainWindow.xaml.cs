@@ -36,7 +36,7 @@ namespace Kupon_WPF
         private static double userLatitude = 0;
         private static double userLongtitude = 0;
         private List<Business> businessList;
-
+        private Page currFrame = null;
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
         public List<buisnessCategory> pref = new List<buisnessCategory>();
@@ -195,10 +195,17 @@ namespace Kupon_WPF
                 if (user is Admin)
                 {
 
-                    foreach (Kupon kupon in couponRecords.dataList)
-                    {
-                        server.updateKupon(kupon);
+                  IRecord record = ((IDataTable)currFrame).getCurrentRecord();
+                    if(record is Kupon){
+                        server.updateKupon((Kupon)record);
+                    }else if(record is Business){
+                         server.updateBusiness((Business)record);
+                    }else if(record is User){
+                         server.updateUser((User)record);
+                    }else{
+                        MessageBox.Show("please choose a record to update");
                     }
+                    
 
 
                 }
@@ -206,7 +213,7 @@ namespace Kupon_WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception accured. please try again \n" + ex);
+                MessageBox.Show("Exception accured. please try again \n" + ex.ToString());
             }
 
     }
@@ -252,7 +259,9 @@ namespace Kupon_WPF
 
         private void userSetting_BTN_Click(object sender, RoutedEventArgs e)
         {
-            mainRecordFrame.Navigate(new UserSettingPage(this));
+            UserSettingPage settings = new UserSettingPage(this);
+            mainRecordFrame.Navigate(settings);
+            currFrame = settings;
         }
 
 
@@ -289,8 +298,9 @@ namespace Kupon_WPF
             {
                 kupons = server.getKuponsForUser(user);
             }
-            showCouponRecords couponRecords = new showCouponRecords(kupons);
+            showCouponRecords couponRecords = new showCouponRecords(this,kupons);
              mainRecordFrame.Navigate(couponRecords);
+             currFrame = couponRecords;
         }
 
         private void insertCoupon_BTN_Click(object sender, RoutedEventArgs e)
@@ -301,27 +311,42 @@ namespace Kupon_WPF
 
         public void setKuponData(List<Kupon> kupons)
         {
-            showCouponRecords couponRecords = new showCouponRecords(kupons);
+            showCouponRecords couponRecords = new showCouponRecords(this,kupons);
             mainRecordFrame.Navigate(couponRecords);
+            currFrame = couponRecords;
         }
 
         public void setBusinessData(List<Business> business)
         {
             MessageBox.Show(business.Count.ToString());
             showBusinessRecords couponRecords = new showBusinessRecords(business,this);
-            businessList = business;
             mainRecordFrame.Navigate(couponRecords);
+            currFrame = couponRecords;
         }
 
         private void searchBusiness_BTN_Click(object sender, RoutedEventArgs e)
         {
-            forms.search.searchBusiness searchBusinessWin = new forms.search.searchBusiness(this);
-            if (searchBusinessWin != null)
+              forms.search.searchBusiness searchBusinessWin = new forms.search.searchBusiness(this);
+              if (searchBusinessWin != null)
+              {
+                  searchBusinessWin.Owner = this;
+                  searchBusinessWin.ShowDialog();
+              }
+        }
+
+        internal void sendData(IRecord record)
+        {
+            if (user is Client)
             {
-                searchBusinessWin.Owner = this;
-                searchBusinessWin.ShowDialog();
+                if (record is Kupon)
+                {
+                 BuyCouponPage buyKupon = new BuyCouponPage((Kupon)record);
+                 mainRecordFrame.Navigate(buyKupon);
+                 currFrame = buyKupon;
+            }else if(user is Admin){
 
             }
         }
+    }
     }
 }

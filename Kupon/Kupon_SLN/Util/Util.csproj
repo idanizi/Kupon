@@ -42,6 +42,7 @@
     <Compile Include="Business.cs" />
     <Compile Include="Admin.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="IRecord.cs" />
     <Compile Include="Kupon.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,7 +21,7 @@ namespace Kupon_WPF.forms.show
     /// <summary>
     /// Interaction logic for showCouponRecords.xaml
     /// </summary>
-    public partial class showBusinessRecords : Page
+    public partial class showBusinessRecords : Page,IDataTable
     {
 
     //    public ICollectionView Customers { get; private set; }
@@ -82,10 +82,10 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
     }
 
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+public IRecord getCurrentRecord()
+{
+    return (dataList[Data_Grid.SelectedIndex]);
+}
 
      
 

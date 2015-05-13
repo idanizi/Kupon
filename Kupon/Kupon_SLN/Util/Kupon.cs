@@ -9,7 +9,7 @@ namespace Util
 {
     public enum KuponParameters { LONGTITUDE, LATITUDE, CATEGORY };
     public enum KuponStatus { NEW, APPROVED, ACTIVE, USED };
-    public class Kupon:INotifyPropertyChanged
+    public class Kupon : INotifyPropertyChanged, IRecord
     {
         private string ID;
         private string name;

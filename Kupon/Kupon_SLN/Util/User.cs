@@ -16,7 +16,7 @@ namespace Util
         LASTNAME
     };
 
-    public class User
+    public class User:IRecord
     {
         private string name;
         private string password;

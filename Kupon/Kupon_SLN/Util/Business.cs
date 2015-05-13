@@ -34,7 +34,7 @@ namespace Util
     }
 
    
-    public class Business: INotifyPropertyChanged
+    public class Business: INotifyPropertyChanged,IRecord
     {
         private string Id;
         private string name;

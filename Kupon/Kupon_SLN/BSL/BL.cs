@@ -71,6 +71,7 @@ namespace BSL
             Client client = dataBase.searchClient(new Client(userName));
             kupon.setStatus(KuponStatus.ACTIVE);
             //set serial key
+            kupon.setSerialNum(getNewKuponID());
             client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
         }

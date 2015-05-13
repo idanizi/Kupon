@@ -103,5 +103,10 @@ namespace Util
             this.status=status;
         }
 
+        public void setSerialNum(string serial)
+        {
+            this.serialKey = serial;
+        }
+
     }
 }

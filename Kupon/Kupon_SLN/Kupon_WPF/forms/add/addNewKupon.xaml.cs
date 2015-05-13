@@ -70,6 +70,7 @@ namespace Kupon_WPF.forms.add
                         else{
                             currBusiness = null;
                         }
+                    MessageBox.Show(currBusiness.getManger().getName());
                     Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", currBusiness);
                     server.addNewKupon(kupon);
                      MessageBox.Show("kupon added to the system and waiting to admin approvel.");

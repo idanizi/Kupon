@@ -24,8 +24,8 @@ namespace DAL
 
         public void add_kupon(Kupon kupon)
         {
-             string query = "insert into [Kupon] values ('" + kupon.getID() + "','" + kupon.getName() + "','" + kupon.getDescription() + "'," + kupon.getOriginalPrice() + "," + kupon.getDicountPrice() + ",'" + kupon.getLastDate() + "','" + kupon.getBusiness().getId() + "','" + kupon.getStatus() + "');";
-             sendQuery(query);
+            string query = "insert into [Kupon] values ('" + kupon.getID() + "','" + kupon.getName() + "','" + kupon.getDescription() + "'," + kupon.getOriginalPrice() + "," + kupon.getDicountPrice() + ",'" + kupon.getLastDate().ToString("yyyy-MM-dd HH:mm:ss") + "','" + kupon.getBusiness().getId() + "','" + kupon.getStatus() + "');";
+            sendQuery(query);
         }
 
         public void update_kupon(Kupon kupon)
@@ -561,7 +561,17 @@ namespace DAL
 
         public Business searchBUsinessByManager(Manager manager)
         {
-            throw new NotImplementedException();
+            string businessID;
+            string query = "select * from [Business] where manager = '" + manager.getName() + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr != null && dr.Read())
+            {
+                businessID = dr.GetString(0);
+                dr.Close();
+                cnn.Close();
+                return create_business(businessID);
+            }
+            return null;
         }
     }
 }

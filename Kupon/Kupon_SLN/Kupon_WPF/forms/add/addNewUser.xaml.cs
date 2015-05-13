@@ -89,10 +89,7 @@ namespace Kupon_WPF.forms.add
 
             if (validateFields())
             {
-                
-                Array arr = Enum.GetValues(typeof(buisnessCategory));
-                  List<buisnessCategory> catList = new List<buisnessCategory>(arr.Cast<buisnessCategory>());
-                Client newUser = new Client(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text,firstName_TB.Text,lastName_TB.Text, catList, new List<Kupon>(), address_TB.Text, "todo", -1);   //TODO  
+                Client newUser = new Client(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2", new List<buisnessCategory>(), new List<Kupon>(), "todo", "todo", -1);   //TODO  
                 try
                 {
                     server.addNewUser(newUser);

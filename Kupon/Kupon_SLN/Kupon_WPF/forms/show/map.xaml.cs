@@ -64,7 +64,7 @@ namespace Kupon_WPF.forms.show
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ((IMapped)this.Owner).setLocation(pin.Location.Longitude,pin.Location.Latitude);
+            ((IMapped)this.Owner).setLocation(pin.Location.Longitude,pin.Location.Altitude);
             Close();
         }
     }

@@ -15,7 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Util;
 using BSL;
-using Microsoft.VisualBasic;
 using System.Device.Location;
 
 
@@ -35,7 +34,7 @@ namespace Kupon_WPF
         private static User user = null;
         private static double userLatitude = 0;
         private static double userLongtitude = 0;
-        private List<Business> businessList;
+
 
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
@@ -73,19 +72,13 @@ namespace Kupon_WPF
 
         private void reInitializedData()
         {
-            if (user != null)
-            {
-                welcome_TB.Text = "welcome " + user.getName();
-            }
-            else
-            {
-                welcome_TB.Text = "welcome ghost. Please log in";
-            }
-            
+           
+
+            //patient can't add new records
+            couponRecords = new showCouponRecords(this);
             if (user is Admin)
             {
-                myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
-                myKupons_BTN.Content = "Approve new coupons";
+                myKupons_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Visible;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 saveChanges_BTN.Visibility = Visibility.Visible;
@@ -93,14 +86,11 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                  login_BTN.Content = "Logout";
-                List<Kupon> data = server.getKuponForApproval(50);
-                couponRecords = new showCouponRecords(this, data);
             }
             else if (user is Manager)
             {
 
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
-                myKupons_BTN.Content = "My coupons";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 saveChanges_BTN.Visibility = Visibility.Hidden;
@@ -108,13 +98,10 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 login_BTN.Content = "Logout";
-                //List<Kupon> data = server.getKuponForBusiness(user);
-                //couponRecords = new showCouponRecords(this, data);
             }
             else if (user is Client)
             {
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
-                myKupons_BTN.Content = "My coupons";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 saveChanges_BTN.Visibility = Visibility.Hidden;
@@ -122,11 +109,6 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Visible;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Logout";
-                List<Kupon> data = new  List<Kupon>();
-                foreach(buisnessCategory cat in ((Client)user).getFavorits()){
-                    data.AddRange(server.searchKoupon(cat, UserLatitude, UserLongtitude));
-                }
-                couponRecords = new showCouponRecords(this, data);
             }
             else
             {
@@ -138,14 +120,7 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Login";
-                List<Kupon> data = new List<Kupon>();
-               /* foreach (buisnessCategory cat in  Enum.GetValues(typeof(buisnessCategory)))
-                {
-                   
-                    data.AddRange(server.searchKoupon(cat, UserLatitude, UserLongtitude));
-                } */
-                couponRecords = new showCouponRecords(this, data);
-            } 
+            }  
             buttons_GRD.UpdateLayout();
             mainRecordFrame.Navigate(couponRecords);
         }
@@ -172,17 +147,15 @@ namespace Kupon_WPF
                     loginWindow.ShowDialog();
                     //if login succesful
                     reInitializedData();
-                    
+                    welcome_TB.Text = "welcome "  + user.getName();
 
                 }
                 catch (Exception ex)
                 {
-                    server.logOut(user.getName());
+                    MessageBox.Show("Exception accured. please try again " + ex);
                 }
             
         }else{
-            server.logOut(user.getName());
-            CurrUser = null;
         reInitializedData();
         }
 
@@ -222,32 +195,8 @@ namespace Kupon_WPF
 
         private void addNewKupon_BTN_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Business bus = null;
-                if (user is Manager)
-                {
-                    bus = server.searchManagerBusiness((Manager)user);
-                }
-                else if (user is Admin )
-                {
-                    if (businessList.Count > 0)
-                    {
-                        bus = businessList[0];
-                    }
-                    else
-                    {
-                        MessageBox.Show("please choose business to add the coupon to");
-                        return;
-                    }
-                }
-                forms.add.addNewKupon registerWindow = new forms.add.addNewKupon(this, bus);
-                registerWindow.ShowDialog();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            forms.add.addNewKupon registerWindow = new forms.add.addNewKupon(this);
+            registerWindow.ShowDialog();
         }
 
         private void userSetting_BTN_Click(object sender, RoutedEventArgs e)
@@ -275,22 +224,7 @@ namespace Kupon_WPF
 
         private void myKupons_BTN_Click(object sender, RoutedEventArgs e)
         {
-            List<Kupon> kupons = new List<Kupon>();
 
-            if (user is Admin)
-            {
-                kupons = server.getKuponForApproval(50);
-            }
-            else if (user is Client)
-            {
-                kupons = server.getKuponsForUser(user);
-            }
-            else if(user is Manager)
-            {
-                kupons = server.getKuponsForUser(user);
-            }
-            showCouponRecords couponRecords = new showCouponRecords(kupons);
-             mainRecordFrame.Navigate(couponRecords);
         }
 
         private void insertCoupon_BTN_Click(object sender, RoutedEventArgs e)
@@ -308,7 +242,6 @@ namespace Kupon_WPF
         public void setBusinessData(List<Business> business)
         {
             showBusinessRecords couponRecords = new showBusinessRecords(business,this);
-            businessList = business;
             mainRecordFrame.Navigate(couponRecords);
         }
 

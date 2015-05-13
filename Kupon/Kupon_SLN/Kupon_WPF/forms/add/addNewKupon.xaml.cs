@@ -23,15 +23,17 @@ namespace Kupon_WPF.forms.add
         string creator;
         BL server = new BL();
         MainWindow main;
-        private MainWindow mainWindow;
-        private Business bus;
-        public addNewKupon(MainWindow main, Business bus)
+        public addNewKupon(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
-            this.bus = bus;
         }
 
+        public addNewKupon(string creator)
+        {
+            InitializeComponent();
+            this.creator = creator;
+        }
 
 
 

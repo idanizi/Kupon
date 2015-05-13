@@ -83,7 +83,7 @@ namespace Kupon_WPF.forms.search
            List<Kupon> kupons = null;
            if (pickCategory_CB.SelectedIndex == 0)
                 {
-                   kupons = server.searchKouponByName(Value_TB.Text);
+                   // List<Kupon> kupons = server.searchKouponByName(Value_TB.Text);
                     MessageBox.Show("not implemented yet.");
                 }
            else if (pickCategory_CB.SelectedIndex == 1)
@@ -92,7 +92,7 @@ namespace Kupon_WPF.forms.search
                 }
            else if (pickCategory_CB.SelectedIndex == 2)
                 {
-                     kupons = server.searchKouponByCity(Value_TB.Text);
+                    // List<Kupon> kupons = server.searchKouponByCity(Value_TB.Text);
                     MessageBox.Show("not implemented yet.");
                 }
                 if (kupons != null) { }
@@ -119,7 +119,7 @@ namespace Kupon_WPF.forms.search
         {
             this.latitude = Latitude;
             this.longtitude = Longitude;
-            Value_TB.Text = Longitude + " , " + Latitude;
+            Value_TB.Text = Longitude + " , " + Longitude;
 
         }
 

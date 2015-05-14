@@ -18,12 +18,12 @@ namespace Kupon_WPF.forms.add
 {
     public partial class addNewUser : Window
     {
-        string mode;
+
         BL server = new BL();
         public addNewUser()
         {
             InitializeComponent();
-            mode = "new";
+
         }
 
 

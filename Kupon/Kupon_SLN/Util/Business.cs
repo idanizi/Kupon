@@ -42,12 +42,12 @@ namespace Util
         private string street;
         private int number;
         private string description;
-        private string catagory;
+        private buisnessCategory catagory;
         private Manager manager;
         private double vertical;
         private double horizontal;
 
-        public Business(string id, string name, string city, string street, int number, string description, string catagory, Manager manager,double horizontal,double vertical)
+        public Business(string id, string name, string city, string street, int number, string description, buisnessCategory catagory, Manager manager,double horizontal,double vertical)
         {
             this.Id = id;
             this.name = name;
@@ -57,6 +57,20 @@ namespace Util
             this.description = description;
             this.catagory = catagory;
             this.manager=manager;
+            this.vertical = vertical;
+            this.horizontal = horizontal;
+        }
+
+        public Business(string id, string name, string city, string street, int number, string description, string catagory, Manager manager, double horizontal, double vertical)
+        {
+            this.Id = id;
+            this.name = name;
+            this.city = city;
+            this.street = street;
+            this.number = number;
+            this.description = description;
+            this.catagory = enumFromString(catagory);
+            this.manager = manager;
             this.vertical = vertical;
             this.horizontal = horizontal;
         }
@@ -207,7 +221,7 @@ namespace Util
         }
 
 
-        public string getCatagory()
+        public buisnessCategory getCatagory()
         {
             return catagory;
         }
@@ -215,11 +229,12 @@ namespace Util
 
         public string Catagory
         {
-            get { return catagory; }
+            get { return catagory.ToString(); }
             set
             {
-
-                catagory = value;
+                buisnessCategory b;
+                Enum.TryParse<buisnessCategory>(value, true, out b);
+                catagory = b;
                 NotifyPropertyChanged("Catagory");
 
             }

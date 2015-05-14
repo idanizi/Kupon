@@ -7,6 +7,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
 	Title="showCouponRecords">
-    <DataGrid x:Name="Data_Grid"  ItemsSource="{Binding}" IsReadOnly="True"  SelectionMode="Single" />
+    <DataGrid x:Name="Data_Grid"  ItemsSource="{Binding}" IsReadOnly="True"  SelectionMode="Single"  />
     
 </Page>

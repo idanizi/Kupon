@@ -31,7 +31,6 @@ namespace Util
             this.kupons = kupons;
             this.city = city;
             this.street = street;
-            this.number = number;
         }
 
         public Client(string username)
@@ -73,9 +72,9 @@ namespace Util
                 this.kupons = kupons;
             }
 
-            public void setFavor(List<buisnessCategory> favorites)
+            public void setFavor(List<buisnessCategory> favor)
             {
-                this.favoriets = favoriets;
+                this.favoriets = favor;
             }
 
             public void setFavor(List<string> favorit)

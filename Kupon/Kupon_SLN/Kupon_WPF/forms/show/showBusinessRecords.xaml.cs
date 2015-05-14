@@ -27,8 +27,7 @@ namespace Kupon_WPF.forms.show
     //    public ICollectionView Customers { get; private set; }
      //   public ICollectionView GroupedCustomers { get; private set; }
         public List<Business> dataList;
-    private string userStat = "Ghost";
-    private User user;
+          private User user;
         private BL server = new BL();
         //CollectionViewSource itemCollectionViewSource;
 
@@ -38,7 +37,7 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
         InitializeComponent();
         // TODO: Complete member initialization
         user = main.CurrUser;
-
+        dataList = data;
         Data_Grid.DataContext = data;
            if (user is Admin)
            {
@@ -84,10 +83,11 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
 
 public IRecord getCurrentRecord()
 {
+    MessageBox.Show(Data_Grid.ToString() + "\n" + Data_Grid.SelectedIndex + "\n" + Data_Grid.SelectedItem + "\n" + Data_Grid.SelectedValue);
+     MessageBox.Show(dataList.Count.ToString());
+     MessageBox.Show(dataList[0].ToString());
     return (dataList[Data_Grid.SelectedIndex]);
 }
-
-     
 
         }
 

@@ -58,6 +58,29 @@ namespace Kupon_WPF
             mGeoWatcher.Start();
             mGeoWatcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
             mGeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            try
+            {
+                server.addNewUser(new Admin("admin", "123", "Aa", "33", "ss", "ss"));
+            }
+            catch
+            {
+                try
+                {
+                    Manager manager = new Manager("manger", "123", "Aa", "33", "ss", "ss");
+                        server.addNewUser(manager);
+                }
+                catch
+                {
+                    try
+                    {
+                        Manager manager = new Manager("client", "123", "Aa", "33", "ss", "ss");
+                        server.addNewBusiness(new Business("busines_id", "busi name", "city", "street", 10, "bus descreption", buisnessCategory.Food, manager, UserLongtitude, UserLatitude));
+                        server.addNewUser(new Client("client", "123", "mail@mail", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10));
+                    }
+                    catch { }
+                }
+            }
+        
         }
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
@@ -108,6 +131,7 @@ namespace Kupon_WPF
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 login_BTN.Content = "Logout";
+                
                 //List<Kupon> data = server.getKuponForBusiness(user);
                 //couponRecords = new showCouponRecords(this, data);
             }
@@ -235,21 +259,25 @@ namespace Kupon_WPF
                 if (user is Manager)
                 {
                     bus = server.searchManagerBusiness((Manager)user);
+                 
                 }
                 else if (user is Admin )
                 {
-                    if (businessList.Count > 0)
-                    {
-                        bus = businessList[0];
-                    }
-                    else
-                    {
+                    try { 
+                        bus = (Business)((IDataTable)currFrame).getCurrentRecord();
+                    }catch{
                         MessageBox.Show("please choose business to add the coupon to");
                         return;
                     }
+                    
                 }
-                forms.add.addNewKupon registerWindow = new forms.add.addNewKupon(this, bus);
-                registerWindow.ShowDialog();
+                if (bus != null) { 
+                 MessageBox.Show(bus.getName());
+                forms.add.addNewKupon newKuponWindow = new forms.add.addNewKupon(this, bus);
+                newKuponWindow.ShowDialog();
+            }else{
+                  MessageBox.Show("unknown businessList. can't add cupon");
+            }
             }
             catch(Exception ex)
             {

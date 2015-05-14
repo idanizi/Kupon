@@ -27,11 +27,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="searchKupon_BTN" Width="119" HorizontalAlignment="Right" Margin="0,182,33,12" Click="searchKupon_BTN_Click" Content="Search Kupon"/>
+        <Button x:Name="searchKupon_BTN" Width="119" HorizontalAlignment="Right" Margin="0,182,33,12" Click="searchKupon_BTN_Click" Content="Search Business"/>
         <Label Content="Value" VerticalAlignment="Top" Margin="11,60,125,0" Height="26"/>
         <Label Content="Location"  Margin="10,94,11,132" Grid.IsSharedSizeScope="True"/>
         <Label Content="search  by:" VerticalAlignment="Top" Margin="10,26,28,0" Height="26"/>
-        <Button x:Name="pickLocation_BTN" Content="Change Business" HorizontalAlignment="Left" Height="30" Margin="54,136,0,0" VerticalAlignment="Top" Width="120" Click="pickLocation_BTN_Click"/>
+        <Button x:Name="pickLocation_BTN" Content="Pick Location " HorizontalAlignment="Left" Height="30" Margin="54,136,0,0" VerticalAlignment="Top" Width="120" Click="pickLocation_BTN_Click"/>
         <ComboBox x:Name="pickCategory_CB" HorizontalAlignment="Left" Margin="81,26,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="pickCategory_CB_SelectionChanged" >
             <ComboBoxItem Content="Business Name" />
             <ComboBoxItem Content="Category And Location on Map" />

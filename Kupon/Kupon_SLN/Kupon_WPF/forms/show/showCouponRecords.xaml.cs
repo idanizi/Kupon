@@ -100,7 +100,7 @@ namespace Kupon_WPF.forms.show
         {
             InitializeComponent();
             this.main = main;
-
+            user = main.CurrUser;
             if (user is Admin)
             {
                 //Data_Grid.SelectionUnit = DataGridSelectionUnit.Cell;

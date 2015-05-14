@@ -186,11 +186,11 @@ namespace BSL
 
         public void updateUser(User user)
         {
-            if (user.GetType() is Admin)
+            if (user  is Admin)
                 dataBase.update_admin((Admin)user);
-            if (user.GetType() is Client)
+            if (user  is Client)
                 dataBase.update_client((Client)user);
-            if (user.GetType() is Manager)
+            if (user  is Manager)
                 dataBase.update_manager((Manager)user);
         }
 

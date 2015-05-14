@@ -20,28 +20,16 @@ namespace Kupon_WPF.forms.add
     public partial class addNewKupon : Window
     {
 
-        string creator;
         BL server = new BL();
-        MainWindow main;
-        private MainWindow mainWindow;
-        private Business bus;
-        public addNewKupon(MainWindow main)
-        {
-            InitializeComponent();
-            this.main = main;
-        }
-
-        public addNewKupon(string creator)
-        {
-            InitializeComponent();
-            this.creator = creator;
-        }
+        private MainWindow main;
+        private Business business;
 
         public addNewKupon(MainWindow mainWindow, Business bus)
         {
             // TODO: Complete member initialization
-            this.mainWindow = mainWindow;
-            this.bus = bus;
+            InitializeComponent();
+            this.main = mainWindow;
+            business = bus;
         }
 
 
@@ -73,14 +61,10 @@ namespace Kupon_WPF.forms.add
             try {
                 if (validateFields())
                 {
-                    Business currBusiness;
-                    if(main.CurrUser is Manager){
-                        currBusiness = server.searchManagerBusiness((Manager)main.CurrUser);}
-                        else{
-                            currBusiness = null;
-                        }
-                    MessageBox.Show(currBusiness.getManger().getName());
-                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", currBusiness);
+
+                    MessageBox.Show(business.getName());
+                    MessageBox.Show(business.getManger().getName());
+                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", business);
                     server.addNewKupon(kupon);
                      MessageBox.Show("kupon added to the system and waiting to admin approvel.");
                 this.Close();

@@ -22,7 +22,7 @@ namespace Kupon_WPF.forms.show
    
     public partial class insertCoupon : Window
     {
-         string kuponCode = "";
+   
          BL server =  new BL();
          MainWindow main;
         public insertCoupon(MainWindow main)

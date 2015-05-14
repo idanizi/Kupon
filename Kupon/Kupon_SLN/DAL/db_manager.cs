@@ -17,14 +17,14 @@ namespace DAL
         public DB_manager()
         {
            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
         public void add_kupon(Kupon kupon)
         {
-             string query = "insert into [Kupon] values ('" + kupon.getID() + "','" + kupon.getName() + "','" + kupon.getDescription() + "'," + kupon.getOriginalPrice() + "," + kupon.getDicountPrice() + ",'" + kupon.getLastDate() + "','" + kupon.getBusiness().getId() + "','" + kupon.getStatus() + "');";
+            string query = "insert into [Kupon] values ('" + kupon.getID() + "','" + kupon.getName() + "','" + kupon.getDescription() + "'," + kupon.getOriginalPrice() + "," + kupon.getDicountPrice() + ",'" + kupon.getLastDate().ToString("yyyy-MM-dd HH:mm:ss") + "','" + kupon.getBusiness().getId() + "','" + kupon.getStatus() + "');";
              sendQuery(query);
         }
 
@@ -246,7 +246,7 @@ namespace DAL
 
         public void add_location_user(User user,double vertical,double horizontal)
         {
-            string query = "INSERT into [userLocation] values ('" + user.getName() + "','" + DateTime.Now + "'," + vertical + "," + horizontal + ");";
+            string query = "INSERT into [userLocation] values ('" + user.getName() + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + vertical + "," + horizontal + ");";
             sendQuery(query);
         }
 
@@ -561,7 +561,17 @@ namespace DAL
 
         public Business searchBUsinessByManager(Manager manager)
         {
-            throw new NotImplementedException();
+            string businessID;
+            string query = "select * from [Business] where manager='"+manager.getName()+"';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr!=null&&dr.Read())
+            {
+            businessID=dr.GetString(0);
+            dr.Close();
+            cnn.Close();
+            return create_business(businessID);
+            }
+            return null;
         }
     }
 }

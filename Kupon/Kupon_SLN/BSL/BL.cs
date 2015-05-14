@@ -261,5 +261,10 @@ namespace BSL
         {
             throw new NotImplementedException();
         }
+
+        public void updateBusiness(IRecord record)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

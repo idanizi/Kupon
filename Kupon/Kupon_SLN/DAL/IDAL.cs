@@ -34,15 +34,17 @@ namespace DAL
         void add_business(Business business);
         void update_business(Business business);
         void delete_business(Business business);
+        List<Business> searchBusinnesByName(string id);
         Business searchBUsinessByManager(Manager manager); 
        //business search
-        List<Business> searchBusinessByAddress(string city, string street, int number);
+        List<Business> searchBusinessByCity(string city);
         List<Business> searchBusinessBycatagory(string catagory);
         List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal,int radius);
         //kupon search
         List<Kupon> searchKuponByBusinesName(string businessName);
+        List<Kupon> searchKuponByName(string name);
         List<Kupon> searchKuponByCatagory(string catagory);
-        List<Kupon> searchKuponByAddress(string city,string street,int number);
+        List<Kupon> searchKuponByCity(string city);
         List<Kupon> searchKuponByUser(User user);
         List<Kupon> searchKuponByStatus(KuponStatus status);
         List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius);

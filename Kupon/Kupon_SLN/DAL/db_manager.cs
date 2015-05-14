@@ -17,8 +17,8 @@ namespace DAL
         public DB_manager()
         {
            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
@@ -54,7 +54,7 @@ namespace DAL
 
         public Kupon searchKuponByID(Kupon kupon)
         {
-            return null;
+            return create_kupon(kupon.getID());
         }
 
         public void delete_manager(Manager manager)
@@ -65,14 +65,14 @@ namespace DAL
 
         public void update_admin(Admin admin)
         {
-            delete_admin(admin);
-            add_admin(admin);
+            string query = "UPDATE [User] set  name='" + admin.getName() + "',email='" + admin.getEmail() + "',password='" + admin.getPassword() + "',phone=" + admin.getPhone() + ",firstName='" + admin.getFirstName() + "',lastName='" + admin.getLastName() + "'  WHERE name='" + admin.getName() + "';";
+            sendQuery(query);
         }
 
         public void update_manager(Manager manager)
         {
-            delete_manager(manager);
-            add_manager(manager);
+            string query = "UPDATE [User] set  name='" + manager.getName() + "',email='" + manager.getEmail() + "',password='" + manager.getPassword() + "',phone=" + manager.getPhone() + ",firstName='" + manager.getFirstName() + "',lastName='" + manager.getLastName() + "' WHERE name='" + manager.getName() + "';";
+            sendQuery(query);
         }
 
         public void add_manager(Manager manager)
@@ -108,8 +108,8 @@ namespace DAL
 
         public void update_client(Client client)
         {
-            delete_client(client);
-            add_client(client);
+            string query = "UPDATE [User] set  name='" + client.getName() + "',email='" + client.getEmail() + "',password='" + client.getPassword() + "',phone=" + client.getPhone() + ",firstName='" + client.getFirstName() + "',lastName='" + client.getLastName() + "',city='" + client.getCity() + "',street='" + client.getStreet() + "',number= " + client.getNumber() + " WHERE name='" + client.getName() + "';";
+            sendQuery(query);
         }
 
         public void delete_client(Client client)
@@ -130,11 +130,11 @@ namespace DAL
             sendQuery(query);
         }
 
-        public List<Business> searchBusinessByAddress(string city, string street, int number)
+        public List<Business> searchBusinessByCity(string city)
         {
             List<Business> business = new List<Business>();
             List<string> businessID = new List<string>();
-            string query = "select * from [Business] where city='" + city + "' AND street='" + street + "' AND num=" + number + ";";
+            string query = "select * from [Business] where city='" + city + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -187,11 +187,11 @@ namespace DAL
             return kupons;
         }
 
-        public List<Kupon> searchKuponByAddress(string city, string street, int number)
+        public List<Kupon> searchKuponByCity(string city)
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND city='" + city + "' AND street='"+street+"' AND num="+number+";";
+            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND city='" + city + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -572,6 +572,46 @@ namespace DAL
             return create_business(businessID);
             }
             return null;
+        }
+
+
+        public List<Business> searchBusinnesByName(string id)
+        {
+            List<Business> businesses=new List<Business>();
+            List<string> businessId = new List<string>();
+            string query = "select * from [Business] where name='" + id + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            while(dr.Read()){
+                businessId.Add(dr.GetString(0));
+            }
+            dr.Close();
+            cnn.Close();
+            foreach (string business in businessId)
+            {
+                businesses.Add(create_business(business));
+            }
+            
+            return businesses;
+        }
+
+
+        public List<Kupon> searchKuponByName(string name)
+        {
+            List<string> kuponId = new List<string>();
+            List<Kupon> kupons = new List<Kupon>();
+             string query = "select * from [kupon] where [Kupon].name='"+ name +"';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            while (dr.Read())
+            {
+                kuponId.Add(dr.GetString(0));
+            }
+            dr.Close();
+            cnn.Close();
+            foreach (string kupon in kuponId)
+            {
+                kupons.Add(create_kupon(kupon));
+            }
+            return kupons;
         }
     }
 }

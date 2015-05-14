@@ -239,32 +239,32 @@ namespace BSL
 
         public List<Kupon> getKuponsForUser(User user)
         {
-            throw new NotImplementedException();
+            return dataBase.searchKuponByUser(user);
         }
 
         public List<Business> searchBusinessByName(string p)
         {
-            throw new NotImplementedException();
+            return dataBase.searchBusinnesByName(p);
         }
 
         public List<Kupon> searchKouponByCity(string p)
         {
-            throw new NotImplementedException();
+            return dataBase.searchKuponByCity(p);
         }
 
         public List<Business> searchBusinessByCity(string p)
         {
-            throw new NotImplementedException();
+            return dataBase.searchBusinessByCity(p);
         }
 
         public List<Kupon> searchKouponByName(string p)
         {
-            throw new NotImplementedException();
+            return dataBase.searchKuponByName(p);
         }
 
         public void updateBusiness(IRecord record)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

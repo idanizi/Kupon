@@ -116,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="forms\show\RateKuponWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="forms\show\showCouponPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +179,9 @@
     <Compile Include="forms\show\IDataTable.cs" />
     <Compile Include="forms\show\insertCoupon.xaml.cs">
       <DependentUpon>insertCoupon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="forms\show\RateKuponWin.xaml.cs">
+      <DependentUpon>RateKuponWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="forms\show\showCouponPage.xaml.cs">
       <DependentUpon>showCouponPage.xaml</DependentUpon>

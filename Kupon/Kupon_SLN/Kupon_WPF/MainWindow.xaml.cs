@@ -125,6 +125,7 @@ namespace Kupon_WPF
                 myKupons_BTN.Content = "coupons for Approvel";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Visible;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
+                saveChanges_BTN.Content = "Save Changes";
                 saveChanges_BTN.Visibility = Visibility.Visible;
                 register_BTN.Visibility = System.Windows.Visibility.Hidden;
                 userSetting_BTN.Content = "Approve Kupon";
@@ -141,7 +142,8 @@ namespace Kupon_WPF
                 myKupons_BTN.Content = "My coupons";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
-                saveChanges_BTN.Visibility = Visibility.Hidden;
+                saveChanges_BTN.Content = "Purchesed Kupons";
+                saveChanges_BTN.Visibility = Visibility.Visible;
                 register_BTN.Visibility = System.Windows.Visibility.Hidden;
                 userSetting_BTN.Visibility = System.Windows.Visibility.Hidden;
                 insertCoupon_BTN.Content = "Insert Kupon Code";
@@ -156,6 +158,7 @@ namespace Kupon_WPF
                 myKupons_BTN.Content = "My coupons";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Hidden;
+                saveChanges_BTN.Content = "Save Changes";
                 saveChanges_BTN.Visibility = Visibility.Hidden;
                 register_BTN.Visibility = System.Windows.Visibility.Hidden;
                 userSetting_BTN.Content = "User Setting";
@@ -376,7 +379,21 @@ namespace Kupon_WPF
                 forms.add.addBusiness registerWindow = new forms.add.addBusiness(this);
                 registerWindow.ShowDialog();
             }else if(user is Client){
-
+                IRecord record = ((IDataTable)currFrame).getCurrentRecord();
+                if (record is Kupon)
+                {
+                    if(((Kupon)record).getStatus() == KuponStatus.USED){
+                    RateKuponWin rateKuponWindow = new RateKuponWin(this, (Kupon)record);
+                    rateKuponWindow.Owner = this;
+                  rateKuponWindow.ShowDialog();
+                    }else{
+                        MessageBox.Show("this kupon is not used.you heve to use the kuponin order to rate it!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("choose kupon for rating");
+                }
             }
         }
 

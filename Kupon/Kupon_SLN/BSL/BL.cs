@@ -293,5 +293,10 @@ namespace BSL
         {
             throw new NotImplementedException();
         }
+
+        public void rankKupon(User user, Kupon kupon, int i)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

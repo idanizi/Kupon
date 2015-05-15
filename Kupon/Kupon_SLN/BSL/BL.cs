@@ -290,17 +290,17 @@ namespace BSL
 
         public void deleteKupon(Kupon kupon)
         {
-            throw new NotImplementedException();
+            dataBase.delete_kupon(kupon);
         }
 
         public void deleteBusiness(Business business)
         {
-            throw new NotImplementedException();
+            dataBase.delete_business(business);
         }
 
         public List<Kupon> searchKouponByBusiness(Business business)
         {
-            throw new NotImplementedException();
+            return dataBase.searchKuponByBusinesName(business.getName());
         }
 
         public void getPurchestKuponsForBusness(Business business)
@@ -310,7 +310,8 @@ namespace BSL
 
         public void rankKupon(User user, Kupon kupon, int i)
         {
-            throw new NotImplementedException();
+            kupon.setRank(i);
+            dataBase.update_userKupom (kupon);
         }
     }
 }

@@ -118,6 +118,18 @@ namespace DAL
             sendQuery(query);
         }
 
+        public void update_userFavorite(Client client, List<buisnessCategory> favor)
+        {
+            string query = "delete from [UserFavorites] where userName='" + client.getName() + "';";
+            sendQuery(query);
+
+            foreach (buisnessCategory favorite in favor)
+            {
+                query = "INSERT into [userFavorites] values ('" + client.getName() + "','" + favor.ToString() + "');";
+                sendQuery(query);
+            }
+        }
+
         public void update_business(Business business)
         {
             string query = "UPDATE [Business] set  name='" + business.getName() + "',city='"+business.getCity()+"',street='" + business.getStreet() + "',num=" + business.getNumber() + ",description='" + business.getDescription() + "',category='" + business.getCatagory() + "',manager='" + business.getManger().getName() +"',vertical="+business.getVertical()+",horizontal= "+business.getHorizontal()+" WHERE ID='"+business.getId()+"';";
@@ -414,9 +426,9 @@ namespace DAL
         }
  
        
-        public void update_userKupom(Kupon kupon)
+        public void update_userKupom(User user,Kupon kupon)
         {
-            string query = "UPDATE [UserKupon] set  status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";
+            string query = "UPDATE [UsersKupon] set rank="+kupon.getRank()+" status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";
             sendQuery(query);
         }
 

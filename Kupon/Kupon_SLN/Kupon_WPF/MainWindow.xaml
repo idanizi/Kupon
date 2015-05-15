@@ -23,6 +23,7 @@
             <Button x:Name="addBusiness_BTN" Content="Add Business" HorizontalAlignment="Left" Height="52" Margin="10,360,0,0" VerticalAlignment="Top" Width="138" Click="addBusiness_BTN_Click"/>
             <Button x:Name="searchKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="138" Height="49" Click="searchKupons_BTN_Click" Content="Search Kupons"/>
             <Button x:Name="insertCoupon_BTN" Content="Insert Cupon Code" HorizontalAlignment="Left" Height="48" Margin="10,535,0,0" VerticalAlignment="Top" Width="137" Click="insertCoupon_BTN_Click"/>
+            <Button x:Name="Delete_BTN" Content="Delete" HorizontalAlignment="Left" Margin="11,588,0,0" VerticalAlignment="Top" Width="136" Height="48" Click="Delete_BTN_Click"/>
         </Grid>
         <Label x:Name="userLongtitude_L" Content="Longitude:" HorizontalAlignment="Left" Height="24" Margin="10,629,0,0" VerticalAlignment="Top" Width="116"/>
         <Label x:Name="userLatitude_L" Content="Latitude:" HorizontalAlignment="Left" Height="24" Margin="10,648,0,0" VerticalAlignment="Top" Width="116"/>

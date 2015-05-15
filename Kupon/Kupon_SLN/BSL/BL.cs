@@ -271,5 +271,27 @@ namespace BSL
         {
             throw new NotImplementedException();
         }
+
+  
+
+        public void deleteKupon(Kupon kupon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deleteBusiness(Business business)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Kupon> searchKouponByBusiness(Business business)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void getPurchestKuponsForBusness(Business business)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace Kupon_WPF
         private Page currFrame = null;
         GeoCoordinateWatcher mGeoWatcher = new GeoCoordinateWatcher();
         CivicAddress add = new CivicAddress();
+        System.Windows.Threading.DispatcherTimer dispatcherTimer;
         public List<buisnessCategory> pref = new List<buisnessCategory>();
 
         public User CurrUser { get { return user; } set { user = value; } }
@@ -88,6 +89,8 @@ namespace Kupon_WPF
         { 
             userLatitude_L.Content = mGeoWatcher.Position.Location.Latitude.ToString();
             userLongtitude_L.Content = mGeoWatcher.Position.Location.Longitude.ToString();
+            userLatitude = mGeoWatcher.Position.Location.Latitude;
+            userLongtitude = mGeoWatcher.Position.Location.Longitude;
         }
 
         private void mainWindow_Initialized(object sender, EventArgs e)
@@ -97,6 +100,14 @@ namespace Kupon_WPF
 
         private void reInitializedData()
         {
+
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(1, 0, 0);
+            dispatcherTimer.Start();
+
+
+
             if (user != null)
             {
                 welcome_TB.Text = "welcome " + user.getName();
@@ -136,9 +147,8 @@ namespace Kupon_WPF
                 insertCoupon_BTN.Content = "Insert Kupon Code";
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 login_BTN.Content = "Logout";
-                
-                //List<Kupon> data = server.getKuponForBusiness(user);
-                //couponRecords = new showCouponRecords(this, data);
+                List<Kupon> data = server.searchKouponByBusiness();
+                couponRecords = new showCouponRecords(this, data);
             }
             else if (user is Client)
             {
@@ -157,6 +167,7 @@ namespace Kupon_WPF
                 List<Kupon> data = new  List<Kupon>();
                 foreach(buisnessCategory cat in ((Client)user).getFavorits()){
                     data.AddRange(server.searchKoupon(cat, UserLatitude, UserLongtitude));
+                 
                 }
                 couponRecords = new showCouponRecords(this, data);
             }
@@ -171,15 +182,43 @@ namespace Kupon_WPF
                 insertCoupon_BTN.Visibility = System.Windows.Visibility.Hidden;
                 login_BTN.Content = "Login";
                 List<Kupon> data = new List<Kupon>();
-               /* foreach (buisnessCategory cat in  Enum.GetValues(typeof(buisnessCategory)))
-                {
-                   
-                    data.AddRange(server.searchKoupon(cat, UserLatitude, UserLongtitude));
-                } */
                 couponRecords = new showCouponRecords(this, data);
             } 
             buttons_GRD.UpdateLayout();
             mainRecordFrame.Navigate(couponRecords);
+            currFrame = couponRecords;
+            suggestNewCupons();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (user is Client)
+            {
+                suggestNewCupons();
+            }
+        }
+
+        private void suggestNewCupons()
+        {
+            try
+            {
+                List<Kupon> kupons = new List<Kupon>();
+                foreach (buisnessCategory favor in (((Client)user).getFavorits()))
+                {
+                    kupons.AddRange(server.searchKoupon(favor, userLatitude, UserLongtitude));
+                }
+                if (kupons.Count > 0)
+                {
+                    couponRecords = new showCouponRecords(this, kupons);
+                    mainRecordFrame.Navigate(couponRecords);
+                    currFrame = couponRecords;
+                    MessageBox.Show("new kupon near your area! try them out..");
+                }
+            }
+            catch
+            {
+
+            }
         }
 
 
@@ -237,9 +276,15 @@ namespace Kupon_WPF
                     }else{
                         MessageBox.Show("please choose a record to update");
                     }
-                    
 
-
+                }else if(user is Client){
+                  
+                    if (currFrame is UserSettingPage)
+                    {
+                        ((UserSettingPage)currFrame).saveCanges();
+                        server.updateUser(user);
+                        MessageBox.Show(((Client)user).getFavorits().Count.ToString());
+                    }
                 }
 
             }
@@ -300,6 +345,7 @@ namespace Kupon_WPF
                 UserSettingPage settings = new UserSettingPage(this);
                 mainRecordFrame.Navigate(settings);
                 currFrame = settings;
+                saveChanges_BTN.Visibility = Visibility.Visible;
             }
             else if (user is Admin)//aprove kupon
             {

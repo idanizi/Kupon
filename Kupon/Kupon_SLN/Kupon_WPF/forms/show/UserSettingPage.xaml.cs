@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Util;
 using BSL;
+using System.ComponentModel;
 namespace Kupon_WPF.forms.show
 {
     /// <summary>
@@ -21,54 +22,119 @@ namespace Kupon_WPF.forms.show
     /// </summary>
 
 
-
+    
 
     public partial class UserSettingPage : Page
     {
         Array data;
         MainWindow main;
-        List<bool> userFevoritsValues;
+        List<pref> userFevoritsValues;
         List<buisnessCategory> userFevorits;
         // List<Setting>
+
+        private class pref: INotifyPropertyChanged
+        {
+            private buisnessCategory category;
+            private bool value;
+            public pref(buisnessCategory buis, bool value)
+            {
+                category = buis;
+                this.value = value;
+              
+            }
+
+            public string Category
+            {
+                get { return category.ToString(); }
+                set
+                {
+                     buisnessCategory res;
+                     Enum.TryParse(value, true,out res);
+                     this.category = res;
+                    NotifyPropertyChanged("Category");
+
+                }
+            }
+
+             public bool Value
+            {
+                get { return value; }
+                set
+                {
+                    this.value = value;
+                    NotifyPropertyChanged("Value");
+                }
+            }
+
+            #region INotifyPropertyChanged Members
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            #endregion
+
+            #region Private Helpers
+
+            private void NotifyPropertyChanged(string propertyName)
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+
+            #endregion
+
+
+            internal buisnessCategory getCategory()
+            {
+                return category;
+            }
+        } 
+        
+        
         public UserSettingPage(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
+            updateValue();
+            Data_Grid.IsManipulationEnabled = true;
+            Data_Grid.IsEnabled = true;
+
+        }
+
+        private void updateValue()
+        {
             data = Enum.GetValues(typeof(buisnessCategory));
             userFevorits = ((Client)main.CurrUser).getFavorits();
-            userFevoritsValues = new List<bool>();
-            Data_Grid.ItemsSource = data;
-
-        }
-
-        void OnChecked(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(Data_Grid.Items[Data_Grid.SelectedIndex].ToString());
-            if(((CheckBox)e.OriginalSource).IsChecked.Value){
-                userFevorits.Add((buisnessCategory)Data_Grid.Items[Data_Grid.SelectedIndex]);
-            }
-            saveCanges();
-        }
-
-        void OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(e.Source.ToString() + " " + ((CheckBox)e.OriginalSource).IsChecked);
-            if (!((CheckBox)e.OriginalSource).IsChecked.Value)
+            userFevoritsValues = new List<pref>();
+            foreach (buisnessCategory busCat in data)
             {
-                userFevorits.Remove((buisnessCategory)Data_Grid.Items[Data_Grid.SelectedIndex]);
+                if (userFevorits.IndexOf(busCat)>=0)
+                {
+                    userFevoritsValues.Add(new pref(busCat,true));
+                }else{
+                    userFevoritsValues.Add(new pref(busCat,false));
+                }
             }
-            saveCanges();
-
+            Data_Grid.ItemsSource = userFevoritsValues;
         }
 
-        private void saveCanges()
+
+        public void saveCanges()
         {
             try
             {
+                List<buisnessCategory>  userFevorits = new List<buisnessCategory>();
                 BL server = new BL();
+                foreach (pref prefV in userFevoritsValues)
+                {
+                    if(prefV.Value == true){
+                  // MessageBox.Show(prefV.getCategory() + prefV.Value.ToString());
+                        userFevorits.Add(prefV.getCategory());
+                    }
+                }
                 ((Client)main.CurrUser).setFavor(userFevorits);
-                server.updateUser(main.CurrUser);
-              
+                  updateValue();
 
             }
             catch (Exception ex)
@@ -77,5 +143,11 @@ namespace Kupon_WPF.forms.show
 
             }
         }
+
+        private void Data_Grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }

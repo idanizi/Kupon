@@ -46,11 +46,6 @@ namespace Kupon_WPF.forms.show
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-            this.NavigationService.Navigate(new BuyCouponPage(koupon));
-          
-        }
+       
     }
 }

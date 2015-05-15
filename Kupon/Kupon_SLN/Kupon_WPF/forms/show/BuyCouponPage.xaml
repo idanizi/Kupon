@@ -18,7 +18,7 @@
         <Label Content="Experation  Date:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Height="26" Width="100"/>
         <Label Content="Full Name:" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Width="100" Grid.RowSpan="2" Height="26"/>
         <Button Content="Make Payment" HorizontalAlignment="Left" Margin="73,176,0,0" VerticalAlignment="Top" Width="140" Height="33" Click="Button_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="136,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="Credit_TB" HorizontalAlignment="Left" Height="23" Margin="136,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Grid.ColumnSpan="3"/>
         <ComboBox x:Name="day" HorizontalAlignment="Left" Margin="115,112,0,0" VerticalAlignment="Top" Width="45" Height="22">
             <ComboBoxItem Content="1" />
             <ComboBoxItem Content="2" />

@@ -266,5 +266,10 @@ namespace BSL
         {
             
         }
+
+        public void sendMail(string p1, string p2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -114,14 +114,14 @@ namespace Kupon_WPF.forms.show
             {
                 Data_Grid.IsManipulationEnabled = false;
                 Data_Grid.IsReadOnly = true;
-                Data_Grid.IsEnabled = false;
+                Data_Grid.IsEnabled = true;
                 Data_Grid.SelectionMode = DataGridSelectionMode.Single;
             }
             else if (user is Client)
             {
                 Data_Grid.IsManipulationEnabled = false;
                 Data_Grid.IsReadOnly = true;
-                Data_Grid.IsEnabled = false;
+                Data_Grid.IsEnabled = true;
                 Data_Grid.SelectionMode = DataGridSelectionMode.Single;
             }
             else //userStat == ghost

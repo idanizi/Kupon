@@ -191,6 +191,11 @@ namespace Util
             return serialKey;
         }
 
+        public void setSerialKey(string newSer)
+        {
+            this.serialKey = newSer;
+        }
+
         public Business getBusiness(){
             return business;
         }

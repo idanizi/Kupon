@@ -42,7 +42,7 @@ namespace Kupon_WPF.forms.show
             {
                 if(cheackPaimentDetials()){
                server.buyNewKupon(kupon.getID(),main.CurrUser.getName(),Credit_TB.Text);
-               server.sendMail(((Client)main.CurrUser).getEmail(),"recipet for kupon. paid " + kupon.getDicountPrice().ToString() + " shekels.\n thanks. see you soon!.");
+               server.sendMail("thenks for you buy Kupon",((Client)main.CurrUser).getEmail(),"recipet for kupon. paid " + kupon.getDicountPrice().ToString() + " shekels.\n thanks. see you soon!.");
                     MessageBox.Show("congratolations! your payment has been accepted. this kupon was added to your personal koupon list");
           
                     this.NavigationService.GoBack();

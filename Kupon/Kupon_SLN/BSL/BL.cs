@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using Util;
+using System.Net;
+using System.Net.Mail;
 
 namespace BSL
 {
@@ -70,7 +72,7 @@ namespace BSL
 
             Client client = dataBase.searchClient(new Client(userName));
             kupon.setStatus(KuponStatus.ACTIVE);
-            //set serial key
+            kupon.setSerialKey(getNewKuponID());
             client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
         }
@@ -262,31 +264,43 @@ namespace BSL
             return dataBase.searchKuponByName(p);
         }
 
-        public void updateBusiness(IRecord record)
+        public void updateBusiness(Business record)
         {
-            
+            dataBase.update_business(record);
         }
 
-        public void sendMail(string p1, string p2)
+        public void sendMail(string Subject, string mail, string text)
         {
-            throw new NotImplementedException();
+            MailMessage msg = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            msg.From = new MailAddress("matanbezen@gmail.com");
+            msg.To.Add(mail);
+            msg.Subject = Subject;
+            msg.Body = text;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("matanbezen", "bigbezen");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(msg);
         }
 
   
 
         public void deleteKupon(Kupon kupon)
         {
-            throw new NotImplementedException();
+            dataBase.delete_kupon(kupon);
         }
 
         public void deleteBusiness(Business business)
         {
-            throw new NotImplementedException();
+            dataBase.delete_business(business);
         }
 
         public List<Kupon> searchKouponByBusiness(Business business)
         {
-            throw new NotImplementedException();
+            return dataBase.searchKuponByBusinesName(business.getName());
         }
 
         public void getPurchestKuponsForBusness(Business business)
@@ -296,7 +310,8 @@ namespace BSL
 
         public void rankKupon(User user, Kupon kupon, int i)
         {
-            throw new NotImplementedException();
+            kupon.setRank(i);
+            dataBase.update_userKupom (kupon);
         }
     }
 }

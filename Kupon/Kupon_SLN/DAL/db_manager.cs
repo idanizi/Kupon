@@ -17,8 +17,8 @@ namespace DAL
         public DB_manager()
         {
            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
@@ -30,7 +30,7 @@ namespace DAL
 
         public void update_kupon(Kupon kupon)
         {
-             string query = "UPDATE [Kupon] set  ID='" + kupon.getID() + "',name='" + kupon.getName() + "',description='" + kupon.getDescription() + "',originalPrice=" + kupon.getOriginalPrice() + ",discountPrice=" + kupon.getDicountPrice() + ",expDate='" + kupon.getLastDate() + "',businessID='" + kupon.getBusiness().getId() + "',status='" + kupon.getStatus() + "' where [Kupon].ID='" + kupon.getID() + "';"; 
+            string query = "UPDATE [Kupon] set  ID='" + kupon.getID() + "',name='" + kupon.getName() + "',description='" + kupon.getDescription() + "',originalPrice=" + kupon.getOriginalPrice() + ",discountPrice=" + kupon.getDicountPrice() + ",expDate='" + kupon.getLastDate().ToString("yyyy-MM-dd HH:mm:ss") + "',businessID='" + kupon.getBusiness().getId() + "',status='" + kupon.getStatus() + "' where [Kupon].ID='" + kupon.getID() + "';"; 
             sendQuery(query);
         }
 
@@ -118,6 +118,18 @@ namespace DAL
             sendQuery(query);
         }
 
+        public void update_userFavorite(Client client, List<buisnessCategory> favor)
+        {
+            string query = "delete from [UserFavorites] where userName='" + client.getName() + "';";
+            sendQuery(query);
+
+            foreach (buisnessCategory favorite in favor)
+            {
+                query = "INSERT into [userFavorites] values ('" + client.getName() + "','" + favor.ToString() + "');";
+                sendQuery(query);
+            }
+        }
+
         public void update_business(Business business)
         {
             string query = "UPDATE [Business] set  name='" + business.getName() + "',city='"+business.getCity()+"',street='" + business.getStreet() + "',num=" + business.getNumber() + ",description='" + business.getDescription() + "',category='" + business.getCatagory() + "',manager='" + business.getManger().getName() +"',vertical="+business.getVertical()+",horizontal= "+business.getHorizontal()+" WHERE ID='"+business.getId()+"';";
@@ -172,7 +184,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND category='" + catagory + "';";
+            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND status <> 'NEW'  AND  category='" + catagory + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -191,7 +203,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND city='" + city + "';";
+            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID  AND status <> 'NEW'  AND  city='" + city + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -210,7 +222,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon] where ID in (select DISTINCT kuponID from [UsersKupon] where username='" + user.getName() + "');";
+            string query = "select * from [kupon] where  ID in (select DISTINCT kuponID from [UsersKupon] where  username='" + user.getName() + "');";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -229,7 +241,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon] where businessID in (select ID from [Business] where name='" + businessName + "');";
+            string query = "select * from [kupon] where status <> 'NEW'  AND  businessID in (select ID from [Business] where name='" + businessName + "');";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -252,7 +264,7 @@ namespace DAL
 
         public void add_userKupon(User user,Kupon kupon)
         {
-            string query = "INSERT into [UserKupon] values ('" + kupon.getSerialKey() + "','" + user.getName() + "','" + kupon.getID() + "'," + kupon.getRank() + ");";
+            string query = "INSERT into [UsersKupon] values ('" + kupon.getSerialKey() + "','" + user.getName() + "','" + kupon.getID() + "'," + kupon.getRank() + ",'"+KuponStatus.ACTIVE+"');";
             sendQuery(query);
         }
 
@@ -414,9 +426,9 @@ namespace DAL
         }
  
        
-        public void update_userKupom(Kupon kupon)
+        public void update_userKupom(User user,Kupon kupon)
         {
-            string query = "UPDATE [UserKupon] set  status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";
+            string query = "UPDATE [UsersKupon] set rank="+kupon.getRank()+" status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";
             sendQuery(query);
         }
 
@@ -543,7 +555,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND category='" + catagory + "' AND vertical BETWEEN " + (vertical - radius) + " AND " + (vertical + radius) + " AND horizontal BETWEEN " + (horizontal - radius) + " AND " + (horizontal + radius) + ";";
+            string query = "select * from [kupon],[Business] where [Kupon].businessID=[Business].ID AND status <> 'NEW'  AND category='" + catagory + "' AND vertical BETWEEN " + (vertical - radius) + " AND " + (vertical + radius) + " AND horizontal BETWEEN " + (horizontal - radius) + " AND " + (horizontal + radius) + ";";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -599,7 +611,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-             string query = "select * from [kupon] where [Kupon].name='"+ name +"';";
+            string query = "select * from [kupon] where AND status <> 'NEW' AND [Kupon].name='" + name + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {

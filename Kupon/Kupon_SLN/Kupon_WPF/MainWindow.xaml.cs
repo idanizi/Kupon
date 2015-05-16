@@ -124,6 +124,7 @@ namespace Kupon_WPF
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
                 myKupons_BTN.Content = "coupons for Approvel";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Visible;
+                addNewKupon_BTN.Content = "Add New Kupon";
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 saveChanges_BTN.Content = "Save Changes";
                 saveChanges_BTN.Visibility = Visibility.Visible;
@@ -141,6 +142,7 @@ namespace Kupon_WPF
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
                 myKupons_BTN.Content = "My coupons";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
+                 addNewKupon_BTN.Content = "Add New Kupon";
                 addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 saveChanges_BTN.Content = "Purchesed Kupons";
                 saveChanges_BTN.Visibility = Visibility.Visible;
@@ -157,7 +159,8 @@ namespace Kupon_WPF
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
                 myKupons_BTN.Content = "My coupons";
                 addBusiness_BTN.Visibility = System.Windows.Visibility.Hidden;
-                addNewKupon_BTN.Visibility = System.Windows.Visibility.Hidden;
+                addNewKupon_BTN.Content = "Add Kupon From The Net";
+                addNewKupon_BTN.Visibility = System.Windows.Visibility.Visible;
                 saveChanges_BTN.Content = "Save Changes";
                 saveChanges_BTN.Visibility = Visibility.Hidden;
                 register_BTN.Visibility = System.Windows.Visibility.Hidden;
@@ -316,19 +319,26 @@ namespace Kupon_WPF
                 {
                     try { 
                         bus = (Business)((IDataTable)currFrame).getCurrentRecord();
+                        if (bus == null)
+                        {
+
+                            MessageBox.Show("unknown businessList. can't add cupon");
+                            return;
+                        }
                     }catch{
                         MessageBox.Show("please choose business to add the coupon to");
                         return;
                     }
                     
                 }
-                if (bus != null) { 
-
+                else if (user is Client)
+                {
+                   
+                        bus = null; ;
+                  
+                }
                 forms.add.addNewKupon newKuponWindow = new forms.add.addNewKupon(this, bus);
                 newKuponWindow.ShowDialog();
-            }else{
-                  MessageBox.Show("unknown businessList. can't add cupon");
-            }
             }
             catch(Exception ex)
             {

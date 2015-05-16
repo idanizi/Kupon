@@ -29,7 +29,23 @@ namespace Kupon_WPF.forms.add
             // TODO: Complete member initialization
             InitializeComponent();
             this.main = mainWindow;
-            business = bus;
+            if (bus == null)
+            {
+                Desc_L.Visibility = System.Windows.Visibility.Hidden;
+                DP_L.Visibility = System.Windows.Visibility.Hidden;
+                ED_L.Visibility = System.Windows.Visibility.Hidden;
+                OP_L.Visibility = System.Windows.Visibility.Hidden;
+                Descreption_TB.Visibility = System.Windows.Visibility.Hidden;
+                DiscPrice_TB.Visibility = System.Windows.Visibility.Hidden;
+                OrgPrice_TB.Visibility = System.Windows.Visibility.Hidden;
+                ExpDate_DP.Visibility = System.Windows.Visibility.Hidden;
+                name_L.Content = "Enter Link";
+            }
+            else
+            {
+                business = bus;
+            }
+          
         }
 
 
@@ -59,19 +75,32 @@ namespace Kupon_WPF.forms.add
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try {
-                if (validateFields())
+                if (business != null)
                 {
+                    if (validateFields())
+                    {
 
-                    MessageBox.Show(business.getName());
-                    MessageBox.Show(business.getManger().getName());
-                    Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", business);
-                    server.addNewKupon(kupon);
-                     MessageBox.Show("kupon added to the system and waiting to admin approvel.");
-                this.Close();
+                       
+                        Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", business);
+                        server.addNewKupon(kupon);
+                        MessageBox.Show("kupon added to the system and waiting to admin approvel.");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("weong parameters. please try again.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("weong parameters. please try again.");
+                    if (Name_TB.Text.Length > 0)
+                    {
+                        string id = server.getNewKuponID();
+                        Kupon kupon = new Kupon(id, 0, id, "link suggested by user " + main.CurrUser.getName(), KuponStatus.NEW, 0, 0, DateTime.Now, "", server.searchBusinessByName("defualt")[0]);
+                        server.addNewKupon(kupon);
+                        MessageBox.Show("kupon added to the system and waiting to admin approvel.");
+                        this.Close();
+                    }
                 }
             }catch(Exception ex){
                 MessageBox.Show("error while trying to add the kupon to the system. please try again.\n" + ex.ToString());

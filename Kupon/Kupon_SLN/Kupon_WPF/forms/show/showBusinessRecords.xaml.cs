@@ -46,7 +46,22 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
                Data_Grid.IsReadOnly = false;
                Data_Grid.IsEnabled = true;
                Data_Grid.SelectionMode = DataGridSelectionMode.Extended;
-              
+
+           }
+           else if (user is Manager)
+           {
+               Data_Grid.IsManipulationEnabled = false;
+               Data_Grid.IsReadOnly = true;
+               Data_Grid.IsEnabled = false;
+               Data_Grid.SelectionMode = DataGridSelectionMode.Single;
+               if ((data.Count == 1) && (data[0].getManger().getName().Equals(main.CurrUser.getName())))
+               {
+                 
+                   Data_Grid.IsManipulationEnabled = true;
+                   Data_Grid.IsReadOnly = false;
+                   Data_Grid.IsEnabled = true;
+               }
+          
            }
           
            else if (user is Client)
@@ -55,12 +70,7 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
                Data_Grid.IsReadOnly = true;
                Data_Grid.IsEnabled = false;
                Data_Grid.SelectionMode = DataGridSelectionMode.Single;
-             /*  List<buisnessCategory> favorits = ((Client)user).getFavorits();
-               foreach (buisnessCategory category in favorits)
-               {
-                   dataList.AddRange(server.searchBusiness(  category,main.UserLongtitude, main.UserLatitude));
-               } */
-              
+  
 
            }
            else //userStat == ghost

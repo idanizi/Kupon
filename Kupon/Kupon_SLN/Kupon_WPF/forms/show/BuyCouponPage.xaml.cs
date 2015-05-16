@@ -40,9 +40,14 @@ namespace Kupon_WPF.forms.show
         {
             try
             {
-                if(cheackPaimentDetials()){
+                if(cheackDetials()){
                server.buyNewKupon(kupon.getID(),main.CurrUser.getName(),Credit_TB.Text);
-               server.sendMail("thenks for you buy Kupon",((Client)main.CurrUser).getEmail(),"recipet for kupon. paid " + kupon.getDicountPrice().ToString() + " shekels.\n thanks. see you soon!.");
+               kupon = server.getKupon(kupon.Id);
+               server.sendMail("thenks for you buy Kupon",((Client)main.CurrUser).getEmail(),"recipet for kupon. paid "
+                   + kupon.getDicountPrice().ToString() +
+                   " shekels.\n your kupon code is: \n "+
+                   kupon.getSerialKey()
+                   +"\n thanks. see you soon!.");
                     MessageBox.Show("congratolations! your payment has been accepted. this kupon was added to your personal koupon list");
           
                     this.NavigationService.GoBack();
@@ -57,9 +62,12 @@ namespace Kupon_WPF.forms.show
 
         }
 
-private bool cheackPaimentDetials()
+private bool cheackDetials()
 {
     if(Credit_TB.Text.Length < 8){
+        return false;
+    }else if(kupon.getLastDate() < DateTime.Now){
+        MessageBox.Show("sorry, this kupon has expierd");
         return false;
     }
  return true;

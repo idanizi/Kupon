@@ -42,6 +42,7 @@ namespace Kupon_WPF
             if (user != null) { 
                                main.CurrUser = user;
                                DialogResult = true;
+                               main.reInitializedData();
                  this.Close();
                                 } 
                            else MessageBox.Show("incorrect username or password,please try again", "error");
@@ -81,6 +82,17 @@ namespace Kupon_WPF
 
         private void IDTB_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(username_TB.Text.Length > 0){
+                server.restorUserPass(username_TB.Text);
+                MessageBox.Show("mail sent to the mail " + username_TB.Text + " registerd with" );
+            }else{
+                    MessageBox.Show("insert your user name to restor password");
+            }
 
         }
 

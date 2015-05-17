@@ -38,7 +38,7 @@ namespace Kupon_WPF.forms.show
             try{
             int i;
             int.TryParse(Rating_CB.SelectedValue.ToString(),out i);
-            server.rankKupon(main.CurrUser,kupon,i);
+            server.rankKupon(kupon,i);
             }catch{
                 kupon.setRank(5);
             }

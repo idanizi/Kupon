@@ -49,6 +49,20 @@ namespace Util
             this.rank = -1;
         }
 
+        public Kupon(string ID,string serialkey)
+        {
+            this.ID = ID;
+            this.name = null;
+            this.description = null;
+            this.status = KuponStatus.ACTIVE;
+            this.originalPrice = -1;
+            this.dicountPrice = -1;
+            this.lastDate = new DateTime();
+            this.serialKey = serialkey;
+            this.business = null;
+            this.rank = -1;
+        }
+
         public string getID(){
             return ID;
         }

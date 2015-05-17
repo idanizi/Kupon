@@ -10,7 +10,7 @@ namespace BSL
     public interface IBSL
     {
             void addNewKupon(Kupon newKupon);
-            void buyNewKupon(String kouponID, String userrName, String paymentDetails);
+            Kupon buyNewKupon(String kouponID, String userrName, String paymentDetails);
             void addNewBusiness(Business newBusiness );
             void updateKuponAlert(String userrName, String sensorTypr, String sensorInfo);
             List<Kupon> getKuponForApproval(int numOfKupon);
@@ -24,7 +24,7 @@ namespace BSL
             void logOut(String userName);
             void restorUserPass(String userrName);
             void updateUser(User user);
-            bool useKupon(String kouponID);
+            bool useKupon(string serialkey);
             string getNewKuponID();
     }
 }

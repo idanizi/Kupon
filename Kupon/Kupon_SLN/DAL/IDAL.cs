@@ -52,7 +52,9 @@ namespace DAL
         void add_location_user(User user,double vertical,double horizontal);
         //userKupons
         void add_userKupon(User user, Kupon kupon);
-        void update_userKupom(Kupon kupon);
+        void delete_userkupon(string serialkey);
+        void update_userKupon(Kupon kupon);
+        void update_userFavorite(Client client, List<buisnessCategory> favor);
         //user
         User searchUser(User user);
     }

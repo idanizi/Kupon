@@ -159,6 +159,7 @@ namespace Kupon_WPF
             }
             else if (user is Client)
             {
+                MessageBox.Show(((Client)user).getFavorits().Count+" favor");
                 Delete_BTN.Visibility = System.Windows.Visibility.Hidden;
                 myKupons_BTN.Visibility = System.Windows.Visibility.Visible;
                 myKupons_BTN.Content = "My coupons";

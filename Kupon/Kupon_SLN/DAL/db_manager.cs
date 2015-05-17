@@ -17,8 +17,8 @@ namespace DAL
         public DB_manager()
         {
            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
@@ -108,7 +108,7 @@ namespace DAL
 
         public void update_client(Client client)
         {
-            string query = "UPDATE [User] set  name='" + client.getName() + "',email='" + client.getEmail() + "',password='" + client.getPassword() + "',phone=" + client.getPhone() + ",firstName='" + client.getFirstName() + "',lastName='" + client.getLastName() + "',city='" + client.getCity() + "',street='" + client.getStreet() + "',number= " + client.getNumber() + " WHERE name='" + client.getName() + "';";
+            string query = "UPDATE [User] set  email='" + client.getEmail() + "',password='" + client.getPassword() + "',phone=" + client.getPhone() + ",firstName='" + client.getFirstName() + "',lastName='" + client.getLastName() + "',city='" + client.getCity() + "',street='" + client.getStreet() + "',number= " + client.getNumber() + " WHERE name='" + client.getName() + "';";
             sendQuery(query);
         }
 
@@ -123,9 +123,9 @@ namespace DAL
             string query = "delete from [UserFavorites] where userName='" + client.getName() + "';";
             sendQuery(query);
 
-            foreach (buisnessCategory favorite in favor)
+           foreach (buisnessCategory favorite in favor)
             {
-                query = "INSERT into [userFavorites] values ('" + client.getName() + "','" + favor.ToString() + "');";
+                query = "INSERT into [UserFavorites] values ('" + client.getName() + "','" + favorite.ToString() + "');";
                 sendQuery(query);
             }
         }
@@ -304,10 +304,10 @@ namespace DAL
         public Kupon searchKuponBySerialID(Kupon kupon)
 
         {
-            string query = "select * from [kupon] where status='" + kupon.getSerialKey() + "';";
+            string query = "select * from [Userskupon] where authorizationID='" + kupon.getSerialKey() + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             dr.Read();
-            string kuponId = dr.GetString(0);
+            string kuponId = dr.GetString(2);
             dr.Close();
             cnn.Close();
             return create_kupon(kuponId);
@@ -362,7 +362,7 @@ namespace DAL
         {
             List<Kupon> kupons = new List<Kupon>();
             List<string> kuponId = new List<string>();
-            List<string> favorites = new List<string>();
+            List<buisnessCategory> favorites = new List<buisnessCategory>();
             string query = "select * from [User] where name='" + username + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
 
@@ -387,11 +387,11 @@ namespace DAL
             {
                 kupons.Add(create_kupon(kupon));
             }
-            query = "select * from [userFavorites] where name='" + username + "';";
+            query = "select * from [userFavorites] where userName='" + username + "';";
             dr = sendAndReciveQuery(query);
             while (dr!=null&&dr.Read())
             {
-                favorites.Add(dr.GetString(1));
+                favorites.Add(Business.enumFromString(dr.GetString(1)));
             }
             if (dr != null)
             {
@@ -426,9 +426,9 @@ namespace DAL
         }
  
        
-        public void update_userKupom(User user,Kupon kupon)
+        public void update_userKupon(Kupon kupon)
         {
-            string query = "UPDATE [UsersKupon] set rank="+kupon.getRank()+" status='" + kupon.getStatus() +"' where [Kupon].authorizationID='" + kupon.getSerialKey() + "';";
+            string query = "UPDATE [UsersKupon] set rank="+kupon.getRank()+" status='" + kupon.getStatus() +"' where  authorizationID='" + kupon.getSerialKey() + "';";
             sendQuery(query);
         }
 
@@ -626,10 +626,10 @@ namespace DAL
             return kupons;
         }
 
-
-        public void update_userKupom(Kupon kupon)
+        public void delete_userkupon(string serialkey)
         {
-            throw new NotImplementedException();
+            string query = "delete from [usersKupon] where authorizationID='" + serialkey + "';";
+            sendQuery(query);
         }
     }
 }

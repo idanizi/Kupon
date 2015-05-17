@@ -16,9 +16,9 @@ namespace DAL
 
         public DB_manager()
         {
-           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
@@ -115,6 +115,12 @@ namespace DAL
         public void delete_client(Client client)
         {
             string query = "delete from [User] where name='" + client.getName() + "';";
+            sendQuery(query);
+        }
+
+        public void delete_exp()
+        {
+            string query = "delete from [Kupon] where expDate < '" + DateTime.Now.Date.AddYears(-1).ToString("yyyy-MM-dd HH:mm:ss") + "';";
             sendQuery(query);
         }
 
@@ -232,7 +238,8 @@ namespace DAL
                 kuponId.Add(dr.GetString(0));
                 status.Add(dr.GetString(2));
                 serial.Add(dr.GetString(1));
-                rank.Add(dr.GetInt32(3));
+               rank.Add(dr.GetInt32(3));
+
             }
             dr.Close();
             cnn.Close();
@@ -241,6 +248,7 @@ namespace DAL
                 kupon.setStatus(craete_status(status.ElementAt(i)));
                 kupon.setSerialKey(serial.ElementAt(i));
                 kupon.setRank(rank.ElementAt(i));
+                kupon.setNumOfBay(numOfKupon(kupon.getID()));
                 kupons.Add(kupon);
             }
             return kupons;
@@ -260,7 +268,10 @@ namespace DAL
             cnn.Close();
             foreach (string kupon in kuponId)
             {
-                kupons.Add(create_kupon(kupon));
+                Kupon newkupon = create_kupon(kupon);
+                newkupon.setRank(rankOfKupon(newkupon.getID()));
+                newkupon.setNumOfBay(numOfKupon(newkupon.getID()));
+                kupons.Add(newkupon);
             }
             return kupons;
         }
@@ -624,7 +635,6 @@ namespace DAL
         {
             string query = "select count(rank) from [UsersKupon] where [UsersKupon].kuponID='" + kuponID + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
-            dr.Read();
             if (dr != null && dr.Read())
             {
                 if (!dr.IsDBNull(0))

@@ -81,6 +81,7 @@ namespace BSL
         public User logIn(string userName, string Pass, double latitude, double longtitude)
         {
             Client client = dataBase.searchClient(new Client(userName));
+            dataBase.delete_exp();
             if (client != null)
             {
                 if (!client.getPassword().Equals(Pass))

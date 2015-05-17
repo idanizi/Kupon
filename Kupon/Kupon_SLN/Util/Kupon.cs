@@ -248,8 +248,17 @@ namespace Util
             this.status=status;
         }
 
-        
+        public int Count
+        {
+            get { return numOfBuy; }
+            set
+            {
+                numOfBuy = value;
+                NotifyPropertyChanged("Count");
 
+            }
+
+        }
 
         #region INotifyPropertyChanged Members
 

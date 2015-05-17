@@ -10,7 +10,7 @@ using System.Net.Mail;
 
 namespace BSL
 {
-    public class BL:IBSL
+    public class BL : IBSL
     {
         //fields
         private IDAL dataBase;
@@ -158,7 +158,7 @@ namespace BSL
             if (client == null) throw new Exception("invalit user");
             else
             {
-                sendMail("restor password",client.getEmail(),"your password is: "+client.getPassword());
+                sendMail("restor password", client.getEmail(), "your password is: " + client.getPassword());
             }
         }
 
@@ -196,14 +196,14 @@ namespace BSL
 
         public void updateUser(User user)
         {
-            if (user  is Admin)
+            if (user is Admin)
                 dataBase.update_admin((Admin)user);
-            if (user  is Client)
+            if (user is Client)
             {
                 dataBase.update_client((Client)user);
                 dataBase.update_userFavorite((Client)user, ((Client)user).getFavorits());
             }
-            if (user  is Manager)
+            if (user is Manager)
                 dataBase.update_manager((Manager)user);
         }
 
@@ -213,8 +213,8 @@ namespace BSL
             kupon= dataBase.searchKuponBySerialID(kupon);
             kupon.setSerialKey(serialkey);
           */
-          
-                return dataBase.setStatusUsed(serialkey);
+
+            return dataBase.setStatusUsed(serialkey);
         }
 
         private string extractVariable(List<UserParameters> parameterName, List<string> parameterValue, UserParameters type)
@@ -302,7 +302,7 @@ namespace BSL
             SmtpServer.Send(msg);
         }
 
-  
+
 
         public void deleteKupon(Kupon kupon)
         {
@@ -326,15 +326,9 @@ namespace BSL
 
         public bool rankKupon(Kupon kupon, int i)
         {
-                kupon.setRank(i);
-                dataBase.update_userKupon(kupon);
-                return true;
-            }
-        }
-
-        public void deleteUser(Business business)
-        {
-            dataBase.delete_business(business);
+            kupon.setRank(i);
+            dataBase.update_userKupon(kupon);
+            return true;
         }
 
         public void deleteUser(Admin admin)
@@ -352,3 +346,5 @@ namespace BSL
             dataBase.delete_manager(manager);
         }
     }
+}
+

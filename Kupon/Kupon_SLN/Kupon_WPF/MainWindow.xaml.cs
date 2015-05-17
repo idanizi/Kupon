@@ -61,12 +61,14 @@ namespace Kupon_WPF
             InitializeComponent();
             try
             {
+              
                 server.addNewUser(new Admin("admin", "123", "Aa", "33", "ss", "ss"));
             }
             catch
             {
                 try
                 {
+                 
                     Manager manager = new Manager("manger", "123", "Aa", "33", "ss", "ss");
                         server.addNewUser(manager);
                 }
@@ -75,8 +77,8 @@ namespace Kupon_WPF
                     try
                     {
 
-                        //Manager manager = new Manager("manager1", "123", "Aa", "33", "ss", "ss");
-                        //server.addNewBusiness(new Business("busines_id1", "busi name", "city", "street", 10, "bus descreption", buisnessCategory.Food, manager, UserLongtitude, UserLatitude));
+                        Manager manager = new Manager("defualtManager", "defualtManager", "Aa", "33", "ss", "ss");
+                        server.addNewBusiness(new Business("defualt", "defualt", "city", "street", 10, "bus descreption", buisnessCategory.Food, manager, 0, 0));
                         server.addNewUser(new Client("client1", "123", "mail@mail", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10));
                     }
                     catch { }
@@ -493,7 +495,7 @@ namespace Kupon_WPF
                     forms.show.insertCoupon registerWindow = new forms.show.insertCoupon(this);
                     registerWindow.ShowDialog();
                 }
-                else if (user is Client)
+                else if (user is Client) //buy k
                 {
                     IRecord record = ((IDataTable)currFrame).getCurrentRecord();
                     if (record is Kupon)

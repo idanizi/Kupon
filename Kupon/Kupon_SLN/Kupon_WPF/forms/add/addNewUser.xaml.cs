@@ -91,7 +91,7 @@ namespace Kupon_WPF.forms.add
             {
                 Client newUser = new Client(UserName_TB.Text, Pass_PB.Password, Mail_TB.Text, Phone_TB.Text, "todo", "todo2", new List<buisnessCategory>()
                 {
-buisnessCategory.All,
+
 buisnessCategory.Books,
 buisnessCategory.Electronics,
 buisnessCategory.fashion,

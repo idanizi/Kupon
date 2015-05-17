@@ -53,18 +53,24 @@ namespace Util
             return ID;
         }
 
-        public string Id
+
+        public string Name
         {
-            get { return ID; }
+            get { return name; }
             set
             {
-                ID = value;
-                // manager = value;
-                NotifyPropertyChanged("Id");
-
+                try
+                {
+                    name = value;
+                    // manager = value;
+                    NotifyPropertyChanged("Name");
+                }
+                catch
+                {
+                    rank = 0;
+                }
             }
         }
-
 
         public int getRank()
         {

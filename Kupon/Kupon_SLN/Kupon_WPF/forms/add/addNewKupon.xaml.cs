@@ -88,7 +88,7 @@ namespace Kupon_WPF.forms.add
                     }
                     else
                     {
-                        MessageBox.Show("weong parameters. please try again.");
+                        MessageBox.Show("wrong parameters. please try again.");
                     }
                 }
                 else

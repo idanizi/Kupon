@@ -29,8 +29,7 @@ namespace Util
         fashion,
         Games,
         Books,
-        Other,
-        All
+        Other
     }
 
    
@@ -90,16 +89,6 @@ namespace Util
         public string getId()
         {
             return Id;
-        }
-
-        public string ID
-        {
-            get { return Id; }
-            set
-            {
-                Id = value;
-                NotifyPropertyChanged("ID");
-            }
         }
 
         public string getName()

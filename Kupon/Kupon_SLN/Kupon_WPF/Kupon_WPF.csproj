@@ -267,10 +267,10 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="lib\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="lib\Microsoft.Maps.MapControl.WPF.dll" />
+    <Resource Include="lib\Microsoft.Maps.MapControl.WPF.xml" />
     <Content Include="Microsoft.Maps.MapControl.WPF.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

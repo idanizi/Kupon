@@ -61,7 +61,7 @@ namespace BSL
         }
 
         /* tell matan to add dataBase.searchKuponByID() */
-        public void buyNewKupon(string kuponID, string userName, string paymentDetails)
+        public Kupon buyNewKupon(string kuponID, string userName, string paymentDetails)
         {
             Kupon kupon = dataBase.searchKuponByID(new Kupon(kuponID));
             if (kupon == null)
@@ -75,6 +75,7 @@ namespace BSL
             kupon.setSerialKey(getNewKuponID());
             client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
+            return kupon;
         }
 
         public User logIn(string userName, string Pass, double latitude, double longtitude)
@@ -152,6 +153,12 @@ namespace BSL
 
         public void restorUserPass(string userrName)
         {
+            Client client = dataBase.searchClient(new Client(userrName));
+            if (client == null) throw new Exception("invalit user");
+            else
+            {
+                sendMail("restor password",client.getEmail(),"your password is: "+client.getPassword());
+            }
         }
 
         public List<Business> searchBusiness(buisnessCategory category, double latitude, double longtitude)
@@ -191,14 +198,27 @@ namespace BSL
             if (user  is Admin)
                 dataBase.update_admin((Admin)user);
             if (user  is Client)
+            {
                 dataBase.update_client((Client)user);
+                dataBase.update_userFavorite((Client)user, ((Client)user).getFavorits());
+            }
             if (user  is Manager)
                 dataBase.update_manager((Manager)user);
         }
 
-        public bool useKupon(string kouponID)
+        public bool useKupon(string serialkey)
         {
-            throw new NotImplementedException();
+            Kupon kupon = new Kupon(null, serialkey);
+            kupon= dataBase.searchKuponBySerialID(kupon);
+            kupon.setSerialKey(serialkey);
+
+            if (kupon.getStatus() == KuponStatus.ACTIVE)
+            {
+                kupon.setStatus(KuponStatus.USED);
+                dataBase.update_userKupon(kupon);
+                return true;
+            }
+            else return false;
         }
 
         private string extractVariable(List<UserParameters> parameterName, List<string> parameterValue, UserParameters type)
@@ -308,10 +328,11 @@ namespace BSL
             throw new NotImplementedException();
         }
 
-        public void rankKupon(User user, Kupon kupon, int i)
+        public bool rankKupon(Kupon kupon, int i)
         {
+            throw new Exception();
             kupon.setRank(i);
-            dataBase.update_userKupom (kupon);
+            return true;
         }
     }
 }

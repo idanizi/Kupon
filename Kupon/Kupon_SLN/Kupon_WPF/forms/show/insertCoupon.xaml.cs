@@ -33,7 +33,6 @@ namespace Kupon_WPF.forms.show
 
         private void CheckCode_BTN_Click(object sender, RoutedEventArgs e)
         {
-
           if (server.useKupon(kuponCode_TB.Text))
           {
               KuponInfo_TB.Text = "kupon used. thank u :)";

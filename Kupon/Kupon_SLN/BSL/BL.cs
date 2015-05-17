@@ -81,6 +81,7 @@ namespace BSL
         public User logIn(string userName, string Pass, double latitude, double longtitude)
         {
             Client client = dataBase.searchClient(new Client(userName));
+            dataBase.delete_exp();
             if (client != null)
             {
                 if (!client.getPassword().Equals(Pass))
@@ -207,18 +208,13 @@ namespace BSL
         }
 
         public bool useKupon(string serialkey)
-        {
+        {/*
             Kupon kupon = new Kupon(null, serialkey);
             kupon= dataBase.searchKuponBySerialID(kupon);
             kupon.setSerialKey(serialkey);
-
-            if (kupon.getStatus() == KuponStatus.ACTIVE)
-            {
-                kupon.setStatus(KuponStatus.USED);
-                dataBase.update_userKupon(kupon);
-                return true;
-            }
-            else return false;
+          */
+          
+                return dataBase.setStatusUsed(serialkey);
         }
 
         private string extractVariable(List<UserParameters> parameterName, List<string> parameterValue, UserParameters type)
@@ -330,9 +326,10 @@ namespace BSL
 
         public bool rankKupon(Kupon kupon, int i)
         {
-            throw new Exception();
-            kupon.setRank(i);
-            return true;
+                kupon.setRank(i);
+                dataBase.update_userKupon(kupon);
+                return true;
+            }
         }
 
         public void deleteUser(Business business)
@@ -355,4 +352,3 @@ namespace BSL
             dataBase.delete_manager(manager);
         }
     }
-}

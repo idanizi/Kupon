@@ -16,9 +16,9 @@ namespace DAL
 
         public DB_manager()
         {
-           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 
@@ -115,6 +115,12 @@ namespace DAL
         public void delete_client(Client client)
         {
             string query = "delete from [User] where name='" + client.getName() + "';";
+            sendQuery(query);
+        }
+
+        public void delete_exp()
+        {
+            string query = "delete from [Kupon] where expDate < '" + DateTime.Now.Date.AddYears(-1).ToString("yyyy-MM-dd HH:mm:ss") + "';";
             sendQuery(query);
         }
 
@@ -221,18 +227,29 @@ namespace DAL
         public List<Kupon> searchKuponByUser(User user)
         {
             List<string> kuponId = new List<string>();
+            List<string> status = new List<string>();
+            List<string> serial = new List<string>();
+            List<int> rank = new List<int>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon] where  ID in (select DISTINCT kuponID from [UsersKupon] where  username='" + user.getName() + "');";
+            string query = "select [kupon].ID ,[UsersKupon].authorizationID ,[UsersKupon].status,[UsersKupon].rank  from [kupon],[UsersKupon] where  [kupon].ID=[UsersKupon].kuponID AND username='" + user.getName() + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
                 kuponId.Add(dr.GetString(0));
+                status.Add(dr.GetString(2));
+                serial.Add(dr.GetString(1));
+               rank.Add(dr.GetInt32(3));
+
             }
             dr.Close();
             cnn.Close();
-            foreach (string kupon in kuponId)
-            {
-                kupons.Add(create_kupon(kupon));
+            for(int i=0;i<kuponId.Count;i++){
+                Kupon kupon=create_kupon(kuponId.ElementAt(i));
+                kupon.setStatus(craete_status(status.ElementAt(i)));
+                kupon.setSerialKey(serial.ElementAt(i));
+                kupon.setRank(rank.ElementAt(i));
+                kupon.setNumOfBay(numOfKupon(kupon.getID()));
+                kupons.Add(kupon);
             }
             return kupons;
         }
@@ -251,7 +268,10 @@ namespace DAL
             cnn.Close();
             foreach (string kupon in kuponId)
             {
-                kupons.Add(create_kupon(kupon));
+                Kupon newkupon = create_kupon(kupon);
+                newkupon.setRank(rankOfKupon(newkupon.getID()));
+                newkupon.setNumOfBay(numOfKupon(newkupon.getID()));
+                kupons.Add(newkupon);
             }
             return kupons;
         }
@@ -428,7 +448,7 @@ namespace DAL
        
         public void update_userKupon(Kupon kupon)
         {
-            string query = "UPDATE [UsersKupon] set rank="+kupon.getRank()+" status='" + kupon.getStatus() +"' where  authorizationID='" + kupon.getSerialKey() + "';";
+            string query = "UPDATE [UsersKupon] set  rank=" + kupon.getRank() + " where authorizationID='" + kupon.getSerialKey() + "';";
             sendQuery(query);
         }
 
@@ -442,9 +462,12 @@ namespace DAL
             KuponStatus status = craete_status(dr.GetString(7));
             int originalPrice=dr.GetInt32(3);
             int discountPrice=dr.GetInt32(4);
-            Kupon kupon = new Kupon(dr.GetString(0), -1, dr.GetString(1), dr.GetString(2), status, originalPrice, discountPrice, date, null, null);
+            Kupon kupon = new Kupon(dr.GetString(0), 0, dr.GetString(1), dr.GetString(2), status, originalPrice, discountPrice, date, null, null, 0);
             dr.Close();
             cnn.Close();
+            kupon.setNumOfBay(numOfKupon(kuponId));
+            kupon.setRank(rankOfKupon(kuponId));
+
             Business business = create_business(businessId);
             kupon.setBusiness(business);
             return kupon;
@@ -586,6 +609,50 @@ namespace DAL
             return null;
         }
 
+        private int rankOfKupon(string kuponID)
+        {
+            string query = "select AVG(rank) from [UsersKupon] where [UsersKupon].kuponID='" + kuponID + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+           if (dr != null && dr.Read())
+            {
+                if (!dr.IsDBNull(0))
+                {
+                    int rank = dr.GetInt32(0);
+                    dr.Close();
+                    cnn.Close();
+                    return rank;
+                }
+                else
+                {
+                    dr.Close();
+                    cnn.Close();
+                }
+            }
+            return 0;
+        }
+
+        private int numOfKupon(string kuponID)
+        {
+            string query = "select count(rank) from [UsersKupon] where [UsersKupon].kuponID='" + kuponID + "';";
+            SqlDataReader dr = sendAndReciveQuery(query);
+            if (dr != null && dr.Read())
+            {
+                if (!dr.IsDBNull(0))
+                {
+                    int rank = dr.GetInt32(0);
+                    dr.Close();
+                    cnn.Close();
+                    return rank;
+                }
+                else
+                {
+                    dr.Close();
+                    cnn.Close();
+                }
+            }
+            return 0;
+        }
+
 
         public List<Business> searchBusinnesByName(string id)
         {
@@ -611,7 +678,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon] where status <> 'NEW' AND [Kupon].name='" + name + "';";
+            string query = "select * from [kupon] where AND status <> 'NEW' AND [Kupon].name='" + name + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
@@ -629,7 +696,27 @@ namespace DAL
         public void delete_userkupon(string serialkey)
         {
             string query = "delete from [usersKupon] where authorizationID='" + serialkey + "';";
-            sendQuery(query);
+            sendAndReciveQuery(query);
+        }
+
+
+        public bool setStatusUsed(string serialkey)
+        {
+            string query = "SELECT * from [UsersKupon] where  authorizationID='" + serialkey + "';";
+            SqlDataReader dr=sendAndReciveQuery(query);
+            dr.Read();
+            String status=dr.GetString(4);
+
+            dr.Close();
+            cnn.Close();
+
+            if (status.Equals(KuponStatus.ACTIVE.ToString()))
+            {
+                query = "UPDATE [UsersKupon] set  status='" +"USED" + "' where authorizationID='"+serialkey+"';";
+                sendQuery(query);
+                return true;
+            }
+            return false;
         }
     }
 }

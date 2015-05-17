@@ -47,6 +47,7 @@ namespace DAL
         List<Kupon> searchKuponByCity(string city);
         List<Kupon> searchKuponByUser(User user);
         List<Kupon> searchKuponByStatus(KuponStatus status);
+        void delete_exp();
         List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius);
         //location
         void add_location_user(User user,double vertical,double horizontal);
@@ -54,6 +55,7 @@ namespace DAL
         void add_userKupon(User user, Kupon kupon);
         void delete_userkupon(string serialkey);
         void update_userKupon(Kupon kupon);
+        bool setStatusUsed(string serialkey);
         void update_userFavorite(Client client, List<buisnessCategory> favor);
         //user
         User searchUser(User user);

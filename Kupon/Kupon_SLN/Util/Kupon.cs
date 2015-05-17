@@ -21,8 +21,9 @@ namespace Util
         private DateTime lastDate;
         private string serialKey;
         private Business business;
+        private int numOfBuy;
 
-        public Kupon(string ID, int rank, string name, string description, KuponStatus status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
+        public Kupon(string ID, int rank, string name, string description, KuponStatus status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business,int numOfBuy)
         {
             this.ID = ID;
             this.name = name;
@@ -34,7 +35,9 @@ namespace Util
             this.serialKey = serialKey;
             this.business = business;
             this.rank = rank;
+            this.numOfBuy = numOfBuy;
         }
+
         public Kupon(string ID)
         {
             this.ID = ID;
@@ -67,23 +70,25 @@ namespace Util
             return ID;
         }
 
-
-        public string Name
+        public string Id
         {
-            get { return name; }
+            get { return ID; }
             set
             {
-                try
-                {
-                    name = value;
-                    // manager = value;
-                    NotifyPropertyChanged("Name");
-                }
-                catch
-                {
-                    rank = 0;
-                }
+                ID = value;
+                // manager = value;
+                NotifyPropertyChanged("Id");
+
             }
+        }
+
+        public int  getNumOfBuy(){
+            return numOfBuy;
+        }
+
+        public void setNumOfBay(int count)
+        {
+            this.numOfBuy = count;
         }
 
         public int getRank()
@@ -243,8 +248,17 @@ namespace Util
             this.status=status;
         }
 
-        
+        public int Count
+        {
+            get { return numOfBuy; }
+            set
+            {
+                numOfBuy = value;
+                NotifyPropertyChanged("Count");
 
+            }
+
+        }
 
         #region INotifyPropertyChanged Members
 
@@ -263,12 +277,7 @@ namespace Util
         }
 
         #endregion
-
-
-        public object getCount()
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 
 

@@ -81,7 +81,7 @@ namespace Kupon_WPF.forms.add
                     {
 
                        
-                        Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", business);
+                        Kupon kupon = new Kupon(server.getNewKuponID(), 0, Name_TB.Text, Descreption_TB.Text, KuponStatus.NEW, int.Parse(OrgPrice_TB.Text), int.Parse(DiscPrice_TB.Text), ExpDate_DP.SelectedDate.Value, "", business,0);
                         server.addNewKupon(kupon);
                         MessageBox.Show("kupon added to the system and waiting to admin approvel.");
                         this.Close();
@@ -96,7 +96,7 @@ namespace Kupon_WPF.forms.add
                     if (Name_TB.Text.Length > 0)
                     {
                         string id = server.getNewKuponID();
-                        Kupon kupon = new Kupon(id, 0, id, "link suggested by user " + main.CurrUser.getName(), KuponStatus.NEW, 0, 0, DateTime.Now, "", server.searchBusinessByName("defualt")[0]);
+                        Kupon kupon = new Kupon(id, 0, id, "link suggested by user " + main.CurrUser.getName(), KuponStatus.NEW, 0, 0, DateTime.Now, "", server.searchBusinessByName("defualt")[0],0);
                         server.addNewKupon(kupon);
                         MessageBox.Show("kupon added to the system and waiting to admin approvel.");
                         this.Close();

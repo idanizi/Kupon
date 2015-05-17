@@ -272,9 +272,13 @@
   <ItemGroup>
     <Content Include="lib\Microsoft.Maps.MapControl.WPF.dll" />
     <Resource Include="lib\Microsoft.Maps.MapControl.WPF.xml" />
+<<<<<<< HEAD
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+=======
+    <Content Include="Microsoft.Maps.MapControl.WPF.dll" />
+>>>>>>> c41e122140b505c6cc8186028d19f2c7fd7126c7
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

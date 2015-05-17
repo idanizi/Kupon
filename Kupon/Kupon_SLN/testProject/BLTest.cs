@@ -91,7 +91,7 @@ namespace SolutionTest
            Assert.AreEqual(kuponList[0].getStatus(), KuponStatus.APPROVED);
            kuponList = server.searchKouponByBusiness(busines);
            Assert.AreEqual(kupon.getID(),kuponList[0].getID());
-       //   server.updateKupon(new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 20, new DateTime(2017, 1, 1), "", busines));
+       //   server.updateKupon(new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 20, new DateTime(2017, 1, 1), "", busines,0));
         //   kuponList = server.searchKouponByBusiness(busines);
           // Assert.AreEqual(kuponList[0].getDicountPrice(),20);
           
@@ -120,7 +120,7 @@ namespace SolutionTest
 
        [Test]
         public void client_logic()
-       {
+           {
             try{
              Client client2 = (Client)server.logIn("testclient", "123", 100, 100);
             Assert.AreEqual(client2.getName(),client.getName());

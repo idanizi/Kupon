@@ -21,8 +21,9 @@ namespace Util
         private DateTime lastDate;
         private string serialKey;
         private Business business;
+        private int numOfBuy;
 
-        public Kupon(string ID, int rank, string name, string description, KuponStatus status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business)
+        public Kupon(string ID, int rank, string name, string description, KuponStatus status, int originalPrice, int dicountPrice, DateTime lastDate, string serialKey, Business business,int numOfBuy)
         {
             this.ID = ID;
             this.name = name;
@@ -34,7 +35,9 @@ namespace Util
             this.serialKey = serialKey;
             this.business = business;
             this.rank = rank;
+            this.numOfBuy = numOfBuy;
         }
+
         public Kupon(string ID)
         {
             this.ID = ID;
@@ -79,6 +82,14 @@ namespace Util
             }
         }
 
+        public int  getNumOfBuy(){
+            return numOfBuy;
+        }
+
+        public void setNumOfBay(int count)
+        {
+            this.numOfBuy = count;
+        }
 
         public int getRank()
         {

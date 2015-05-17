@@ -325,9 +325,9 @@ namespace BSL
 
         public bool rankKupon(Kupon kupon, int i)
         {
-            throw new Exception();
-            kupon.setRank(i);
-            return true;
+                kupon.setRank(i);
+                dataBase.update_userKupon(kupon);
+                return true;
+            }
         }
     }
-}

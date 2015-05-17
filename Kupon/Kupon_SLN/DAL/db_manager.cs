@@ -221,18 +221,21 @@ namespace DAL
         public List<Kupon> searchKuponByUser(User user)
         {
             List<string> kuponId = new List<string>();
+            List<string> status = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon] where  ID in (select DISTINCT kuponID from [UsersKupon] where  username='" + user.getName() + "');";
+            string query = "select [kupon].ID ,[UsersKupon].status from [kupon],[UsersKupon] where  [kupon].ID=[UsersKupon].kuponID AND username='" + user.getName() + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {
                 kuponId.Add(dr.GetString(0));
+                status.Add(dr.GetString(1));
             }
             dr.Close();
             cnn.Close();
-            foreach (string kupon in kuponId)
-            {
-                kupons.Add(create_kupon(kupon));
+            for(int i=0;i<kuponId.Count;i++){
+                Kupon kupon=create_kupon(kuponId.ElementAt(i));
+                kupon.setStatus(craete_status(status.ElementAt(i)));
+                kupons.Add(kupon);
             }
             return kupons;
         }
@@ -629,7 +632,27 @@ namespace DAL
         public void delete_userkupon(string serialkey)
         {
             string query = "delete from [usersKupon] where authorizationID='" + serialkey + "';";
-            sendQuery(query);
+            sendAndReciveQuery(query);
+        }
+
+
+        public bool setStatusUsed(string serialkey)
+        {
+            string query = "SELECT * from [UsersKupon] where  authorizationID='" + serialkey + "';";
+            SqlDataReader dr=sendAndReciveQuery(query);
+            dr.Read();
+            String status=dr.GetString(4);
+
+            dr.Close();
+            cnn.Close();
+
+            if (status.Equals(KuponStatus.ACTIVE.ToString()))
+            {
+                query = "UPDATE [UsersKupon] set  status='" +"USED" + "' where authorizationID='"+serialkey+"';";
+                sendQuery(query);
+                return true;
+            }
+            return false;
         }
     }
 }

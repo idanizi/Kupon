@@ -297,9 +297,8 @@ namespace Kupon_WPF
                 }
                 else if (user is Manager)
                 {
-
                     IRecord record = ((IDataTable)currFrame).getCurrentRecord();
-                    if (record == server.searchManagerBusiness((Manager)user))
+                    if (((Business)record).getId().Equals( server.searchManagerBusiness((Manager)user).getId()))
                     {
                         server.updateBusiness((Business)record);
                     }

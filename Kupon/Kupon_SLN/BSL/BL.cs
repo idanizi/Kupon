@@ -207,18 +207,13 @@ namespace BSL
         }
 
         public bool useKupon(string serialkey)
-        {
+        {/*
             Kupon kupon = new Kupon(null, serialkey);
             kupon= dataBase.searchKuponBySerialID(kupon);
             kupon.setSerialKey(serialkey);
-
-            if (kupon.getStatus() == KuponStatus.ACTIVE)
-            {
-                kupon.setStatus(KuponStatus.USED);
-                dataBase.update_userKupon(kupon);
-                return true;
-            }
-            else return false;
+          */
+          
+                return dataBase.setStatusUsed(serialkey);
         }
 
         private string extractVariable(List<UserParameters> parameterName, List<string> parameterValue, UserParameters type)

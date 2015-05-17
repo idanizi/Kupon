@@ -54,6 +54,7 @@ namespace DAL
         void add_userKupon(User user, Kupon kupon);
         void delete_userkupon(string serialkey);
         void update_userKupon(Kupon kupon);
+        bool setStatusUsed(string serialkey);
         void update_userFavorite(Client client, List<buisnessCategory> favor);
         //user
         User searchUser(User user);

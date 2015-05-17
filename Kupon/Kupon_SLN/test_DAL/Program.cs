@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
 using Util;
-
+using BSL;
 namespace test_DAL
 {
     class Program
     {
         static void Main(string[] args)
         {
-            IDAL dataBase = new DB_manager();
+         /*   IDAL dataBase = new DB_manager();
             Manager manager = new Manager("matan", "blabla", "matan@gmail.com", "9511749", "matan", "bezen");
             Manager manager2 = new Manager("ran", "blabla", "matan@gmail.com", "9511749", "matan", "bezen");
             Business business = new Business("1", "mega", "rishon", "lala", 12, "mega is the best", "shop", manager,100.12,123.23);

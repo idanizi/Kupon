@@ -93,7 +93,7 @@ namespace Kupon_WPF.forms.search
            else if (pickCategory_CB.SelectedIndex == 2)
                 {
                     business = server.searchBusinessByCity(Value_TB.Text);
-                    MessageBox.Show("not implemented yet.");
+                  
                 }
            if (business != null) { }
            if (business.Count > 0)

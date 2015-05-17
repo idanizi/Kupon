@@ -41,12 +41,11 @@ namespace Kupon_WPF.forms.show
             try
             {
                 if(cheackDetials()){
-<<<<<<< HEAD
+
                server.buyNewKupon(kupon.getID(),main.CurrUser.getName(),Credit_TB.Text);
                kupon = server.getKupon(kupon.getID());
-=======
                kupon=server.buyNewKupon(kupon.getID(),main.CurrUser.getName(),Credit_TB.Text);
->>>>>>> origin/matan_dbdbdb
+
                server.sendMail("thenks for you buy Kupon",((Client)main.CurrUser).getEmail(),"recipet for kupon. paid "
                    + kupon.getDicountPrice().ToString() +
                    " shekels.\n your kupon code is: \n "+

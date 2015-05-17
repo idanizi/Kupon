@@ -334,5 +334,25 @@ namespace BSL
             kupon.setRank(i);
             return true;
         }
+
+        public void deleteUser(Business business)
+        {
+            dataBase.delete_business(business);
+        }
+
+        public void deleteUser(Admin admin)
+        {
+            dataBase.delete_admin(admin);
+        }
+
+        public void deleteUser(Client client)
+        {
+            dataBase.delete_client(client);
+        }
+
+        public void deleteUser(Manager manager)
+        {
+            dataBase.delete_manager(manager);
+        }
     }
 }

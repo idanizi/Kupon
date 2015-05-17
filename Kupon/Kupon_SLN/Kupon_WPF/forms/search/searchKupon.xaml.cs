@@ -84,7 +84,7 @@ namespace Kupon_WPF.forms.search
            if (pickCategory_CB.SelectedIndex == 0)
                 {
                    kupons = server.searchKouponByName(Value_TB.Text);
-                    MessageBox.Show("not implemented yet.");
+                  
                 }
            else if (pickCategory_CB.SelectedIndex == 1)
                 {
@@ -94,7 +94,7 @@ namespace Kupon_WPF.forms.search
            else if (pickCategory_CB.SelectedIndex == 2)
                 {
                      kupons = server.searchKouponByCity(Value_TB.Text);
-                    MessageBox.Show("not implemented yet.");
+                  
                 }
                 if (kupons != null) { }
              if (kupons.Count > 0)

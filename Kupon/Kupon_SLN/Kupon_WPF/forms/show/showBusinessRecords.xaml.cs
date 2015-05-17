@@ -87,15 +87,13 @@ public    showBusinessRecords(List <Business> data, MainWindow main)
              
            }
            Data_Grid.DataContext = data;
-           MessageBox.Show(data.Count.ToString());
+         
     }
 
 
 public IRecord getCurrentRecord()
 {
-    MessageBox.Show(Data_Grid.ToString() + "\n" + Data_Grid.SelectedIndex + "\n" + Data_Grid.SelectedItem + "\n" + Data_Grid.SelectedValue);
-     MessageBox.Show(dataList.Count.ToString());
-     MessageBox.Show(dataList[0].ToString());
+  
     return (dataList[Data_Grid.SelectedIndex]);
 }
 

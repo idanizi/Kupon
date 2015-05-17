@@ -263,7 +263,12 @@ namespace Util
         }
 
         #endregion
-    
+
+
+        public object getCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

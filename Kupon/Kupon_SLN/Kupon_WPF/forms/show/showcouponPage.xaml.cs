@@ -41,6 +41,8 @@ namespace Kupon_WPF.forms.show
 
         }
 
+
+
         private void Coupon_Detiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

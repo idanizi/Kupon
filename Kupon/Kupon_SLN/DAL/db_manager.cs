@@ -9,7 +9,7 @@ using Util;
 
 namespace DAL
 {
-    public class DB_manager : IDAL, MarshalByRefObject
+    public class DB_manager : IDAL
     {
         string connetionString;
         SqlConnection cnn;

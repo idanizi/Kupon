@@ -81,7 +81,7 @@ namespace SolutionTest
        }
 
        [Test]
-       public void kupon_logic()
+       public void aprove_kupon()
        {
            List<Kupon> kuponList = null ;
            Kupon kupon = new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 50, new DateTime(2017,1,1), "", busines,0);
@@ -89,30 +89,76 @@ namespace SolutionTest
            server.approveNewKupon(kupon);
            kuponList = server.searchKouponByBusiness(busines);
            Assert.AreEqual(kuponList[0].getStatus(), KuponStatus.APPROVED);
-           kuponList = server.searchKouponByBusiness(busines);
-           Assert.AreEqual(kupon.getID(),kuponList[0].getID());
-       //   server.updateKupon(new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 20, new DateTime(2017, 1, 1), "", busines,0));
-        //   kuponList = server.searchKouponByBusiness(busines);
-          // Assert.AreEqual(kuponList[0].getDicountPrice(),20);
-          
-           server.buyNewKupon("1234", "testclient", "paypal");
-           kuponList = server.searchKouponByBusiness(busines);
-           Assert.AreEqual(kuponList[0].getNumOfBuy(),1);
-           server.deleteKupon(kupon);
-           kuponList = server.searchKouponByBusiness(busines);
-             Assert.IsEmpty(kuponList);
        }
 
        [Test]
-       public void business_logic()
+       public void search_kuponByBusiness()
+       {
+           List<Kupon> kuponList = null;
+           Kupon kupon = new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 50, new DateTime(2017, 1, 1), "", busines, 0);
+           server.addNewKupon(kupon);
+           server.approveNewKupon(kupon);
+           kuponList = server.searchKouponByBusiness(busines);
+           kuponList = server.searchKouponByBusiness(busines);
+           Assert.AreEqual(kupon.getID(), kuponList[0].getID());
+       }
+
+       [Test]
+       public void check_num_of_by()
+       {
+           List<Kupon> kuponList = null;
+           Kupon kupon = new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 50, new DateTime(2017, 1, 1), "", busines, 0);
+           server.addNewKupon(kupon);
+           server.approveNewKupon(kupon);
+           kuponList = server.searchKouponByBusiness(busines);
+           kuponList = server.searchKouponByBusiness(busines);
+           server.buyNewKupon("1234", "testclient", "paypal");
+           kuponList = server.searchKouponByBusiness(busines);
+           Assert.AreEqual(kuponList[0].getNumOfBuy(), 1);
+       }
+
+       [Test]
+       public void check_delete_kupon()
+       {
+           List<Kupon> kuponList = null;
+           Kupon kupon = new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 50, new DateTime(2017, 1, 1), "", busines, 0);
+           server.addNewKupon(kupon);
+           server.approveNewKupon(kupon);
+           kuponList = server.searchKouponByBusiness(busines);
+           kuponList = server.searchKouponByBusiness(busines);
+           server.buyNewKupon("1234", "testclient", "paypal");
+           kuponList = server.searchKouponByBusiness(busines);
+           server.deleteKupon(kupon);
+           kuponList = server.searchKouponByBusiness(busines);
+           Assert.IsEmpty(kuponList);
+       }
+
+       [Test]
+       public void search_business_by_name()
        {
 
            List<Business> busList = server.searchBusinessByName("testbusiness");
            Assert.AreEqual(busines.getName(),   busList[0].getName());
+       }
+
+       [Test]
+       public void update_business()
+       {
+
+           List<Business> busList = server.searchBusinessByName("testbusiness");
            busines = new Business("testbusiness", "testbusiness", "city2", "street", 10, "bus descreption", buisnessCategory.Food, manager, 0, 0);
            server.updateBusiness(busines);
            busList = server.searchBusinessByName("testbusiness");
-           Assert.AreEqual(busList[0].getCity(),"city2");
+           Assert.AreEqual(busList[0].getCity(), "city2");
+       }
+
+       [Test]
+       public void delete_business()
+       {
+           List<Business> busList = server.searchBusinessByName("testbusiness");
+           busines = new Business("testbusiness", "testbusiness", "city2", "street", 10, "bus descreption", buisnessCategory.Food, manager, 0, 0);
+           server.updateBusiness(busines);
+           busList = server.searchBusinessByName("testbusiness");
            server.deleteBusiness(busines);
            busList = server.searchBusinessByName("testbusiness");
            Assert.IsEmpty(busList);
@@ -144,6 +190,55 @@ namespace SolutionTest
             }
          
        }
+
+       [Test]
+       public void client_login()
+       {
+           try
+           {
+               Client client2 = (Client)server.logIn("testclient", "123", 100, 100);
+               Assert.AreEqual(client2.getName(), client.getName());
+
+           }
+           catch (Exception Ex)
+           {
+               Assert.Fail(Ex.ToString());
+           }
+
+       }
+
+       [Test]
+       public void client_mail()
+       {
+           try
+           {
+               Client client2 = (Client)server.logIn("testclient", "123", 100, 100);
+               server.sendMail("blabla", client.getEmail(), "blabla");
+               server.logOut("testclient");
+               client = new Client("testclient", "123", "client123@mail", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10);
+
+               server.updateUser(client);
+               client = (Client)server.logIn("testclient", "123", 100, 100);
+               Assert.AreEqual(client.getEmail(), "client123@mail");
+               server.deleteUser(client);
+               try
+               {
+                   client = (Client)server.logIn("testclient", "123", 100, 100);
+                   Assert.Fail();
+               }
+               catch
+               {
+
+               }
+
+           }
+           catch (Exception Ex)
+           {
+               Assert.Fail(Ex.ToString());
+           }
+
+       }
+
 
 
  [TearDown]

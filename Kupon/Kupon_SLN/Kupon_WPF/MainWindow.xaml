@@ -6,7 +6,7 @@
         x:Class="Kupon_WPF.MainWindow"
         Title="kupon" Height="714.179" Width="1169.776" WindowStyle="ThreeDBorderWindow"  WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="White" >
 
-    <Grid x:Name="mainWindow" Initialized="mainWindow_Initialized" Margin="0,0,2,-21" >
+    <Grid x:Name="mainWindow"  Margin="10,0,2,10" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="945*"/>
             <ColumnDefinition Width="23*"/>
@@ -24,7 +24,7 @@
             <Button x:Name="searchKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="138" Height="49" Click="searchKupons_BTN_Click" Content="Search Kupons"/>
             <Button x:Name="insertCoupon_BTN" Content="Insert Cupon Code" HorizontalAlignment="Left" Height="48" Margin="10,535,0,0" VerticalAlignment="Top" Width="137" Click="insertCoupon_BTN_Click"/>
             <Button x:Name="Delete_BTN" Content="Delete" HorizontalAlignment="Left" Margin="11,588,0,0" VerticalAlignment="Top" Width="136" Height="48" Click="Delete_BTN_Click"/>
-            <Image Margin="-968,613,1086,-4" Source="forms/icons/Untitled-1.ico"/>
+            <Image Margin="-972,614,1090,-5" Source="forms/icons/Untitled-1.ico"/>
         </Grid>
         <Label x:Name="userLongtitude_L" Content="Longitude:" HorizontalAlignment="Left" Height="24" Margin="79,630,0,0" VerticalAlignment="Top" Width="116"/>
         <Label x:Name="userLatitude_L" Content="Latitude:" HorizontalAlignment="Left" Height="24" Margin="79,648,0,0" VerticalAlignment="Top" Width="116"/>

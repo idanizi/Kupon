@@ -53,6 +53,7 @@ namespace Kupon_WPF
         {
             InitializeComponent();
             CurrUser = new User("Ghost");
+            reInitializedData();
             try
             {
 
@@ -77,7 +78,7 @@ namespace Kupon_WPF
                     catch { }
                 }
             }
-            reInitializedData();
+
         }
 
         private Isensor startGPS()
@@ -107,10 +108,7 @@ namespace Kupon_WPF
             }
         }
 
-        private void mainWindow_Initialized(object sender, EventArgs e)
-        {
-            reInitializedData();
-        }
+      
 
         public void reInitializedData()
         {
@@ -200,7 +198,6 @@ namespace Kupon_WPF
                 login_BTN.Content = "Logout";
                 Delete_BTN.Visibility = System.Windows.Visibility.Hidden;
                 suggestNewCupons();
-
             }
             else
             {
@@ -222,7 +219,7 @@ namespace Kupon_WPF
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-
+          
             if (user is Client | user.getName().Equals("Ghost"))
             {
                 suggestNewCupons();
@@ -299,7 +296,7 @@ namespace Kupon_WPF
                     login loginWindow = new login(this);
                     loginWindow.ShowDialog();
                     //if login succesful
-                    reInitializedData();
+                   // reInitializedData();
 
 
                 }

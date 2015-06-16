@@ -55,21 +55,22 @@ namespace Kupon_WPF.forms.add
                     , "error");
                      return false;
                 }
-                if (!(Regex.Match(Phone_TB.Text, @"(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")).Success)
+               /* if (!(Regex.Match(Phone_TB.Text, @"(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")).Success)
                 {
                     MessageBox.Show
                         ("the mail number you have entered is not a valied mail address"
                     , "error");
                      return false;
-                }
+                }*/
             
              if (!(server.getUser(UserName_TB.Text) == null))
             {
                 MessageBox.Show("user name or mail already exist in the system.", "error");
                 return false;
             }
-        }catch{
-        MessageBox.Show("one of the parameters is not valid" , "error");
+        }catch(Exception ex){
+            MessageBox.Show("one of the parameters is not valid:" + ex.ToString(), "error");
+        return false;
           }
      
             return true;
@@ -87,7 +88,6 @@ namespace Kupon_WPF.forms.add
                 try
                 {
                     server.addNewUser(newUser);
-
                     MessageBox.Show("user had succesfully added to the system.");
                     this.Close();
                 }

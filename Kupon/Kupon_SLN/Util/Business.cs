@@ -141,7 +141,7 @@ namespace Util
                 try
                 {
                     vertical = double.Parse(value);
-                    NotifyPropertyChanged("Altitude");
+                    NotifyPropertyChanged("Latitude");
                 }
                 catch
                 {

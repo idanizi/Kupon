@@ -70,18 +70,7 @@ namespace Util
             return ID;
         }
 
-        public string Id
-        {
-            get { return ID; }
-            set
-            {
-                ID = value;
-                // manager = value;
-                NotifyPropertyChanged("Id");
-
-            }
-        }
-
+      
         public int  getNumOfBuy(){
             return numOfBuy;
         }

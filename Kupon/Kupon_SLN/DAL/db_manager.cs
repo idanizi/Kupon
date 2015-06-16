@@ -678,7 +678,7 @@ namespace DAL
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();
-            string query = "select * from [kupon] where AND status <> 'NEW' AND [Kupon].name='" + name + "';";
+            string query = "select * from [kupon] where  status <> 'NEW' AND [Kupon].name='" + name + "';";
             SqlDataReader dr = sendAndReciveQuery(query);
             while (dr.Read())
             {

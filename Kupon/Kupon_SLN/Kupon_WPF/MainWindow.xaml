@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="buttons_GRD" Grid.Column="2" Height="662" Margin="10,10,10,0" VerticalAlignment="Top">
             <Button x:Name="userSetting_BTN" HorizontalAlignment="Left" Margin="11,419,0,0" VerticalAlignment="Top" Width="136" Height="54" Click="userSetting_BTN_Click" RenderTransformOrigin="0.5,0.5" Content="User Settings"/>
-            <TextBlock x:Name="welcome_TB" Grid.Column="2" Margin="27,25,0,0" TextWrapping="Wrap" Text="welcome ghost" VerticalAlignment="Top" RenderTransformOrigin="0.84,-0.938" Height="46" Width="109" HorizontalAlignment="Left" TextAlignment="Center"/>
+            <TextBlock x:Name="welcome_TB" Margin="24,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.84,-0.938" Height="46" Width="109" HorizontalAlignment="Left" TextAlignment="Center"><Run Text="welcome ghost"/></TextBlock>
             <Button x:Name="myKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="11,136,0,0" VerticalAlignment="Top" Width="138" Height="49" Content="My Kupons" Click="myKupons_BTN_Click"/>
             <Button x:Name="addNewKupon_BTN" HorizontalAlignment="Left" Margin="10,299,0,0" VerticalAlignment="Top" Width="138" Height="56" Click="addNewKupon_BTN_Click" Content="add new kupon"/>
             <Button x:Name="login_BTN" Content="login" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="11,54,0,0" VerticalAlignment="Top" Width="138" Click="login_BTN_Click"/>
@@ -24,9 +24,10 @@
             <Button x:Name="searchKupons_BTN" Grid.Column="2" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="138" Height="49" Click="searchKupons_BTN_Click" Content="Search Kupons"/>
             <Button x:Name="insertCoupon_BTN" Content="Insert Cupon Code" HorizontalAlignment="Left" Height="48" Margin="10,535,0,0" VerticalAlignment="Top" Width="137" Click="insertCoupon_BTN_Click"/>
             <Button x:Name="Delete_BTN" Content="Delete" HorizontalAlignment="Left" Margin="11,588,0,0" VerticalAlignment="Top" Width="136" Height="48" Click="Delete_BTN_Click"/>
+            <Image Margin="-968,613,1086,-4" Source="forms/icons/Untitled-1.ico"/>
         </Grid>
-        <Label x:Name="userLongtitude_L" Content="Longitude:" HorizontalAlignment="Left" Height="24" Margin="10,629,0,0" VerticalAlignment="Top" Width="116"/>
-        <Label x:Name="userLatitude_L" Content="Latitude:" HorizontalAlignment="Left" Height="24" Margin="10,648,0,0" VerticalAlignment="Top" Width="116"/>
+        <Label x:Name="userLongtitude_L" Content="Longitude:" HorizontalAlignment="Left" Height="24" Margin="79,630,0,0" VerticalAlignment="Top" Width="116"/>
+        <Label x:Name="userLatitude_L" Content="Latitude:" HorizontalAlignment="Left" Height="24" Margin="79,648,0,0" VerticalAlignment="Top" Width="116"/>
 
         <Grid  x:Name="contant_G" HorizontalAlignment="Left" Height="584" Margin="8,0,0,88" VerticalAlignment="Bottom" Width="973" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>

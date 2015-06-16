@@ -30,70 +30,13 @@ namespace Kupon_WPF.forms.show
         private User user = null;
         private BL server = new BL();
         private MainWindow main;
-        private List<Kupon> data;
-        //CollectionViewSource itemCollectionViewSource;
+
 
 
         public showCouponRecords()
         {
             InitializeComponent();
 
-            /*     this.userStat = UserStat;
-                 dataList = new List<Kupon>
-
-                                          {
-                                              new Kupon
-                                                  (
-                                                      "122321",
-                                                      "Moser",
-                                                      "bla bla bla",
-                                                     "2362.4"
-                                                  ),
-                                              new Kupon
-                                                  (
-                                                     "3754",
-                                                      "sdsdds",
-                                                      "bla sadadssadas bla",
-                                                     "232.2"
-                                                  ),
-                                              new Kupon
-                                                  (
-                                                     "54645",
-                                                      "ffFff",
-                                                      "sddssdaddgsdgd bla bla",
-                                                     "6632.4"
-                                                  )
-                                          };
-             
-            //Set the DataGrid's DataContext to be a filled DataTable
-            Data_Grid.DataContext = dataList;
-            if (user is Admin)
-            {
-                //Data_Grid.SelectionUnit = DataGridSelectionUnit.Cell;
-                Data_Grid.IsManipulationEnabled = true;
-                Data_Grid.IsReadOnly = false;
-                Data_Grid.IsEnabled = true;
-                Data_Grid.SelectionMode = DataGridSelectionMode.Extended;
-
-            }
-            else if (user is Business)
-            {
-
-            }
-            else if (user is Client)
-            {
-                List<buisnessCategory> favorits = ((Client)user).getFavorits();
-                foreach (buisnessCategory category in favorits)
-                {
-
-                   // dataList.AddRange(server.searchKoupon(category, main.UserLongtitude, main.UserLatitude));
-                }
-                Data_Grid.DataContext = dataList;
-            }
-            else //userStat == ghost
-            {
-
-            }*/
         }
 
         public showCouponRecords(MainWindow main, List<Kupon> kupons)
@@ -110,7 +53,7 @@ namespace Kupon_WPF.forms.show
                 Data_Grid.SelectionMode = DataGridSelectionMode.Single;
 
             }
-            else if (user is Business)
+            else if (user is Manager)
             {
                 Data_Grid.IsManipulationEnabled = false;
                 Data_Grid.IsReadOnly = true;

@@ -9,15 +9,15 @@ using Util;
 
 namespace DAL
 {
-    public class DB_manager:IDAL
+    public class DB_manager : IDAL, MarshalByRefObject
     {
         string connetionString;
         SqlConnection cnn;
 
         public DB_manager()
         {
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-          // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+           connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
            // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }

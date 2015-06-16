@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Untitled-1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -77,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="sensors\GPSsensor.cs" />
     <Page Include="forms\add\addAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -199,6 +203,7 @@
     <Compile Include="forms\show\map.xaml.cs">
       <DependentUpon>map.xaml</DependentUpon>
     </Compile>
+    <Compile Include="sensors\Isensor.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -225,7 +230,6 @@
     <None Include="forms\icons\add.psd" />
     <None Include="forms\icons\changePass.psd" />
     <None Include="forms\icons\find.psd" />
-    <None Include="forms\icons\logo.psd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -270,15 +274,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Untitled-1.ico" />
+    <Resource Include="forms\icons\Untitled-1.ico" />
     <Content Include="lib\Microsoft.Maps.MapControl.WPF.dll" />
     <Resource Include="lib\Microsoft.Maps.MapControl.WPF.xml" />
-
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-
     <Content Include="Microsoft.Maps.MapControl.WPF.dll" />
-
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Util;
 
-namespace DAL_server
+namespace DAL_Client
 {
-    public interface IDAL
+    public interface IDAL_Client
     {
         //kupon 
         void add_kupon(Kupon kupon);

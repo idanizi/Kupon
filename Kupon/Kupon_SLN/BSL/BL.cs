@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using Services;
 using Util;
+using DAL_Client;
 using System.Net;
 using System.Net.Mail;
 
@@ -12,13 +13,17 @@ namespace BSL
 {
     public class BL : IBSL
     {
-        //fields
-        private IDAL dataBase;
+        //server services
+        private IServices dataBase;
+        //client DAL
+        private IDAL_Client localdataBase;
 
         //constructor
         public BL()
         {
-            this.dataBase = new DB_manager();
+            this.dataBase = new ServicesProvider();
+            this.localdataBase = new DB_Client_manager();
+            localdataBase.add_admin(new Admin("blabla"));
         }
 
         public void addNewBusiness(Business newBusiness)

@@ -114,7 +114,7 @@ namespace Kupon_WPF
         {
 
             server = new BL();
-           GPSsensor = startGPS();
+            GPSsensor = startGPS();
             GPSsensor.open();
 
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();

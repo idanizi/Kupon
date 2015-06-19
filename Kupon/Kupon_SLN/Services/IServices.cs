@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Util;
 
-namespace DAL_server
+namespace Services
 {
-    public interface IDAL
+   public interface IServices
     {
         //kupon 
         void add_kupon(Kupon kupon);
@@ -30,16 +30,16 @@ namespace DAL_server
         void update_client(Client client);
         void delete_client(Client client);
         Client searchClient(Client client);
-       //business
+        //business
         void add_business(Business business);
         void update_business(Business business);
         void delete_business(Business business);
         List<Business> searchBusinnesByName(string id);
-        Business searchBUsinessByManager(Manager manager); 
-       //business search
+        Business searchBUsinessByManager(Manager manager);
+        //business search
         List<Business> searchBusinessByCity(string city);
         List<Business> searchBusinessBycatagory(string catagory);
-        List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal,int radius);
+        List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal, int radius);
         //kupon search
         List<Kupon> searchKuponByBusinesName(string businessName);
         List<Kupon> searchKuponByName(string name);
@@ -50,7 +50,7 @@ namespace DAL_server
         void delete_exp();
         List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius);
         //location
-        void add_location_user(User user,double vertical,double horizontal);
+        void add_location_user(User user, double vertical, double horizontal);
         //userKupons
         void add_userKupon(User user, Kupon kupon);
         void delete_userkupon(string serialkey);

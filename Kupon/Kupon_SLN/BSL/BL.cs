@@ -216,11 +216,10 @@ namespace BSL
 
         public List<Business> searchBusiness(buisnessCategory category, double latitude, double longtitude)
         {
+
             if (category != null)
             {
-                if (latitude != -1 && longtitude != -1)
-                    return dataBase.searchBusinessBycatagory_location(category.ToString(), latitude, longtitude, 10);
-                return dataBase.searchBusinessBycatagory(category.ToString());
+                return dataBase.searchBusinessBycatagory_location(category.ToString(), latitude, longtitude, 1);
             }
             return null;
         }
@@ -230,7 +229,7 @@ namespace BSL
             if (category != null)
             {
                 if (latitude != -1 && longtitude != -1)
-                    return dataBase.searchKuponByCatagory_location(category.ToString(), latitude, longtitude, 10);
+                    return dataBase.searchKuponByCatagory_location(category.ToString(), latitude, longtitude, 1);
                 return dataBase.searchKuponByCatagory(category.ToString());
             }
             return null;

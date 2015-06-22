@@ -133,9 +133,9 @@ namespace Util
         {
             return vertical;
         }
-        public string Altitude
+        public string Latitude
         {
-            get { return horizontal.ToString(); }
+            get { return vertical.ToString(); }
             set
             {
                 try
@@ -157,7 +157,7 @@ namespace Util
 
         public string City
         {
-            get { return horizontal.ToString(); }
+            get { return city.ToString(); }
             set
             {
 

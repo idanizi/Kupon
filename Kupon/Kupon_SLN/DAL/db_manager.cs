@@ -555,7 +555,7 @@ namespace DAL_server
 
 
 
-        public List<Business> searchBusinessBycatagory_location(string catagory, double vertical, double horizontal, int radius)
+        public List<Business> searchBusinessBycatagory_location(string catagory, double horizontal, double vertical, int radius)
         {
             List<Business> business = new List<Business>();
             List<string> businessID = new List<string>();
@@ -574,7 +574,7 @@ namespace DAL_server
             return business;
         }
 
-        public List<Kupon> searchKuponByCatagory_location(string catagory, double vertical, double horizontal, int radius)
+        public List<Kupon> searchKuponByCatagory_location(string catagory, double horizontal, double vertical, int radius)
         {
             List<string> kuponId = new List<string>();
             List<Kupon> kupons = new List<Kupon>();

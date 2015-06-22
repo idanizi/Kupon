@@ -88,7 +88,7 @@ namespace Kupon_WPF.forms.search
                 }
            else if (pickCategory_CB.SelectedIndex == 1)
                 {
-                    kupons = server.searchKoupon(Business.enumFromString(pickCategory_CB.SelectionBoxItem.ToString()), latitude, longtitude);
+                    kupons = server.searchKoupon(Business.enumFromString(Value_LB.SelectedItem.ToString()), latitude, longtitude);
                    
            }
            else if (pickCategory_CB.SelectedIndex == 2)

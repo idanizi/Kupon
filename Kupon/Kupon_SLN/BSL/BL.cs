@@ -23,7 +23,6 @@ namespace BSL
         {
             this.dataBase = new ServicesProvider();
             this.localdataBase = new DB_Client_manager();
-            localdataBase.add_admin(new Admin("blabla"));
         }
 
         public void addNewBusiness(Business newBusiness)
@@ -80,41 +79,82 @@ namespace BSL
             kupon.setSerialKey(getNewKuponID());
             client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
+            localdataBase.add_userKupon(client,kupon);
+
             return kupon;
         }
 
         public User logIn(string userName, string Pass, double latitude, double longtitude)
         {
-            Client client = dataBase.searchClient(new Client(userName));
-            dataBase.delete_exp();
+            //search in local db
+            Client client = localdataBase.searchClient(new Client(userName));
+            localdataBase.delete_exp();
             if (client != null)
             {
                 if (!client.getPassword().Equals(Pass))
                     return null;
                 client.logIn();
                 dataBase.add_location_user(client, latitude, longtitude);
-                dataBase.update_client(client);
+                localdataBase.update_client(client);
                 return client;
             }
+            else
+            {
+                client = dataBase.searchClient(new Client(userName));
+               // dataBase.delete_exp();
+                if (client != null)
+                {
+                    if (!client.getPassword().Equals(Pass))
+                        return null;
+                    client.logIn();
+                    dataBase.add_location_user(client, latitude, longtitude);
+                    localdataBase.add_client(client);
+                    return client;
+                }
+            } 
 
-            Admin admin = dataBase.searchAdmin(new Admin(userName));
+            Admin admin = localdataBase.searchAdmin(new Admin(userName));
             if (admin != null)
             {
                 if (!admin.getPassword().Equals(Pass))
                     return null;
                 admin.logIn();
-                dataBase.update_admin(admin);
+                localdataBase.update_admin(admin);
                 return admin;
             }
+            else
+            {
+                admin = dataBase.searchAdmin(new Admin(userName));
+                if (admin != null)
+                {
+                    if (!admin.getPassword().Equals(Pass))
+                        return null;
+                    admin.logIn();
+                    localdataBase.add_admin(admin);
+                    return admin;
+                }
+            }
 
-            Manager manager = dataBase.searchManager(new Manager(userName));
+            Manager manager = localdataBase.searchManager(new Manager(userName));
             if (manager != null)
             {
                 if (!manager.getPassword().Equals(Pass))
                     return null;
                 manager.logIn();
-                dataBase.update_manager(manager);
+                localdataBase.update_manager(manager);
                 return manager;
+            }
+            else
+            {
+                manager = dataBase.searchManager(new Manager(userName));
+                if (manager != null)
+                {
+                    if (!manager.getPassword().Equals(Pass))
+                        return null;
+                    manager.logIn();
+                    localdataBase.add_manager(manager);
+                    return manager;
+                }
             }
 
             return null;
@@ -126,7 +166,7 @@ namespace BSL
             if (client != null)
             {
                 client.logOut();
-                dataBase.update_client(client);
+                localdataBase.update_client(client);
                 return;
             }
 
@@ -134,7 +174,7 @@ namespace BSL
             if (admin != null)
             {
                 admin.logOut();
-                dataBase.update_admin(admin);
+                localdataBase.update_admin(admin);
                 return;
             }
 
@@ -142,7 +182,7 @@ namespace BSL
             if (manager != null)
             {
                 manager.logOut();
-                dataBase.update_manager(manager);
+                localdataBase.update_manager(manager);
                 return;
             }
         }
@@ -159,11 +199,18 @@ namespace BSL
 
         public void restorUserPass(string userrName)
         {
-            Client client = dataBase.searchClient(new Client(userrName));
-            if (client == null) throw new Exception("invalit user");
+            User user = localdataBase.searchUser(new User(userrName));
+            if (user == null){
+                user = dataBase.searchUser(new Client(userrName));
+                if (user == null) throw new Exception("invalit user");
+                else
+                {
+                    sendMail("restor password", user.getEmail(), "your password is: " + user.getPassword());
+                }
+            }
             else
             {
-                sendMail("restor password", client.getEmail(), "your password is: " + client.getPassword());
+                sendMail("restor password", user.getEmail(), "your password is: " + user.getPassword());
             }
         }
 
@@ -203,13 +250,17 @@ namespace BSL
         {
             if (user is Admin)
                 dataBase.update_admin((Admin)user);
+                localdataBase.update_admin((Admin)user);
             if (user is Client)
             {
                 dataBase.update_client((Client)user);
                 dataBase.update_userFavorite((Client)user, ((Client)user).getFavorits());
+                localdataBase.update_client((Client)user);
+                localdataBase.update_userFavorite((Client)user, ((Client)user).getFavorits());
             }
             if (user is Manager)
                 dataBase.update_manager((Manager)user);
+                localdataBase.update_manager((Manager)user); 
         }
 
         public bool useKupon(string serialkey)
@@ -218,7 +269,7 @@ namespace BSL
             kupon= dataBase.searchKuponBySerialID(kupon);
             kupon.setSerialKey(serialkey);
           */
-
+            localdataBase.setStatusUsed(serialkey);
             return dataBase.setStatusUsed(serialkey);
         }
 
@@ -262,7 +313,9 @@ namespace BSL
 
         public List<Kupon> getKuponsForUser(User user)
         {
-            return dataBase.searchKuponByUser(user);
+            List<Kupon> kupons= localdataBase.searchKuponByUser(user);
+            if (kupons != null) return kupons;
+            else return dataBase.searchKuponByUser(user);
         }
 
         public List<Business> searchBusinessByName(string p)
@@ -295,13 +348,13 @@ namespace BSL
             MailMessage msg = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            msg.From = new MailAddress("matanbezen@gmail.com");
+            msg.From = new MailAddress("yochailehman@gmail.com");
             msg.To.Add(mail);
             msg.Subject = Subject;
             msg.Body = text;
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("matanbezen", "bigbezen");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("yochailehman", "hjhknIg1");
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(msg);
@@ -339,16 +392,31 @@ namespace BSL
         public void deleteUser(Admin admin)
         {
             dataBase.delete_admin(admin);
+            try
+            {
+                localdataBase.delete_admin(admin);
+            }
+            catch { }
         }
 
         public void deleteUser(Client client)
         {
             dataBase.delete_client(client);
+            try
+            {
+                localdataBase.delete_client(client);
+            }
+            catch { }
         }
 
         public void deleteUser(Manager manager)
         {
             dataBase.delete_manager(manager);
+            try
+            {
+                localdataBase.delete_manager(manager);
+            }
+            catch { }
         }
     }
 }

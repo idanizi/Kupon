@@ -334,7 +334,7 @@ namespace BSL
 
         public List<Kupon> searchKouponByName(string p)
         {
-            return dataBase.searchKuponByName(p);
+            return dataBase.searchKuponByBusinesName(p);
         }
 
         public void updateBusiness(Business record)

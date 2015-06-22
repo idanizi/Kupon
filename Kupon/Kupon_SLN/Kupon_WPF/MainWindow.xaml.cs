@@ -291,7 +291,7 @@ namespace Kupon_WPF
         {
             if ((string)login_BTN.Content == "Login")
             {
-                try
+                try  
                 {
                     login loginWindow = new login(this);
                     loginWindow.ShowDialog();

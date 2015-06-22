@@ -7,18 +7,18 @@ using System.Data;
 using System.Data.SqlClient;
 using Util;
 
-namespace DAL_server
+namespace DAL_Client
 {
-    public class DB_manager : IDAL
+    public class DB_Client_manager : IDAL_Client
     {
         string connetionString;
         SqlConnection cnn;
 
-        public DB_manager()
+        public DB_Client_manager()
         {
-            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-           //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
-           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL\\KuponDatabase.mdf';Integrated Security=True;Connect Timeout=30";
+            connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='" + System.IO.Directory.GetCurrentDirectory() + "\\localClientDB.mdf';Integrated Security=True;Connect Timeout=30";
+            //connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\yochai\\Documents\\Kupon\\Kupon\\Kupon_SLN\\DAL_Client\\localClientDB.mdf';Integrated Security=True;Connect Timeout=30";
+           // connetionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename='C:\\Users\\user\\matan\\לימודים\\Kupon\\Kupon\\Kupon_SLN\\DAL_Client\\localClientDB.mdfwallet';Integrated Security=True;Connect Timeout=30";
             cnn = new SqlConnection(connetionString);
         }
 

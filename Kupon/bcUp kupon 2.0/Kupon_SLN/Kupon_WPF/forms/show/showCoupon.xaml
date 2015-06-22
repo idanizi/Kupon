@@ -1,0 +1,16 @@
+﻿<Window x:Class="Kupon_WPF.forms.show.showCoupon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Path=Page.Title}" Height="388" Width="423">
+    <Grid  x:Name="ShowCouponPage" HorizontalAlignment="Left" Margin="10,10,0,29" Width="403" Grid.ColumnSpan="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="389*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="14*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <Frame x:Name="CouponPage" Content="" HorizontalAlignment="Left" Height="298" VerticalAlignment="Top" Width="383"
+                    Margin="10,10,0,0" Grid.ColumnSpan="3"/>
+        </DockPanel>
+    </Grid>
+</Window>

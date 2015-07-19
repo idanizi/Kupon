@@ -79,7 +79,6 @@ namespace BSL
             kupon.setSerialKey(getNewKuponID());
             client.addKupon(kupon);
             dataBase.add_userKupon(client, kupon);
-            localdataBase.add_userKupon(client,kupon);
 
             return kupon;
         }
@@ -88,7 +87,7 @@ namespace BSL
         {
             //search in local db
             Client client = localdataBase.searchClient(new Client(userName));
-            localdataBase.delete_exp();
+            dataBase.delete_exp();
             if (client != null)
             {
                 if (!client.getPassword().Equals(Pass))
@@ -312,7 +311,7 @@ namespace BSL
 
         public List<Kupon> getKuponsForUser(User user)
         {
-            List<Kupon> kupons= localdataBase.searchKuponByUser(user);
+            List<Kupon> kupons= dataBase.searchKuponByUser(user);
             if (kupons != null) return kupons;
             else return dataBase.searchKuponByUser(user);
         }
@@ -347,13 +346,13 @@ namespace BSL
             MailMessage msg = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            msg.From = new MailAddress("yochailehman@gmail.com");
+            msg.From = new MailAddress("matanbezen@gmail.com");
             msg.To.Add(mail);
             msg.Subject = Subject;
             msg.Body = text;
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("yochailehman", "hjhknIg1");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("matanbezen", "bigbezen");
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(msg);

@@ -27,7 +27,7 @@ namespace SolutionTest
            admin = new Admin("testadmin", "123", "Aa", "33", "ss", "ss");
            manager = new Manager("testmanger", "123", "Aa", "33", "ss", "ss");
            busines = new Business("testbusiness", "testbusiness", "city", "street", 10, "bus descreption", buisnessCategory.Food, manager, 0, 0);
-            client = new Client("testclient", "123", "client@mail", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10);
+            client = new Client("testclient", "123", "matanbezen@gmail.com", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10);
 
            try
                {
@@ -114,6 +114,7 @@ namespace SolutionTest
            kuponList = server.searchKouponByBusiness(busines);
            server.buyNewKupon("1234", "testclient", "paypal");
            kuponList = server.searchKouponByBusiness(busines);
+           server.deleteKupon(kupon);
            Assert.AreEqual(kuponList[0].getNumOfBuy(), 1);
        }
 
@@ -123,11 +124,6 @@ namespace SolutionTest
            List<Kupon> kuponList = null;
            Kupon kupon = new Kupon("1234", 0, "testkupon", "des", KuponStatus.NEW, 100, 50, new DateTime(2017, 1, 1), "", busines, 0);
            server.addNewKupon(kupon);
-           server.approveNewKupon(kupon);
-           kuponList = server.searchKouponByBusiness(busines);
-           kuponList = server.searchKouponByBusiness(busines);
-           server.buyNewKupon("1234", "testclient", "paypal");
-           kuponList = server.searchKouponByBusiness(busines);
            server.deleteKupon(kupon);
            kuponList = server.searchKouponByBusiness(busines);
            Assert.IsEmpty(kuponList);
@@ -165,33 +161,6 @@ namespace SolutionTest
        }
 
        [Test]
-        public void client_logic()
-           {
-            try{
-             Client client2 = (Client)server.logIn("testclient", "123", 100, 100);
-            Assert.AreEqual(client2.getName(),client.getName());
-            server.sendMail("blabla",client.getEmail(),"blabla");
-            server.logOut("testclient");
-            client = new Client("testclient", "123", "client123@mail", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10);
-
-          server.updateUser(client);
-          client = (Client)server.logIn("testclient", "123", 100, 100);
-            Assert.AreEqual(client.getEmail(),"client123@mail");
-            server.deleteUser(client);
-                try{
-                    client = (Client)server.logIn("testclient", "123", 100, 100);
-                    Assert.Fail();
-                }catch{
-                     
-                }
-
-            }catch(Exception Ex){
-                Assert.Fail(Ex.ToString());
-            }
-         
-       }
-
-       [Test]
        public void client_login()
        {
            try
@@ -215,11 +184,7 @@ namespace SolutionTest
                Client client2 = (Client)server.logIn("testclient", "123", 100, 100);
                server.sendMail("blabla", client.getEmail(), "blabla");
                server.logOut("testclient");
-               client = new Client("testclient", "123", "client123@mail", "083333", "firstname", "lastname", new List<buisnessCategory>() { buisnessCategory.Food, buisnessCategory.Games }, new List<Kupon>(), "city", "address", 10);
-
-               server.updateUser(client);
-               client = (Client)server.logIn("testclient", "123", 100, 100);
-               Assert.AreEqual(client.getEmail(), "client123@mail");
+               Assert.AreEqual(client.getEmail(), "matanbezen@gmail.com");
                server.deleteUser(client);
                try
                {

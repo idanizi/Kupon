@@ -93,7 +93,7 @@ namespace BSL
                 if (!client.getPassword().Equals(Pass))
                     return null;
                 client.logIn();
-                dataBase.add_location_user(client, latitude, longtitude);
+                //dataBase.add_location_user(client, latitude, longtitude);
                 localdataBase.update_client(client);
                 return client;
             }
@@ -106,8 +106,8 @@ namespace BSL
                     if (!client.getPassword().Equals(Pass))
                         return null;
                     client.logIn();
-                    dataBase.add_location_user(client, latitude, longtitude);
-                    localdataBase.add_client(client);
+                    //dataBase.add_location_user(client, latitude, longtitude);
+                   localdataBase.add_client(client);
                     return client;
                 }
             } 
@@ -267,7 +267,6 @@ namespace BSL
             kupon= dataBase.searchKuponBySerialID(kupon);
             kupon.setSerialKey(serialkey);
           */
-            localdataBase.setStatusUsed(serialkey);
             return dataBase.setStatusUsed(serialkey);
         }
 
